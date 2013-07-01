@@ -1,0 +1,6 @@
+*.[oa]
+*~
+.directory
+build/
+*.kdev4
+*.pro.user
