@@ -1,4 +1,4 @@
-GNU LICENSE
+LICENSE
 =============================
 You may use, copy, reproduce, and distribute this Software for any 
 non-commercial purpose, subject to the restrictions of the 
@@ -38,28 +38,4 @@ DAMAGES, TO THE MAXIMUM EXTENT THE LAW PERMITS, NO MATTER WHAT
 LEGAL THEORY IT IS BASED ON. ALSO, YOU MUST PASS THIS LIMITATION OF 
 LIABILITY ON WHENEVER YOU DISTRIBUTE THE SOFTWARE OR DERIVATIVE 
 WORKS.
-
-When using this software, please acknowledge the effort that 
-went into development by referencing the paper:
-
-Gall J. and Lempitsky V., Class-Specific Hough Forests for 
-Object Detection, IEEE Conference on Computer Vision and Pattern 
-Recognition (CVPR'09), 2009.
-
-Note that this is not the original software that was used for 
-the paper mentioned above. It is a re-implementation for Linux. 
-
-Author: Juergen Gall, BIWI, ETH Zurich
-      : Nima Razavi, BIWI, ETH Zurich
-Email: gall@vision.ee.ethz.ch
-     : razavi@vision.ee.ethz.ch
-
-Part of the code is added and/or modified by 
-Ishrat Badami, AIS, Uni-Bonn Germany.
-Email: badami@vision.rwth-aachen.de
-
-
-When using this derived software, please reference the paper:
-Ishrat Badami, Jörg Stückler, and Sven Behnke, Depth-Enhanced Hough Forests for Object-Class Detection and Continuous Pose Estimation.
-In 3rd Workshop on Semantic Perception, Mapping and Exploration (SPME), Karlsruhe, in conjunction with ICRA 2013.
      
