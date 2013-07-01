@@ -1,0 +1,9 @@
+7
+../rgbd-dataset/object_config_file/bowl.txt
+../rgbd-dataset/object_config_file/cap.txt
+../rgbd-dataset/object_config_file/cereal_box.txt
+../rgbd-dataset/object_config_file/coffee_mug.txt
+../rgbd-dataset/object_config_file/soda_can.txt
+../rgbd-dataset/object_config_file/flashlight.txt
+../rgbd-dataset/object_config_file/stapler.txt
+

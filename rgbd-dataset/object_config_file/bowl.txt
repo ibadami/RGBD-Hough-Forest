@@ -1,0 +1,76 @@
+#object name
+bowl
+#number of instances
+6
+#1 for each instances number of poses,
+#number id of the pose,
+#number of images in that pose
+4
+1
+183
+2
+196
+3
+0
+4
+201
+# 2 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+187
+2
+187
+3
+0
+4
+208
+# 3 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+191
+2
+178
+3
+0
+4
+211
+# 4 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+185
+2
+181
+3
+0
+4
+188
+# 5 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+263
+2
+268
+3
+0
+4
+275
+# 6 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+242
+2
+275
+3
+0
+4
+265

@@ -1,0 +1,64 @@
+#object name
+flashlight
+#number of instances
+5
+# 1 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+206
+2
+176
+3
+0
+4
+223
+# 2 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+221
+2
+185
+3
+0
+4
+196
+# 3 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+199
+2
+181
+3
+0
+4
+208
+# 4 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+166
+2
+187
+3
+0
+4
+213
+# 5 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+175
+2
+197
+3
+0
+4
+211

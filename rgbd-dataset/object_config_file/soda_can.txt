@@ -1,0 +1,76 @@
+#object name
+soda_can
+#number of instances
+6
+# 1 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+228
+2
+198
+3
+0
+4
+202
+# 2 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+210
+2
+177
+3
+0
+4
+199
+# 3 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+204
+2
+165
+3
+0
+4
+192
+# 4 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+207
+2
+181
+3
+0
+4
+188
+# 5 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+222
+2
+172
+3
+0
+4
+195
+# 6 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+213
+2
+181
+3
+0
+4
+191

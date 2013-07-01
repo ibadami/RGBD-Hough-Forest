@@ -1,0 +1,100 @@
+#object name
+stapler
+#number of instances
+8
+# 1 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+178
+2
+191
+3
+0
+4
+226
+# 2 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+173
+2
+189
+3
+0
+4
+216
+# 3 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+173
+2
+195
+3
+0
+4
+209
+# 4 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+172
+2
+197
+3
+0
+4
+220
+# 5 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+177
+2
+185
+3
+0
+4
+218
+# 6 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+166
+2
+191
+3
+0
+4
+204
+# 7 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+276
+2
+283
+3
+0
+4
+266
+# 8 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+267
+2
+254
+3
+0
+4
+263

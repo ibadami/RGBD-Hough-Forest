@@ -1,0 +1,64 @@
+#object name
+cereal_box
+#number of instances
+5
+# 1 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+232
+2
+149
+3
+0
+4
+189
+# 2 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+226
+2
+182
+3
+0
+4
+199
+# 3 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+226
+2
+175
+3
+0
+4
+214
+# 4 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+206
+2
+182
+3
+0
+4
+207
+# 5 for each instances number of poses, 
+#number id of the pose, 
+#number of images in that pose
+4
+1
+170
+2
+189
+3
+0
+4
+183
