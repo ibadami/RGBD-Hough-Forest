@@ -4,6 +4,7 @@ This is a derived software of original class-specific Hough forest code.
 
 
 Class-Specific Hough forest:
+===========================
 
 Authors : Juergen Gall, BIWI, ETH Zurich
         : Nima Razavi, BIWI, ETH Zurich
@@ -21,6 +22,7 @@ the paper mentioned above. It is a re-implementation for Linux.
 
 
 RGB-Depth Hough forest:
+=======================
 
 Part of the code is added and/or modified by..
 
