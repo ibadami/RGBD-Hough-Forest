@@ -1,0 +1,58 @@
+# Name of an object
+cap
+# Suffix
+test_kde_for_parallel_training
+# File with names of test imagessure
+../../rgbd-dataset/test_files/test_all.txt
+# test image path
+/work/badami/datasets/rgbd-dataset/test
+# File with train examples name
+../../rgbd-dataset/train_files/train_all_cap.txt
+# train image path
+/work/badami/datasets/rgbd-dataset/newTrain2
+# Output path
+/work/badami/datasets/rgbd-dataset/output
+# Objest model path
+../../rgbd-dataset/object_models
+# Number of trees
+5
+# Maximum Depth of trees
+20
+# Subset of positive images, subset of negative images -1: all images
+250 250
+# Sample pixels pos images, sample pixel neg images
+1000 1000
+# add surfel Channel
+0
+# add hog channel
+0
+# add minmaxfilt
+1
+# add pose measure
+1
+# Scales (Number of scales - Scales)
+10 0.200000 0.400000 0.600000 0.800000 1.000000 1.200000 1.400000 1.600000 1.800000 2.00000
+# Smoothing Kernel Parameters(kernelwidth, sigma, kernel width, sigma)
+4 15.000000 0.800000  3.000000 0.200
+# threshold for detection( thresh_detection )
+0.01
+# threshold for boundingBox( thresh_bb )
+1
+# threshold for casting vote ( thresh_vote )
+0.5
+# training mode, 1 for multi-class, 0 all-vs-background
+1
+# maximum number of detections per category
+10
+# skipping the already calculated detections
+1
+# do backprojection
+0
+# DEBUG
+0
+# addPoseInformation
+0
+# addScaleInformation
+1
+# addPoseScore
+0
