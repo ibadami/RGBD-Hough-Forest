@@ -6,6 +6,9 @@
 // Email: nrazavi@vision.ee.ethz.ch
 */
 
+// Modified by: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
+
 #pragma once
 
 #define sprintf_s sprintf

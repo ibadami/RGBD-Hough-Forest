@@ -6,6 +6,9 @@
 //
 */
 
+// Modified by: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
+
 #include "Pixel.h"
 #include <deque>
 

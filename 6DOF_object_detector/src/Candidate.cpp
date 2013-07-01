@@ -5,9 +5,10 @@
 //
 // Author: Nima Razavi, BIWI, ETH Zurich
 // Email: nrazavi@vision.ee.ethz.ch
-//
-//
-//
+
+
+// Modified by: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
 
 
 #include "Candidate.h"

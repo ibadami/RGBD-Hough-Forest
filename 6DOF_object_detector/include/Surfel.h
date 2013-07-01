@@ -1,9 +1,5 @@
-/*
- * Surfel.h
- *
- *  Created on: Sep 4, 2012
- *      Author: badami
- */
+// Author: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
 
 #ifndef SURFEL_H_
 #define SURFEL_H_

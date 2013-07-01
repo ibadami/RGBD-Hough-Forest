@@ -1,3 +1,6 @@
+// Author: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
+
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
 

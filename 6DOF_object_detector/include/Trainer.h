@@ -1,3 +1,6 @@
+// Author: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
+
 #ifndef CRFORESTTRAINING_H
 #define CRFORESTTRAINING_H
 

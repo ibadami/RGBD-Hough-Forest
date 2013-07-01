@@ -7,6 +7,9 @@
 //
 */
 
+// Modified by: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
+
 #include "Tree.h"
 #include <fstream>
 #include <algorithm>

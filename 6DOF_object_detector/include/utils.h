@@ -1,3 +1,6 @@
+// Author: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
+
 #pragma once
 
 #include <vector>

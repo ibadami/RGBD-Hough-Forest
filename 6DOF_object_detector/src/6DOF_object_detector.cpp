@@ -1,9 +1,11 @@
 /*
  Authors:  Nima Razavi, BIWI, ETH Zurich
-             Juergen Gall, BIWI, ETH Zurich
-// Email:    nrazavi@vision.ee.ethz.ch
-//			 gall@vision.ee.ethz.ch
-//
+           Juergen Gall, BIWI, ETH Zurich
+// Email:  nrazavi@vision.ee.ethz.ch
+//	   gall@vision.ee.ethz.ch
+
+// Modified by: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
 //
 
 // When using this software, please acknowledge the effort that

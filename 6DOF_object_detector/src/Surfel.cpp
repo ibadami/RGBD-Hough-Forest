@@ -1,10 +1,5 @@
-/*
- * Surfel.cpp
- *
- *  Created on: Sep 4, 2012
- *      Author: badami
- */
-
+// Modified by: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
 
 #include "Pixel.h"
 #include "Surfel.h"

@@ -1,3 +1,7 @@
+
+// Author: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
+
 #include "Trainer.h"
 
 CRForestTraining::CRForestTraining()

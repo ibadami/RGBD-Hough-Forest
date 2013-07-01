@@ -7,6 +7,10 @@
 // Email: nrazavi@vision.ee.ethz.ch
 */
 
+
+// Modified by: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
+
 #include <vector>
 #include <algorithm>
 

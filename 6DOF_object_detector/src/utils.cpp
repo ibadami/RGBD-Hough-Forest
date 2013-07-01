@@ -1,4 +1,5 @@
-
+// Author: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
 #include "utils.h"
 
 void onMouse( int event, int x, int y, int flags, void* userdata ) {
