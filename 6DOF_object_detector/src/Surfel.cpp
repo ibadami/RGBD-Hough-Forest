@@ -185,62 +185,83 @@ void Surfel::imagesToPointCloud_( cv::Mat& depthImg, cv::Mat& colorImg, pcl::Poi
 
 
 
-void Surfel::houghPointCloud( std::vector< cv::Mat >& houghImg,  std::vector< float > &scales, pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud, float max_val ) {
+void Surfel::houghPointCloud( std::vector< cv::Mat >& houghImg,  const std::vector< float > &scales, pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud ) {
 
-    cloud->is_dense = true;
-    cloud->height = houghImg[ 0 ].rows;// height;
-    cloud->width = houghImg[ 0 ].cols; // width;
-    cloud->sensor_origin_ = Eigen::Vector4f( 0.f, 0.f, 0.f, 0.f );
-    cloud->sensor_orientation_ = Eigen::Quaternionf::Identity();
-    cloud->points.reserve( houghImg[ 0 ].rows * houghImg[ 0 ].cols* scales.size() ) ;
+//    cloud->is_dense = true;
+//    cloud->height = houghImg[0].rows;// height;
+//    cloud->width =  houghImg[0].cols; // width;
+//    cloud->sensor_origin_ = Eigen::Vector4f( 0.f, 0.f, 0.f, 0.f );
+//    cloud->sensor_orientation_ = Eigen::Quaternionf::Identity();
+//    //  cloud->sensor_orientation_ = Eigen::Vector4f( std::cos(PI/16), 0.f, 0.f, -std::sin(PI/16) );
+//    cloud->points.resize(  houghImg[0].rows *  houghImg[0].cols ) ;
 
+//    cloud->points.reserve(cloud->points.size() + 10000);
 
     const float invfocalLength = 1.f / 525.f;
-    const float centerX = houghImg[ 0 ].cols / 2.f;
-    const float centerY = houghImg[ 0 ].rows / 2.f;
+    const float centerX =  houghImg[0].cols / 2.f;
+    const float centerY =  houghImg[0].rows / 2.f;
 
-    float scaleInterval = ( scales[ scales.size() - 1 ] - scales[ 0 ]) / scales.size();
-    int idx = 0;
-    for ( unsigned int scNr = 0; scNr< houghImg.size(); scNr++ ){
+    // normalize hough votes in 3D
+
+    std::vector< double > max_val_temp( scales.size() );
+
+    std::vector< double > min_val_temp( scales.size() );
+
+    // detect the maximum
+    for( unsigned int scNr = 0; scNr <  scales.size(); scNr++)
+        cv::minMaxLoc( houghImg[scNr], &min_val_temp[scNr], &max_val_temp[scNr], 0, 0, cv::Mat() );
+
+    std::vector< double >::iterator it;
+    it = std::max_element( max_val_temp.begin(),max_val_temp.end() );
+//    int max_index = std::distance( max_val_temp.begin(), it );
+//    float maxValue = max_val_temp[max_index];
+    float maxValue = *it;
+    std::vector< double >::iterator it_;
+    it_ = std::min_element( min_val_temp.begin(),min_val_temp.end() );
+//    int min_index = std::distance( min_val_temp.begin(), it_ );
+//    float maxValue = min_val_temp[max_index];
+    float minValue = *it_;
+
+    float scaleInterval = ( scales[ scales.size() - 1 ] - scales[ 0 ]) / float( scales.size() - 1 );
+
+    for ( unsigned int scNr = 0; scNr < houghImg.size(); scNr++ ){
+
+        cv::Mat tmp;
+        cv::convertScaleAbs( houghImg[ scNr ], tmp, 255.f/(maxValue - minValue), -minValue );
+
 
         float scale = scales[ 0 ] + scNr * scaleInterval;
-        float dist = 1 / ( scale + 0.00001f ); // I increased the scale here by 1000 to visualise it better
+        float dist = 1 / ( scale + 0.00001f );
 
-        for ( int y = 0; y < houghImg[ scNr ].rows; y++ ) {
-            for ( int x = 0; x < houghImg[ scNr ].cols; x++ ) {
+        for ( int y = 0; y < tmp.rows; y++ ) {
+            for ( int x = 0; x < tmp.cols; x++ ) {
 
-                float weight =  houghImg[ scNr ].at<float>( y, x  ) / max_val;
+                uint8_t weight =  tmp.at<uint8_t>( y, x  );
 
-                if( weight > 0.9 ){
+                if(y == 0 || x == 0 || y == tmp.rows-1 || x == tmp.cols-1 || weight > 25 ){
                     pcl::PointXYZRGB p;
-                    float xf = x;
-                    float yf = y;
-                    p.x = ( xf - centerX ) * dist * invfocalLength;
-                    p.y = ( yf - centerY ) * dist * invfocalLength;
+
+                    p.x = ( x - centerX ) * dist * invfocalLength;
+                    p.y = ( y - centerY ) * dist * invfocalLength;
                     p.z = dist;
 
                     float b, g, r;
-                    if( weight > 0.9 ){
-                        b = 0; //(1 - weight) * 255;
-                        g = 0;
-                        r = 255; // * weight;
-                    }else{
-                        b = 150;
-                        g = 150;
-                        r = 0;
-                    }
+
+                    b = (255 - weight);
+                    g = y == 0 || x == 0 || y == tmp.rows-1 || x == tmp.cols-1 ? 255 : 0;
+                    r = weight;
 
                     pcl::RGB rgb;
 
                     rgb.r = ( uint8_t )r;
                     rgb.g = ( uint8_t )g;
                     rgb.b = ( uint8_t )b;
-                    rgb.a = 1;
+                    rgb.a = 255;
 
                     p.rgba = rgb.rgba;
 
                     cloud->push_back( p );
-                    idx++;
+
                 }
             }
         }

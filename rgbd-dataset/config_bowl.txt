@@ -1,7 +1,7 @@
 # Name of an object
 bowl
 # Suffix
-for_visapp
+for_icra
 # File with names of test images
 ../rgbd-dataset/test_files/test_all.txt
 # test image path
@@ -15,7 +15,7 @@ for_visapp
 # Objest model path
 ../rgbd-dataset/object_models
 # Number of trees
-5
+8
 # Maximum Depth of trees
 20
 # Subset of positive images, subset of negative images -1: all images
@@ -29,11 +29,11 @@ for_visapp
 # add minmaxfilt
 1
 # add pose measure
-1
+0
 # Scales (Number of scales - Scales)
 10 0.200000 0.400000 0.600000 0.800000 1.000000 1.200000 1.400000 1.600000 1.800000 2.00000
 # Smoothing Kernel Parameters(kernelwidth, sigma, kernel width, sigma)
-4 15.000000 0.800000  3.000000 0.200
+4 15.000000 0.800000 3.000000 0.200
 # threshold for detection( thresh_detection )
 0.01
 # threshold for boundingBox( thresh_bb )
@@ -49,7 +49,7 @@ for_visapp
 # do backprojection
 0
 # DEBUG
-0
+1
 # addPoseInformation
 0
 # addScaleInformation

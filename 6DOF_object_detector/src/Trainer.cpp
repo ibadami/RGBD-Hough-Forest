@@ -246,7 +246,7 @@ void CRForestTraining::extract_Pixels( rawData& data , const Parameters &p, CRPi
             subsamples = p.subsample_images_neg;
 
         // load postive images and extract patches
-        for( int i = 0; i < ( int )vFilenames[ l ].size(); ++i) {
+        for( int i = 0; i < ( int )vFilenames[ l ].size(); i++) {
 
             if( i % 100 == 0 )
                 cout << i << " " << flush;
@@ -268,8 +268,23 @@ void CRForestTraining::extract_Pixels( rawData& data , const Parameters &p, CRPi
 
                 cv::Mat depthImg( img.rows, img.cols, CV_16UC1 );
                 depthImg = cv::imread( ( p.trainclasspath + "/" + filename ).c_str(),CV_LOAD_IMAGE_ANYDEPTH );
+                if(depthImg.empty()) {
+                    cout << "Could not load depth image file: " << p.trainclasspath << "/" << filename << endl;
+                    exit(-1);
+                }
+
 //                cout << "depth img " <<( p.trainclasspath + "/" + filename ).c_str()<<endl;
+
+                // Load mask image
+                filename = vFilenames[ l ][ i ];
+                //filename.replace( size_of_string - 4, 15, "_filleddepth.png" );
+                filename.replace( size_of_string - 4, 15, "_mask.png" );
+
+                cv::Mat maskImg = cv::Mat::ones( img.rows, img.cols, CV_8UC1 );
+
                 if( p.class_structure[ l ] != 0 ){
+
+                    maskImg = cv::imread( ( p.trainclasspath + "/" + filename ).c_str(),CV_LOAD_IMAGE_ANYDEPTH );
 
                     // Extract positive training patches
                     int pitchIndex;
@@ -297,14 +312,15 @@ void CRForestTraining::extract_Pixels( rawData& data , const Parameters &p, CRPi
 
                     // get object coordinate system
 
-                    Train.extractPixels( p, img, depthImg, p.samples_pixel_pos, l, i, &vBBox[ l ][ i ], &vCenter[ l ][ i ], &cg[ pitchIndex ] , &bbSize , &transformationMatrixOC );
+                    Train.extractPixels( p, img, depthImg, maskImg, p.samples_pixel_pos, l, i, &vBBox[ l ][ i ], &vCenter[ l ][ i ], &cg[ pitchIndex ] , &bbSize , &transformationMatrixOC );
 
                 }else{
+
                     cv::Point3f cg_(0.f,0.f,0.f);
                     cv::Point3f bbSize_(0.f,0.f,0.f);
                     Eigen::Matrix4f transformationMatrixOC = Eigen::Matrix4f::Identity() ;
 
-                    Train.extractPixels( p, img, depthImg, p.samples_pixel_neg, l, i , &vBBox[ l ][ i ], &vCenter[ l ][ i ], &cg_ , &bbSize_ , &transformationMatrixOC  );
+                    Train.extractPixels( p, img, depthImg, maskImg, p.samples_pixel_neg, l, i , &vBBox[ l ][ i ], &vCenter[ l ][ i ], &cg_ , &bbSize_ , &transformationMatrixOC  );
                 }
             }
         }cout << endl;

@@ -1,9 +1,11 @@
 /*
  Authors:  Nima Razavi, BIWI, ETH Zurich
-             Juergen Gall, BIWI, ETH Zurich
-// Email:    nrazavi@vision.ee.ethz.ch
-//			 gall@vision.ee.ethz.ch
-//
+           Juergen Gall, BIWI, ETH Zurich
+// Email:  nrazavi@vision.ee.ethz.ch
+//	   gall@vision.ee.ethz.ch
+
+// Modified by: Ishrat Badami, AIS, Uni-Bonn
+// Email:       badami@vision.rwth-aachen.de
 //
 
 // When using this software, please acknowledge the effort that
@@ -18,11 +20,11 @@
 // IEEE Transactions on Pattern Analysis and Machine Intelligence
 //
 
-// This code makes use of the code for [3] which follows the Microsoft Research Shared Source License Agreement.
-//
-// [3] Juergen Gall and Victor Lempitsky,
-// Class-Specific Hough Forests for Object Detection, IEE Conference on Comptuer Vision and Pattern Recognition (CVPR'09), 2009.
-//
+  // This code makes use of the code for [3] which follows the Microsoft Research Shared Source License Agreement.
+  //
+  // [3] Juergen Gall and Victor Lempitsky,
+  // Class-Specific Hough Forests for Object Detection, IEE Conference on Comptuer Vision and Pattern Recognition (CVPR'09), 2009.
+  //
 //
 // You may use, copy, reproduce, and distribute this Software for any
 // non-commercial purpose, subject to the restrictions of the
@@ -668,7 +670,28 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
             //debug
             if (p.DEBUG){
                 for (unsigned int cNr = 0; cNr < classConfidence.size(); cNr++){
-                    cv::imshow("class",classConfidence[cNr]);
+
+                    cv::Mat img_with_probability = cv::Mat::zeros(img.rows, img.cols, img.type());
+                    for(int i = 0; i < classConfidence[cNr].rows; i++) {
+                        float* pline = classConfidence[cNr].ptr<float>(i);
+                        uchar* imgline = img.ptr(i);
+                        uchar* pimgline = img_with_probability.ptr(i);
+                        for(int j=0; j < classConfidence[cNr].cols; j++, pline++) {
+                            const float p = *pline;
+
+                            *pimgline++ =  static_cast<uchar>(0.5f * *imgline++);
+                            *pimgline++ =  static_cast<uchar>(0.5f * *imgline++);
+                            *pimgline++ = static_cast<uchar>((1.0f - p) * (0.5f * *imgline++) + p*255.0f);
+                        }
+                    }
+
+                    double scale = 1.5f;
+                    string text;
+                    if(cNr == 1) text = "background";
+                    else text = p.objectName;
+                    cv::putText(img_with_probability, text.c_str(), cv::Point(10, 30), 1, scale, CV_RGB(0, 255, 255), 2);
+
+                    cv::imshow("class confidence",img_with_probability);
                     cv::waitKey(0);
                 }
             }

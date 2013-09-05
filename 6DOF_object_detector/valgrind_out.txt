@@ -1,0 +1,34 @@
+number of arguments 3
+
+------------------------------------
+
+Training:         cereal_box
+Trees:            8 
+number of Images  1 1
+number of pixels: 1000 1000
+Train pos:        /work/badami/datasets/rgbd-dataset/newTrain2
+                  ../rgbd-dataset/train_files/train_all_cereal_box.txt
+
+------------------------------------
+
+in main /work/badami/datasets/rgbd-dataset/newTrain2
+
+training mode 1 ntrees 8 tree_offset 0
+Load Tree /work/badami/datasets/rgbd-dataset/output/forests/FOREST_PATH_cereal_box_for_icra/treetable004.txt
+Load Tree /work/badami/datasets/rgbd-dataset/output/forests/FOREST_PATH_cereal_box_for_icra/treetable003.txt
+Load Tree /work/badami/datasets/rgbd-dataset/output/forests/FOREST_PATH_cereal_box_for_icra/treetable006.txt
+Load Tree /work/badami/datasets/rgbd-dataset/output/forests/FOREST_PATH_cereal_box_for_icra/treetable005.txt
+Load Tree /work/badami/datasets/rgbd-dataset/output/forests/FOREST_PATH_cereal_box_for_icra/treetable007.txt
+Load Tree /work/badami/datasets/rgbd-dataset/output/forests/FOREST_PATH_cereal_box_for_icra/treetable002.txt
+Load Tree /work/badami/datasets/rgbd-dataset/output/forests/FOREST_PATH_cereal_box_for_icra/treetable000.txt
+Load Tree /work/badami/datasets/rgbd-dataset/output/forests/FOREST_PATH_cereal_box_for_icra/treetable001.txt
+Classes: 2
+Load Train Examples: 0 - 592
+Load Train Examples: 1 - 1750
+after loading data /work/badami/datasets/rgbd-dataset/newTrain2
+ the class labels have changed: the background class(with label 0) is kept and all other classes have assigned different labels according to their rank in the training file
+ new class labels: 
+ label: 0 1
+ label: 1 0
+Label: 0 1 0 100 200 300 400 500 
+Label: 1 0 0 100 200 300 

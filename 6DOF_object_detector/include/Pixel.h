@@ -25,7 +25,7 @@
 
 // structure for sampled image pixel
 
-struct Static{
+struct StaticFeature{
 
     int iWidth, iHeight;
     float scale;
@@ -33,7 +33,7 @@ struct Static{
     cv::Point3f  pixelLocation_real;
     cv::Point3f disVector;
     cv::Rect bbox;
-    std::vector<cv::Mat> imgAppearance;
+    std::vector< cv::Mat > imgAppearance;
     Eigen::Matrix4f transformationMatrixOC;
     pcl::PointCloud<pcl::Normal>::Ptr normals;
 
@@ -41,31 +41,20 @@ struct Static{
 
 };
 
-struct Dynamic{
-
-    Dynamic(){alpha.reserve(20);}
-
-    std::pair< Eigen::Vector3f, Eigen::Vector3f > disVectorInQueryPixelCordinate;
-    std::pair< Eigen::Vector3f, Eigen::Vector3f > tempDisVectorInQueryPixelCordinate;
-    std::pair< Eigen::Quaternionf, Eigen::Quaternionf > pointPairTransformation;
-
-    std::pair< Eigen::Matrix3f, Eigen::Matrix3f > firstQuerytoCameraTransformation;
-
-    std::pair< Eigen::Quaternionf, Eigen::Quaternionf > transformationMatrixOQuery_at_current_node;
-
-    std::vector< std::pair < float, float > > alpha;
-
-};
 
 struct PixelFeature {
 
     PixelFeature() {
-        statFeature = new Static;
-        dynFeature = new Dynamic;
+        statFeature = new StaticFeature;
+//         dynFeature = new Dynamic;
     }
 
-    Static* statFeature;
-    Dynamic* dynFeature;
+    ~PixelFeature(){
+        delete statFeature;
+    }
+
+    StaticFeature* statFeature;
+//     Dynamic* dynFeature;
 
     //    int iWidth, iHeight;
     //    float scale;
@@ -103,7 +92,7 @@ public:
     // Extract patches from image
     void extractPixels(IplImage *img, unsigned int n, int label, CvRect* box = 0, CvPoint* vCenter = 0);
     // Extract patches from image and adding its id to the patch (in vImageIDs)
-    void extractPixels(const Parameters& param, const cv::Mat &img, const cv::Mat &depthImg, unsigned int n, int label, int imageID,  CvRect* box =0, CvPoint* vCenter=0, cv::Point3f *cg = 0 , cv::Point3f *bbDimension =0, Eigen::Matrix4f *transformationOC = 0 );
+    void extractPixels(const Parameters& param, const cv::Mat &img, const cv::Mat &depthImg,const cv::Mat& maskImg, unsigned int n, int label, int imageID,  CvRect* box =0, CvPoint* vCenter=0, cv::Point3f *cg = 0 , cv::Point3f *bbDimension =0, Eigen::Matrix4f *transformationOC = 0 );
 
     // Convert pixel coordinates to real coordinates
     static cv::Point3f P3toR3(cv::Point2f &pt, cv::Point2f &center, float depth);
@@ -140,8 +129,8 @@ public:
     static void minfilt(IplImage *src, unsigned int width);
     static void minfilt(cv::Mat src, cv::Mat  dst, unsigned int width);
 
-    std::vector<std::vector< PixelFeature > > vRPixels;
-    std::vector<std::vector< int> > vImageIDs; // vector the same size as vRPixels
+    std::vector<std::vector< PixelFeature* > > vRPixels;
+    std::vector<std::vector< int > > vImageIDs; // vector the same size as vRPixels
 
 private:
     cv::RNG *cvRNG;

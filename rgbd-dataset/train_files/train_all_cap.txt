@@ -1,0 +1,3 @@
+2
+1 ../rgbd-dataset/train_files/cap_trainimage_pose.txt
+0 ../rgbd-dataset/train_files/neg_cap.txt

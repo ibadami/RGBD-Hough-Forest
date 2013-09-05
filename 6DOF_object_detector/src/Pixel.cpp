@@ -14,7 +14,7 @@
 
 using namespace std;
 
-void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const cv::Mat& depthImg, unsigned int n, int label, int imageID, CvRect* box, CvPoint* vCenter, cv::Point3f *cg, cv::Point3f *bbSize3D, Eigen::Matrix4f *transformationMatrixOC){
+void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const cv::Mat& depthImg, const cv::Mat& maskImg, unsigned int n, int label, int imageID, CvRect* box, CvPoint* vCenter, cv::Point3f *cg, cv::Point3f *bbSize3D, Eigen::Matrix4f *transformationMatrixOC){
 
     // take a subset of image containing object in it using bounding box
 
@@ -58,49 +58,61 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
     cv::Point2f imgCenter(img.cols/2.f,img.rows/2.f);
 
     // generate x,y locations
-    //TODO: bring this parameter in the config file
-    float scale_factor = 0; // also defined in generateTest function in CRTree.cpp
 
-    int sub_width = box->width * scale_factor;
-    int sub_height = box->height * scale_factor;
+    //    float scale_factor = 0; // also defined in generateTest function in CRTree.cpp
 
-    cv::Mat locations = cv::Mat( (box->width - sub_width) * (box->height-sub_height), 2, CV_32SC2 );
-    cvRNG->fill(locations, CV_RAND_UNI, cv::Scalar( box->x + sub_width/2 , box->y + sub_height/2 ,0 ,0),cv::Scalar(box->x+box->width - sub_width/2, box->y+box->height - sub_height/2,0,0));
-//    cvRNG->fill(locations, CV_RAND_UNI, cv::Point2f( box->x + sub_width/2 , box->y + sub_height/2 ), cv::Point2f(box->x+box->width - sub_width/2, box->y+box->height - sub_height/2));
+    //    int sub_width = box->width * scale_factor;
+    //    int sub_height = box->height * scale_factor;
 
-    //    cv::Mat locations = cv::Mat( (box->width)*(box->height), 2, CV_32SC2 );
-    //    cvRNG->fill(locations,CV_RAND_UNI, cv::Scalar( box->x, box->y,0,0),cv::Scalar(box->x+box->width,box->y+box->height,0,0));
+    //    cv::Mat locations = cv::Mat( (box->width - sub_width) * (box->height-sub_height), 2, CV_32SC2 );
+    //    cvRNG->fill(locations, CV_RAND_UNI, cv::Scalar( box->x + sub_width/2 , box->y + sub_height/2 ,0 ,0),cv::Scalar(box->x+box->width - sub_width/2, box->y+box->height - sub_height/2,0,0));
+    ////    cvRNG->fill(locations, CV_RAND_UNI, cv::Point2f( box->x + sub_width/2 , box->y + sub_height/2 ), cv::Point2f(box->x+box->width - sub_width/2, box->y+box->height - sub_height/2));
 
+    //    //    cv::Mat locations = cv::Mat( (box->width)*(box->height), 2, CV_32SC2 );
+    //    //    cvRNG->fill(locations,CV_RAND_UNI, cv::Scalar( box->x, box->y,0,0),cv::Scalar(box->x+box->width,box->y+box->height,0,0));
+
+    std::vector<cv::Point2f>locations;
+    locations.reserve(n);
+    int stepsize = static_cast<int>(std::sqrt(box->width*box->height/n)) + 1;
+
+    // sample pixels uniformly from bounding box
+    for( unsigned int y = box->y; y < box->height + box->y; y+=stepsize ){
+        for( unsigned int x = box->x; x < box->width + box->x; x+=stepsize ){
+            if( maskImg.at<uchar>(y,x) != 0 )
+                locations.push_back(cv::Point(x,y));
+        }
+    }
+    n = locations.size();
     // reserve memory
     unsigned int offset = vRPixels[label].size();
     vRPixels[label].reserve(offset+n);
     vImageIDs[label].reserve(offset+n);
 
     // save pixel features
-    for( unsigned int i = 0; i < n ; ++i ) {
+    for( unsigned int i = 0; i < n ; i++ ) {
 
-        cv::Point2f pt(locations.at<int>(i,0),locations.at<int>(i,1));
+        cv::Point2f pt(locations[i]);
 
-        PixelFeature pf;
-        vRPixels[label].push_back(pf);
+        PixelFeature* pf = new PixelFeature;
+
         vImageIDs[label].push_back(imageID); // assigning the image id to the Pixel
 
-        vRPixels[label].back().statFeature->pixelLocation = pt; // saving pixel location
-        vRPixels[label].back().statFeature->iWidth = img.cols; // image size
-        vRPixels[label].back().statFeature->iHeight = img.rows;
-        vRPixels[label].back().statFeature->bbox = *box; // saving Bounding box details
+        pf->statFeature->pixelLocation = pt; // saving pixel location
+        pf->statFeature->iWidth = img.cols; // image size
+        pf->statFeature->iHeight = img.rows;
+        pf->statFeature->bbox = *box; // saving Bounding box details
 
         float scalePt;
         if(depthImg.at<unsigned short>(pt) == 0)
             scalePt = FLT_MAX;
         else
             scalePt = (float)(1000.f/depthImg.at<unsigned short>(pt)); //scale is inverse of depth::depth value sampled pixel is in millimeter converted to meter
-        vRPixels[label].back().statFeature->scale = scalePt;
+        pf->statFeature->scale = scalePt;
 
         if( bbSize3D != 0 )
-            vRPixels[label].back().statFeature->bbSize3D = *bbSize3D;
+            pf->statFeature->bbSize3D = *bbSize3D;
         else
-            vRPixels[label].back().statFeature->bbSize3D = cv::Point3f (0.f,0.f,0.f);
+            pf->statFeature->bbSize3D = cv::Point3f (0.f,0.f,0.f);
 
 
         // save all the information below for object class only
@@ -117,13 +129,13 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
 
             cv::Point3f rPt = P3toR3( pt, imgCenter, 1/scalePt );
 
-            vRPixels[label].back().statFeature->pixelLocation_real = rPt;
-            vRPixels[label].back().statFeature->disVector = rPt - rObjCenter;
+            pf->statFeature->pixelLocation_real = rPt;
+            pf->statFeature->disVector = rPt - rObjCenter;
 
-            vRPixels[label].back().statFeature->imgAppearance.resize(vImg.size());
-            vRPixels[label].back().statFeature->imgAppearance = vImg; //assign pointer to feature channel will it be released?? Is it memory efficient??;
-            vRPixels[label].back().statFeature->normals = normals;
-            vRPixels[label].back().statFeature->transformationMatrixOC = *transformationMatrixOC;
+            pf->statFeature->imgAppearance.resize(vImg.size());
+            pf->statFeature->imgAppearance = vImg; //assign pointer to feature channel will it be released?? Is it memory efficient??;
+            pf->statFeature->normals = normals;
+            pf->statFeature->transformationMatrixOC = *transformationMatrixOC;
 
             if(0)
                 drawTransformation(img, depthImg, *transformationMatrixOC);
@@ -143,6 +155,10 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
 
         }
 
+        vRPixels[label].push_back(pf);
+        if (pf->statFeature->iHeight!=480)
+            std::cout<<".................errrorrr............."<<endl;
+
         // debug visualize randomly generated pixels
         if(0){
             cv::Mat img_show;
@@ -156,7 +172,7 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
         // debug visualize assignment of channel pointers
         if(0){
             for(unsigned int c=0; c<vImg.size(); ++c){
-                cv::imshow("debug",vRPixels[label].back().statFeature->imgAppearance[c]);
+                cv::imshow("debug",pf->statFeature->imgAppearance[c]);
                 cv::waitKey(0);
             }
         }

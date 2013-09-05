@@ -1181,32 +1181,7 @@ void CRForestDetector::detectCenterPeaks(std::vector<Candidate >& candidates, co
             smoothAcc[scNr] = smoothAccTemp[scNr];
         }
 
-        if( param.DEBUG ){
 
-            std::vector< cv::Point > max_loc_temp( nScales );
-            std::vector< double > max_val_temp( nScales );
-
-            // detect the maximum
-            for( unsigned int scNr = 0; scNr < nScales; scNr++)
-                cv::minMaxLoc( smoothAcc[scNr], 0, &max_val_temp[scNr], 0, &max_loc_temp[scNr], cv::Mat() );
-
-            std::vector< double >::iterator it;
-            it = std::max_element( max_val_temp.begin(),max_val_temp.end() );
-            int max_index = std::distance( max_val_temp.begin(), it );
-            float maxValue = max_val_temp[max_index];
-
-            for( unsigned int scNr = 0; scNr < nScales; scNr++ ){
-
-                cv::Mat tmp;
-                cv::convertScaleAbs( smoothAcc[ scNr ], tmp, 255/maxValue, -255 );
-                stringstream ss;
-                ss << 100.f/param.scales[scNr];
-                // shows hough votes for center
-                cv::imshow( "Hough "+ss.str() +" cm", tmp ); cv::waitKey( 0 );
-                cv::destroyWindow("Hough "+ss.str() +" cm");
-            }
-
-        }
         // Smoothing in third dimension
         for( int r = 0; r < smoothAcc[ 0 ].rows; r++ ){
             for( int c = 0; c< smoothAcc[ 0 ].cols; c++ ){
@@ -1967,6 +1942,31 @@ void CRForestDetector::detectObject(const cv::Mat &img, const cv::Mat &depthImg,
     int tstart = clock();
     voteForCenter( vImgAssign, vImgDetect, depthImg, voterImages, normals, p.scales, this_class, NULL, p.thresh_vote, classProbs, p.addPoseInformation, p.addScaleInformation);
     cout << "\t Time for voting for center..\t" << (double)(clock() - tstart)/CLOCKS_PER_SEC << " sec" << endl;
+
+    if( p.DEBUG ){
+
+        for ( unsigned int cNr = 0; cNr < crForest->GetNumLabels(); cNr++ ){ // cNr = class  number
+            if ( (this_class >= 0 ) && (this_class != (int)cNr) )
+                continue;
+
+            pcl::PointCloud< pcl::PointXYZRGB >::Ptr cloud( new pcl::PointCloud< pcl::PointXYZRGB > );
+            pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(cloud);
+            Surfel::imagesToPointCloud( depthImg, img, cloud);
+
+            Surfel::houghPointCloud( vImgDetect[cNr],  p.scales,  cloud );
+
+            boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
+            viewer->addPointCloud<pcl::PointXYZRGB> (cloud, rgb, "Hough votes");
+            viewer->setBackgroundColor(1,1,1);
+            viewer->addCoordinateSystem(0.1, 0.f, 0.f, 0.f, 0.f);
+
+            while (!viewer->wasStopped ()){
+                viewer->spinOnce (100);
+                boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+            }
+        }
+
+    }
 
     // detecting the peaks in the voting space to find the prominent center of the object
     tstart = clock();

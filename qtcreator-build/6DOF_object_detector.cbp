@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="6DOF_object_detector" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\usr\;CMake Files\..\..\..\usr\share\;CMake Files\..\..\..\usr\share\pcl-1.6\;CMake Files\..\..\..\usr\share\OpenCV\;CMake Files\..\..\..\usr\lib\;CMake Files\..\..\..\usr\lib\vtk-5.8\;CMake Files\..\..\..\usr\lib\vtk-5.8\CMake\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="6DOF_object_detector">
+         <Option output="/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/6DOF_object_detector" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DDISABLE_OPENNI" />
+            <Add option="-DDISABLE_OPENNI" />
+            <Add option="-DDISABLE_OPENNI" />
+            <Add directory="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include" />
+            <Add directory="/home/badami/usr/include" />
+            <Add directory="/home/badami/usr/include/opencv" />
+            <Add directory="/home/badami/usr/include/pcl-1.6" />
+            <Add directory="/home/badami/usr/include/vtk-5.8" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/qhull" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 6DOF_object_detector" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="6DOF_object_detector/fast">
+         <Option output="/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/6DOF_object_detector" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DDISABLE_OPENNI" />
+            <Add option="-DDISABLE_OPENNI" />
+            <Add option="-DDISABLE_OPENNI" />
+            <Add directory="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include" />
+            <Add directory="/home/badami/usr/include" />
+            <Add directory="/home/badami/usr/include/opencv" />
+            <Add directory="/home/badami/usr/include/pcl-1.6" />
+            <Add directory="/home/badami/usr/include/vtk-5.8" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/qhull" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 6DOF_object_detector/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install">
+         <Option working_dir="/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 install" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install/local">
+         <Option working_dir="/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 install/local" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install/strip">
+         <Option working_dir="/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 install/strip" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="list_install_components">
+         <Option working_dir="/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 list_install_components" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/badami/Codes/RGBD-Hough-Forest/qtcreator-build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/src/6DOF_object_detector.cpp">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/src/Candidate.cpp">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/src/Detector.cpp">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/src/HoG.cpp">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/src/Pixel.cpp">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/src/Surfel.cpp">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/src/Trainer.cpp">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/src/Tree.cpp">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/src/utils.cpp">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include/Candidate.h">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include/Detector.h">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include/Forest.h">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include/HoG.h">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include/Parameters.h">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include/Pixel.h">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include/Surfel.h">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include/Trainer.h">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include/Tree.h">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/include/utils.h">
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/share/pcl-1.6/PCLConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\share\pcl-1.6\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/share/pcl-1.6/PCLConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\share\pcl-1.6\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/share/OpenCV/OpenCVConfig-version.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/share/OpenCV/OpenCVConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/VTKConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/VTKConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/VTKConfigQt.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/VTKTargets.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/VTKTargets-debug.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/UseVTK.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/VTKConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/VTKConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/VTKConfigQt.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/UseVTK.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/VTKConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/VTKConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/VTKConfigQt.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/UseVTK.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/badami/Codes/RGBD-Hough-Forest/6DOF_object_detector/../../../usr/lib/vtk-5.8/CMake/vtkMakeInstantiator.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\usr\lib\vtk-5.8\CMake\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

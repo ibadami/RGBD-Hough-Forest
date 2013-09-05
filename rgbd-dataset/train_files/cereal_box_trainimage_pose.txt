@@ -1,0 +1,1751 @@
+592 1
+cereal_box/cereal_box_1/cereal_box_1_1_176.png 210 47 414 305 312 176 0.000000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_66.png 208 43 397 322 303 183 183.210000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_2_131.png 239 74 455 329 347 202 0.000000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_46.png 225 65 437 354 331 210 182.090000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_4_151.png 231 78 446 282 339 180 0.000000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_61.png 223 74 439 286 331 180 183.910000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_1_1.png 209 44 411 320 310 182 78.750000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_6.png 214 43 409 324 312 184 86.786000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_11.png 222 43 403 328 313 186 94.821000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_16.png 230 43 397 329 314 186 102.860000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_21.png 243 43 386 330 315 187 110.890000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_26.png 253 44 378 331 316 188 118.930000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_31.png 263 43 369 330 316 187 126.960000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_36.png 259 43 356 329 308 186 135.000000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_41.png 244 44 356 328 300 186 143.040000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_46.png 234 43 364 328 299 186 151.070000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_51.png 220 42 377 328 299 185 159.110000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_56.png 217 39 383 326 300 183 167.140000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_61.png 209 41 391 325 300 183 175.180000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_71.png 209 45 405 315 307 180 191.250000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_76.png 212 45 409 309 311 177 199.290000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_81.png 212 46 411 305 312 176 207.320000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_86.png 206 46 409 301 308 174 215.360000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_91.png 210 46 409 306 310 176 223.390000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_96.png 213 46 413 313 313 180 231.430000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_101.png 213 44 415 316 314 180 239.460000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_106.png 221 45 413 321 317 183 247.500000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_111.png 230 43 410 325 320 184 255.540000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_116.png 238 41 405 327 322 184 263.570000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_121.png 247 43 397 329 322 186 271.610000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_126.png 265 45 384 329 325 187 279.640000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_131.png 272 44 373 329 323 187 287.680000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_136.png 262 44 359 328 311 186 295.710000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_141.png 250 44 369 329 310 187 303.750000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_146.png 238 44 381 329 310 187 311.790000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_151.png 225 43 394 328 310 186 319.820000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_156.png 216 44 404 325 310 185 327.860000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_161.png 213 46 411 320 312 183 335.890000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_166.png 215 46 415 315 315 181 343.930000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_171.png 217 46 416 310 317 178 351.960000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_181.png 208 47 410 306 309 177 8.035700 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_186.png 206 46 411 312 309 179 16.071000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_191.png 207 46 413 316 310 181 24.107000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_196.png 210 44 411 321 311 183 32.143000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_201.png 215 44 408 324 312 184 40.179000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_206.png 219 45 403 327 311 186 48.214000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_211.png 232 44 394 330 313 187 56.250000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_216.png 245 44 386 330 316 187 64.286000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_221.png 260 44 375 331 318 188 72.321000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_226.png 266 43 362 329 314 186 80.357000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_1_231.png 246 43 356 328 301 186 88.393000 23.000000
+cereal_box/cereal_box_1/cereal_box_1_2_1.png 257 60 442 368 350 214 87.907000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_6.png 268 58 431 370 350 214 98.372000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_11.png 282 59 413 370 348 215 108.840000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_16.png 287 60 394 369 341 215 119.300000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_21.png 274 57 385 370 330 214 129.770000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_26.png 259 60 401 370 330 215 140.230000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_31.png 244 59 413 368 329 214 150.700000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_36.png 235 64 423 364 329 214 161.160000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_41.png 228 63 431 359 330 211 171.630000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_51.png 227 70 441 344 334 207 192.560000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_56.png 226 72 441 336 334 204 203.020000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_61.png 224 74 440 330 332 202 213.490000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_66.png 222 73 437 338 330 206 223.950000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_71.png 225 68 440 346 333 207 234.420000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_76.png 234 65 441 355 338 210 244.880000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_81.png 244 61 437 360 341 211 255.350000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_86.png 257 57 425 363 341 210 265.810000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_91.png 281 56 410 364 346 210 276.280000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_96.png 286 57 388 362 337 210 286.740000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_101.png 273 57 391 363 332 210 297.210000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_106.png 260 57 409 362 335 210 307.670000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_111.png 250 59 422 360 336 210 318.140000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_116.png 242 58 438 356 340 207 328.610000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_121.png 236 65 449 348 343 207 339.070000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_126.png 242 69 455 337 349 203 349.540000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_136.png 234 71 453 339 344 205 10.465000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_141.png 238 67 457 349 348 208 20.930000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_2_146.png 243 66 457 356 350 211 31.395000 38.000000
+cereal_box/cereal_box_1/cereal_box_1_4_1.png 247 39 421 326 334 183 66.522000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_6.png 260 39 402 376 331 208 76.304000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_11.png 266 39 388 326 327 183 86.087000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_16.png 259 38 385 326 322 182 95.870000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_21.png 247 38 390 326 319 182 105.650000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_26.png 243 39 400 327 322 183 115.440000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_31.png 237 40 408 325 323 183 125.220000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_36.png 230 43 421 322 326 183 135.000000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_41.png 225 47 430 315 328 181 144.780000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_46.png 221 56 435 307 328 182 154.560000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_51.png 223 62 438 300 331 181 164.350000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_56.png 223 67 443 292 333 180 174.130000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_66.png 222 65 439 294 331 180 193.700000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_71.png 223 59 441 299 332 179 203.480000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_76.png 223 51 441 309 332 180 213.260000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_81.png 223 43 440 315 332 179 223.040000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_86.png 231 39 433 322 332 181 232.830000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_91.png 246 36 423 324 335 180 242.610000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_96.png 261 35 408 325 335 180 252.390000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_101.png 272 36 398 323 335 180 262.170000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_106.png 271 35 393 322 332 179 271.960000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_111.png 259 35 395 323 327 179 281.740000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_116.png 249 36 405 323 327 180 291.520000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_121.png 243 38 415 322 329 180 301.300000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_126.png 239 41 426 318 333 180 311.090000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_131.png 233 46 434 314 334 180 320.870000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_136.png 231 51 441 307 336 179 330.650000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_141.png 225 58 444 301 335 180 340.440000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_146.png 227 66 446 293 337 180 350.220000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_156.png 227 71 443 291 335 181 9.782600 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_161.png 225 61 446 302 336 182 19.565000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_166.png 228 53 443 311 336 182 29.348000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_171.png 228 47 440 317 334 182 39.130000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_176.png 230 44 433 323 332 184 48.913000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_181.png 243 39 419 326 331 183 58.696000 54.000000
+cereal_box/cereal_box_1/cereal_box_1_4_186.png 253 41 409 327 331 184 68.478000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_1_1.png 228 41 410 321 319 181 30.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_6.png 236 41 403 325 320 183 40.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_11.png 247 42 393 329 320 186 50.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_16.png 261 42 381 330 321 186 60.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_21.png 274 42 365 331 320 187 70.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_26.png 267 41 349 330 308 186 80.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_31.png 252 41 357 330 305 186 90.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_36.png 236 41 367 330 302 186 100.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_41.png 227 40 377 328 302 184 110.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_46.png 219 41 385 326 302 184 120.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_51.png 210 41 394 322 302 182 130.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_56.png 206 42 399 318 303 180 140.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_61.png 208 42 404 313 306 178 150.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_66.png 209 43 408 307 309 175 160.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_71.png 207 44 407 300 307 172 170.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_76.png 203 45 404 303 304 174 180.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_81.png 208 44 406 308 307 176 190.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_86.png 214 43 405 313 310 178 200.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_91.png 224 42 401 319 313 181 210.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_96.png 232 42 396 322 314 182 220.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_101.png 242 42 392 325 317 184 230.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_106.png 255 42 382 326 319 184 240.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_111.png 266 42 374 327 320 185 250.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_116.png 274 41 362 327 318 184 260.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_121.png 267 41 352 327 310 184 270.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_126.png 254 42 359 327 307 185 280.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_131.png 241 43 370 327 306 185 290.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_136.png 231 40 380 326 306 183 300.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_141.png 222 40 391 324 307 182 310.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_146.png 218 41 400 320 309 181 320.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_151.png 214 43 409 314 312 179 330.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_156.png 217 43 413 310 315 177 340.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_161.png 217 44 416 304 317 174 350.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_166.png 215 44 417 300 316 172 0.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_171.png 215 44 414 305 315 175 10.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_176.png 216 43 415 311 316 177 20.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_181.png 221 43 415 316 318 180 30.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_186.png 227 41 411 319 319 180 40.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_191.png 235 41 406 324 321 183 50.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_196.png 242 41 397 327 320 184 60.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_201.png 250 41 387 329 319 185 70.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_206.png 264 42 378 330 321 186 80.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_211.png 274 42 364 331 319 187 90.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_216.png 266 40 352 330 309 185 100.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_221.png 254 41 356 330 305 186 110.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_1_226.png 234 41 371 329 303 185 120.000000 23.000000
+cereal_box/cereal_box_2/cereal_box_2_2_1.png 269 57 429 364 349 211 33.750000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_6.png 286 55 409 366 348 211 45.000000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_11.png 302 57 392 366 347 212 56.250000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_16.png 286 56 380 367 333 212 67.500000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_21.png 272 57 392 367 332 212 78.750000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_26.png 262 57 405 366 334 212 90.000000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_31.png 248 60 418 363 333 212 101.250000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_36.png 236 62 429 358 333 210 112.500000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_41.png 232 63 437 351 335 207 123.750000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_46.png 232 67 443 343 338 205 135.000000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_51.png 233 70 446 335 340 203 146.250000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_56.png 230 75 445 327 338 201 157.500000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_61.png 229 73 442 331 336 202 168.750000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_66.png 231 70 443 339 337 205 180.000000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_71.png 234 66 443 345 339 206 191.250000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_76.png 242 61 440 353 341 207 202.500000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_81.png 252 60 430 359 341 210 213.750000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_86.png 264 55 420 363 342 209 225.000000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_91.png 278 56 406 365 342 211 236.250000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_96.png 291 54 394 365 343 210 247.500000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_101.png 287 56 377 364 332 210 258.750000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_106.png 277 56 382 364 330 210 270.000000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_111.png 265 57 396 364 331 211 281.250000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_116.png 255 59 408 362 332 211 292.500000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_121.png 246 58 418 359 332 209 303.750000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_126.png 239 60 429 355 334 208 315.000000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_131.png 235 62 437 349 336 206 326.250000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_136.png 234 68 445 341 340 205 337.500000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_141.png 234 70 449 333 342 202 348.750000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_146.png 236 74 449 325 343 200 0.000000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_151.png 235 73 448 329 342 201 11.250000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_156.png 237 67 450 338 344 203 22.500000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_161.png 244 66 449 349 347 208 33.750000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_166.png 251 61 445 355 348 208 45.000000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_171.png 263 58 434 362 349 210 56.250000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_176.png 279 56 418 366 349 211 67.500000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_2_181.png 293 54 401 367 347 211 78.750000 38.000000
+cereal_box/cereal_box_2/cereal_box_2_4_1.png 280 33 394 323 337 178 88.125000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_6.png 286 35 388 323 337 179 97.500000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_11.png 274 36 387 323 331 180 106.880000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_16.png 265 37 399 323 332 180 116.250000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_21.png 255 39 410 322 333 181 125.620000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_26.png 242 45 420 319 331 182 135.000000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_31.png 236 52 432 314 334 183 144.380000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_36.png 234 57 439 307 337 182 153.750000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_41.png 228 66 443 300 336 183 163.120000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_46.png 228 72 446 294 337 183 172.500000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_51.png 228 83 444 285 336 184 181.880000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_56.png 227 81 441 284 334 183 191.250000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_61.png 224 71 441 290 333 181 200.620000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_66.png 226 61 439 302 333 182 210.000000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_71.png 230 53 435 310 333 182 219.380000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_76.png 231 46 425 319 328 183 228.750000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_81.png 245 41 410 324 328 183 238.120000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_86.png 261 36 395 326 328 181 247.500000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_91.png 270 35 377 326 324 181 256.880000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_96.png 266 35 373 325 320 180 266.250000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_101.png 253 36 381 325 317 181 275.620000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_106.png 245 38 391 323 318 181 285.000000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_111.png 240 39 403 321 322 180 294.380000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_116.png 234 43 415 316 325 180 303.750000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_121.png 228 47 424 310 326 179 313.120000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_126.png 222 55 430 303 326 179 322.500000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_131.png 222 60 436 295 329 178 331.880000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_136.png 224 67 438 288 331 178 341.250000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_141.png 227 75 439 278 333 177 350.620000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_146.png 226 67 439 282 333 175 0.000000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_151.png 229 59 442 292 336 176 9.375000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_156.png 230 48 441 303 336 176 18.750000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_161.png 231 42 439 309 335 176 28.125000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_166.png 242 37 430 316 336 177 37.500000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_171.png 255 35 420 319 338 177 46.875000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_176.png 266 34 410 321 338 178 56.250000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_181.png 277 31 398 323 338 177 65.625000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_186.png 285 35 389 323 337 179 75.000000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_191.png 280 34 387 324 334 179 84.375000 54.000000
+cereal_box/cereal_box_2/cereal_box_2_4_196.png 269 37 389 324 329 181 93.750000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_1_1.png 222 52 407 317 315 185 65.769000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_6.png 234 52 405 321 320 187 74.423000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_11.png 241 52 396 323 319 188 83.077000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_16.png 254 51 385 325 320 188 91.731000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_21.png 267 52 376 326 322 189 100.390000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_26.png 274 51 367 326 321 189 109.040000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_31.png 275 52 353 326 314 189 117.690000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_36.png 264 52 354 326 309 189 126.350000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_41.png 253 53 367 326 310 190 135.000000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_46.png 243 52 377 326 310 189 143.650000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_51.png 234 53 387 324 311 189 152.310000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_56.png 226 52 395 320 311 186 160.960000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_61.png 217 53 403 316 310 185 169.620000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_66.png 216 54 409 312 313 183 178.270000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_71.png 219 54 412 308 316 181 186.920000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_76.png 217 54 413 301 315 178 195.580000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_81.png 213 55 411 299 312 177 204.230000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_86.png 215 54 409 304 312 179 212.880000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_91.png 218 54 409 310 314 182 221.540000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_96.png 222 53 406 315 314 184 230.190000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_101.png 229 52 405 319 317 186 238.850000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_106.png 235 51 403 323 319 187 247.500000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_111.png 245 52 390 326 318 189 256.150000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_116.png 257 51 380 328 319 190 264.810000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_121.png 268 51 372 328 320 190 273.460000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_126.png 274 51 357 329 316 190 282.120000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_131.png 258 52 352 329 305 191 290.770000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_136.png 246 52 357 329 302 191 299.420000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_141.png 237 52 365 329 301 191 308.080000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_146.png 221 51 379 326 300 189 316.730000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_151.png 214 51 386 323 300 187 325.380000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_156.png 211 50 394 319 303 185 334.040000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_161.png 212 53 401 313 307 183 342.690000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_166.png 213 52 404 308 309 180 351.350000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_171.png 212 54 405 302 309 178 0.000000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_176.png 209 54 406 300 308 177 8.653900 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_181.png 213 53 404 306 309 180 17.308000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_186.png 218 54 406 310 312 182 25.962000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_191.png 223 53 405 315 314 184 34.615000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_196.png 230 52 401 320 316 186 43.269000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_201.png 245 50 393 323 319 187 51.923000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_206.png 258 50 380 325 319 188 60.577000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_211.png 277 51 368 326 323 189 69.231000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_216.png 271 52 351 326 311 189 77.885000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_221.png 262 52 357 326 310 189 86.538000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_1_226.png 248 53 369 326 309 190 95.192000 23.000000
+cereal_box/cereal_box_3/cereal_box_3_2_1.png 291 65 418 359 355 212 94.091000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_6.png 310 64 404 360 357 212 104.320000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_11.png 302 65 387 361 345 213 114.550000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_16.png 290 66 397 362 344 214 124.770000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_21.png 280 67 413 362 347 215 135.000000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_26.png 268 68 423 361 346 215 145.230000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_31.png 259 70 434 358 347 214 155.460000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_36.png 253 72 442 355 348 214 165.680000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_41.png 247 79 449 349 348 214 175.910000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_46.png 245 84 454 339 350 212 186.140000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_51.png 241 89 453 330 347 210 196.360000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_56.png 238 88 447 333 343 211 206.590000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_61.png 236 83 445 343 341 213 216.820000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_66.png 238 78 441 353 340 216 227.040000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_71.png 244 74 432 360 338 217 237.270000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_76.png 253 72 418 365 336 219 247.500000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_81.png 266 69 405 368 336 219 257.730000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_86.png 282 67 386 368 334 218 267.950000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_91.png 280 66 368 368 324 217 278.180000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_96.png 264 65 373 367 319 216 288.410000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_101.png 248 66 385 364 317 215 298.640000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_106.png 236 66 399 360 318 213 308.860000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_111.png 226 69 411 353 319 211 319.090000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_116.png 225 72 419 347 322 210 329.320000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_121.png 225 75 425 341 325 208 339.550000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_126.png 230 78 431 331 331 205 349.770000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_131.png 231 79 434 323 333 201 0.000000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_136.png 232 82 435 320 334 201 10.227000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_141.png 237 78 438 330 338 204 20.454000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_146.png 243 75 441 338 342 207 30.682000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_151.png 252 71 442 344 347 208 40.909000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_156.png 264 68 440 350 352 209 51.136000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_161.png 276 65 431 355 354 210 61.364000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_166.png 293 65 418 359 356 212 71.591000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_2_171.png 312 64 405 361 359 213 81.818000 38.000000
+cereal_box/cereal_box_3/cereal_box_3_4_1.png 271 46 424 315 348 181 6.428600 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_6.png 284 44 414 318 349 181 17.143000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_11.png 300 44 400 321 350 183 27.857000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_16.png 305 45 387 321 346 183 38.571000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_21.png 293 47 389 321 341 184 49.286000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_26.png 270 50 406 322 338 186 60.000000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_31.png 256 56 419 320 338 188 70.714000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_36.png 246 62 432 313 339 188 81.429000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_41.png 242 72 440 309 341 191 92.143000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_46.png 237 78 443 303 340 191 102.860000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_51.png 234 89 446 294 340 192 113.570000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_56.png 233 96 444 287 339 192 124.290000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_61.png 232 98 442 284 337 191 135.000000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_66.png 230 89 441 292 336 191 145.710000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_71.png 227 79 441 301 334 190 156.430000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_76.png 229 73 438 308 334 191 167.140000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_81.png 230 66 434 315 332 191 177.860000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_86.png 230 61 429 319 330 190 188.570000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_91.png 235 55 408 323 322 189 199.290000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_96.png 243 52 399 325 321 189 210.000000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_101.png 253 51 391 326 322 189 220.710000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_106.png 263 49 377 327 320 188 231.430000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_111.png 267 48 363 325 315 187 242.140000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_116.png 255 48 364 325 310 187 252.860000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_121.png 250 46 374 323 312 185 263.570000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_126.png 240 48 383 321 312 185 274.290000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_131.png 233 51 395 317 314 184 285.000000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_136.png 224 53 407 311 316 182 295.710000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_141.png 224 58 416 303 320 181 306.430000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_146.png 219 62 423 295 321 179 317.140000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_151.png 223 70 429 286 326 178 327.860000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_156.png 228 78 431 276 330 177 338.570000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_161.png 228 76 431 275 330 176 349.290000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_166.png 227 67 434 284 331 176 0.000000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_171.png 230 61 439 293 335 177 10.714000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_176.png 231 52 438 300 335 176 21.429000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_181.png 238 49 435 306 337 178 32.143000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_186.png 247 46 431 310 339 178 42.857000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_191.png 258 45 425 315 342 180 53.571000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_196.png 272 44 413 319 343 182 64.286000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_201.png 284 44 405 319 345 182 75.000000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_206.png 293 45 394 321 344 183 85.714000 54.000000
+cereal_box/cereal_box_3/cereal_box_3_4_211.png 293 45 391 321 342 183 96.429000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_1_1.png 246 50 384 323 315 187 60.000000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_6.png 263 51 377 325 320 188 69.375000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_11.png 274 50 364 325 319 188 78.750000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_16.png 266 51 355 323 311 187 88.125000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_21.png 256 50 363 325 310 188 97.500000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_26.png 238 50 375 325 307 188 106.880000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_31.png 236 52 385 324 311 188 116.250000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_36.png 228 50 394 322 311 186 125.620000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_41.png 222 51 403 320 313 186 135.000000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_46.png 219 52 411 315 315 184 144.380000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_51.png 223 53 415 312 319 183 153.750000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_56.png 224 53 418 308 321 181 163.120000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_61.png 224 52 418 303 321 178 172.500000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_66.png 221 54 416 301 319 178 181.880000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_71.png 221 54 417 309 319 182 191.250000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_76.png 222 54 418 314 320 184 200.620000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_81.png 222 53 415 319 319 186 210.000000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_86.png 231 52 410 325 321 189 219.380000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_91.png 240 51 401 329 321 190 228.750000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_96.png 248 51 393 330 321 191 238.120000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_101.png 261 51 381 331 321 191 247.500000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_106.png 273 51 367 332 320 192 256.880000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_111.png 260 51 353 330 307 191 266.250000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_116.png 239 51 359 331 299 191 275.620000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_121.png 233 52 368 331 301 192 285.000000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_126.png 221 51 377 330 299 191 294.380000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_131.png 212 51 383 328 298 190 303.750000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_136.png 207 51 390 324 299 188 313.120000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_141.png 204 53 395 320 300 187 322.500000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_146.png 206 53 399 315 303 184 331.880000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_151.png 209 53 402 308 306 181 341.250000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_156.png 204 53 400 302 302 178 350.620000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_161.png 201 53 398 304 300 179 0.000000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_166.png 205 53 400 309 303 181 9.375000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_171.png 210 52 401 313 306 183 18.750000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_176.png 216 51 400 317 308 184 28.125000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_181.png 220 52 398 320 309 186 37.500000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_186.png 235 52 393 323 314 188 46.875000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_191.png 245 50 384 324 315 187 56.250000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_196.png 252 51 379 324 316 188 65.625000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_201.png 272 50 368 324 320 187 75.000000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_1_206.png 268 50 354 323 311 187 84.375000 23.000000
+cereal_box/cereal_box_4/cereal_box_4_2_1.png 260 69 435 361 348 215 63.409000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_6.png 273 67 422 363 348 215 73.636000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_11.png 285 65 411 364 348 215 83.864000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_16.png 298 65 396 363 347 214 94.091000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_21.png 286 65 382 363 334 214 104.320000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_26.png 277 65 393 365 335 215 114.550000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_31.png 260 65 407 365 334 215 124.770000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_36.png 253 66 420 363 337 215 135.000000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_41.png 243 70 429 357 336 214 145.230000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_46.png 238 71 439 351 339 211 155.460000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_51.png 235 78 444 344 340 211 165.680000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_56.png 236 82 447 336 342 209 175.910000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_61.png 236 84 445 327 341 206 186.140000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_66.png 230 82 440 335 335 209 196.360000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_71.png 235 78 444 343 340 211 206.590000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_76.png 240 75 442 353 341 214 216.820000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_81.png 248 71 437 359 343 215 227.040000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_86.png 261 70 425 364 343 217 237.270000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_91.png 278 66 408 365 343 216 247.500000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_96.png 293 65 394 365 344 215 257.730000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_101.png 282 65 380 365 331 215 267.950000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_106.png 271 66 387 365 329 216 278.180000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_111.png 257 65 399 365 328 215 288.410000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_116.png 249 67 411 363 330 215 298.640000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_121.png 241 71 421 359 331 215 308.860000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_126.png 235 72 428 355 332 214 319.090000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_131.png 233 75 436 349 335 212 329.320000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_136.png 234 77 441 341 338 209 339.550000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_141.png 238 80 444 333 341 207 349.770000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_146.png 235 82 443 326 339 204 0.000000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_151.png 230 81 440 333 335 207 10.227000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_156.png 236 77 444 342 340 210 20.454000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_161.png 242 74 444 351 343 213 30.682000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_166.png 250 69 441 357 346 213 40.909000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_171.png 263 67 432 361 348 214 51.136000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_176.png 276 66 420 363 348 215 61.364000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_2_181.png 286 65 406 363 346 214 71.591000 38.000000
+cereal_box/cereal_box_4/cereal_box_4_4_1.png 270 44 414 322 342 183 91.731000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_6.png 280 47 404 324 342 186 100.390000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_11.png 289 47 399 323 344 185 109.040000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_16.png 283 46 394 325 339 186 117.690000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_21.png 272 48 398 325 335 187 126.350000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_26.png 259 50 409 326 334 188 135.000000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_31.png 248 54 420 324 334 189 143.650000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_36.png 242 59 429 321 336 190 152.310000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_41.png 239 63 436 315 338 189 160.960000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_46.png 236 68 439 310 338 189 169.620000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_51.png 234 76 442 303 338 190 178.270000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_56.png 230 86 442 295 336 191 186.920000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_61.png 232 94 439 286 336 190 195.580000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_66.png 228 89 437 290 333 190 204.230000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_71.png 223 77 438 298 331 188 212.880000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_76.png 225 68 433 308 329 188 221.540000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_81.png 228 63 430 313 329 188 230.190000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_86.png 231 56 423 318 327 187 238.850000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_91.png 231 50 415 322 323 186 247.500000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_96.png 240 50 403 323 322 187 256.150000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_101.png 253 48 394 324 324 186 264.810000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_106.png 261 47 384 323 323 185 273.460000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_111.png 260 47 371 322 316 185 282.120000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_116.png 248 44 374 322 311 183 290.770000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_121.png 242 43 388 320 315 182 299.420000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_126.png 236 43 398 319 317 181 308.080000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_131.png 232 46 407 315 320 181 316.730000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_136.png 228 50 417 309 323 180 325.380000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_141.png 225 57 424 303 325 180 334.040000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_146.png 226 61 430 295 328 178 342.690000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_151.png 227 66 433 288 330 177 351.350000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_156.png 229 77 436 279 333 178 0.000000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_161.png 230 71 435 284 333 178 8.653900 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_166.png 231 63 439 292 335 178 17.308000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_171.png 231 57 443 299 337 178 25.962000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_176.png 231 52 443 308 337 180 34.615000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_181.png 240 47 439 314 340 181 43.269000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_186.png 248 46 433 318 341 182 51.923000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_191.png 260 44 425 322 343 183 60.577000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_196.png 270 44 415 322 343 183 69.231000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_201.png 281 47 403 323 342 185 77.885000 54.000000
+cereal_box/cereal_box_4/cereal_box_4_4_206.png 288 47 397 323 343 185 86.538000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_1_1.png 251 44 401 326 326 185 22.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_6.png 270 50 388 328 329 189 35.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_11.png 287 49 369 328 328 189 47.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_16.png 273 54 365 330 319 192 60.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_21.png 258 51 379 330 319 191 72.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_26.png 229 43 399 330 314 187 85.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_31.png 231 43 412 326 322 185 97.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_36.png 221 44 415 320 318 182 110.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_41.png 221 46 420 314 321 180 122.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_46.png 211 47 421 308 316 178 135.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_51.png 208 46 421 305 315 176 147.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_56.png 209 46 421 305 315 176 160.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_61.png 208 44 421 311 315 178 172.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_66.png 211 44 419 315 315 180 185.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_71.png 211 44 412 321 312 183 197.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_76.png 218 43 401 325 310 184 210.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_81.png 232 42 386 327 309 185 222.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_86.png 245 42 368 333 307 188 235.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_91.png 240 42 352 333 296 188 247.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_96.png 220 41 354 332 287 187 260.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_101.png 213 41 364 331 289 186 272.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_106.png 212 42 376 329 294 186 285.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_111.png 206 41 388 324 297 183 297.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_116.png 201 40 391 318 296 179 310.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_121.png 204 41 396 314 300 178 322.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_126.png 204 42 401 306 303 174 335.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_131.png 204 44 404 301 304 173 347.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_136.png 204 44 408 302 306 173 0.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_141.png 205 44 412 308 309 176 12.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_146.png 215 44 415 316 315 180 25.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_151.png 234 44 413 323 324 184 37.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_156.png 252 43 409 326 331 185 50.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_161.png 267 44 396 328 332 186 62.500000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_1_166.png 275 43 382 328 329 186 75.000000 23.000000
+cereal_box/cereal_box_5/cereal_box_5_2_1.png 260 62 431 367 346 215 81.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_6.png 272 59 420 368 346 214 90.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_11.png 283 56 405 369 344 213 99.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_16.png 293 58 390 367 342 213 108.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_21.png 283 60 375 367 329 214 117.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_26.png 271 57 388 367 330 212 126.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_31.png 263 57 401 366 332 212 135.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_36.png 250 58 413 361 332 210 144.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_41.png 245 62 421 359 333 211 153.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_46.png 239 65 430 352 335 209 162.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_51.png 233 66 436 346 335 206 171.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_56.png 234 68 442 338 338 203 180.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_61.png 234 73 446 331 340 202 189.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_66.png 230 78 446 324 338 201 198.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_71.png 230 76 445 325 338 201 207.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_76.png 229 71 448 334 339 203 216.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_81.png 237 66 448 342 343 204 225.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_86.png 244 64 445 350 345 207 234.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_91.png 255 57 436 357 346 207 243.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_96.png 267 55 426 361 347 208 252.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_101.png 277 52 413 363 345 208 261.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_106.png 295 51 396 364 346 208 270.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_111.png 286 52 379 366 333 209 279.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_116.png 273 56 392 368 333 212 288.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_121.png 261 53 404 366 333 210 297.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_126.png 250 55 417 363 334 209 306.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_131.png 242 58 427 360 335 209 315.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_136.png 235 62 434 354 335 208 324.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_141.png 235 66 441 348 338 207 333.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_146.png 235 70 446 341 341 206 342.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_151.png 233 75 447 332 340 204 351.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_156.png 231 78 447 334 339 206 0.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_161.png 233 74 450 345 342 210 9.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_166.png 238 68 449 353 344 211 18.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_171.png 245 67 446 359 346 213 27.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_176.png 253 64 438 364 346 214 36.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_181.png 258 61 430 367 344 214 45.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_2_186.png 272 59 418 369 345 214 54.000000 38.000000
+cereal_box/cereal_box_5/cereal_box_5_4_1.png 277 39 426 325 352 182 45.000000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_6.png 291 39 423 330 357 185 56.250000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_11.png 300 39 400 329 350 184 67.500000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_16.png 280 39 393 332 337 186 78.750000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_21.png 263 44 406 333 335 189 90.000000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_26.png 251 47 415 329 333 188 101.250000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_31.png 240 54 427 325 334 190 112.500000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_36.png 234 61 435 320 335 191 123.750000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_41.png 226 70 439 310 333 190 135.000000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_46.png 221 82 440 299 331 191 146.250000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_51.png 218 92 439 288 329 190 157.500000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_56.png 212 83 439 294 326 189 168.750000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_61.png 211 74 439 300 325 187 180.000000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_66.png 215 66 434 307 325 187 191.250000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_71.png 217 58 427 314 322 186 202.500000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_76.png 224 48 420 320 322 184 213.750000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_81.png 240 41 402 323 321 182 225.000000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_86.png 254 36 390 324 322 180 236.250000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_91.png 265 33 376 322 321 178 247.500000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_96.png 261 30 364 322 313 176 258.750000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_101.png 252 30 364 322 308 176 270.000000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_106.png 229 30 380 319 305 175 281.250000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_111.png 235 31 390 318 313 175 292.500000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_116.png 234 37 406 312 320 175 303.750000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_121.png 228 43 417 305 323 174 315.000000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_126.png 226 47 427 298 327 173 326.250000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_131.png 227 58 436 288 332 173 337.500000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_136.png 228 64 441 280 335 172 348.750000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_141.png 228 72 443 275 336 174 0.000000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_146.png 228 63 447 284 338 174 11.250000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_151.png 228 55 451 297 340 176 22.500000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_156.png 241 50 450 306 346 178 33.750000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_161.png 254 42 444 317 349 180 45.000000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_166.png 263 39 436 324 350 182 56.250000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_171.png 274 38 431 327 353 183 67.500000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_176.png 297 39 403 329 350 184 78.750000 54.000000
+cereal_box/cereal_box_5/cereal_box_5_4_181.png 289 39 395 330 342 185 90.000000 54.000000
+neg/background/background_1/background_1_10.png 0 0 640 480 320 240
+neg/background/background_1/background_1_11.png 0 0 640 480 320 240
+neg/background/background_1/background_1_12.png 0 0 640 480 320 240
+neg/background/background_1/background_1_13.png 0 0 640 480 320 240
+neg/background/background_1/background_1_14.png 0 0 640 480 320 240
+neg/background/background_1/background_1_15.png 0 0 640 480 320 240
+neg/background/background_1/background_1_16.png 0 0 640 480 320 240
+neg/background/background_1/background_1_17.png 0 0 640 480 320 240
+neg/background/background_1/background_1_18.png 0 0 640 480 320 240
+neg/background/background_1/background_1_19.png 0 0 640 480 320 240
+neg/background/background_1/background_1_20.png 0 0 640 480 320 240
+neg/background/background_1/background_1_21.png 0 0 640 480 320 240
+neg/background/background_1/background_1_22.png 0 0 640 480 320 240
+neg/background/background_1/background_1_23.png 0 0 640 480 320 240
+neg/background/background_1/background_1_24.png 0 0 640 480 320 240
+neg/background/background_1/background_1_25.png 0 0 640 480 320 240
+neg/background/background_1/background_1_26.png 0 0 640 480 320 240
+neg/background/background_1/background_1_27.png 0 0 640 480 320 240
+neg/background/background_1/background_1_28.png 0 0 640 480 320 240
+neg/background/background_1/background_1_29.png 0 0 640 480 320 240
+neg/background/background_1/background_1_30.png 0 0 640 480 320 240
+neg/background/background_1/background_1_31.png 0 0 640 480 320 240
+neg/background/background_1/background_1_32.png 0 0 640 480 320 240
+neg/background/background_1/background_1_33.png 0 0 640 480 320 240
+neg/background/background_1/background_1_34.png 0 0 640 480 320 240
+neg/background/background_1/background_1_35.png 0 0 640 480 320 240
+neg/background/background_1/background_1_36.png 0 0 640 480 320 240
+neg/background/background_1/background_1_37.png 0 0 640 480 320 240
+neg/background/background_1/background_1_38.png 0 0 640 480 320 240
+neg/background/background_1/background_1_39.png 0 0 640 480 320 240
+neg/background/background_1/background_1_40.png 0 0 640 480 320 240
+neg/background/background_1/background_1_41.png 0 0 640 480 320 240
+neg/background/background_1/background_1_42.png 0 0 640 480 320 240
+neg/background/background_1/background_1_43.png 0 0 640 480 320 240
+neg/background/background_1/background_1_44.png 0 0 640 480 320 240
+neg/background/background_1/background_1_45.png 0 0 640 480 320 240
+neg/background/background_1/background_1_46.png 0 0 640 480 320 240
+neg/background/background_1/background_1_47.png 0 0 640 480 320 240
+neg/background/background_1/background_1_48.png 0 0 640 480 320 240
+neg/background/background_1/background_1_49.png 0 0 640 480 320 240
+neg/background/background_1/background_1_50.png 0 0 640 480 320 240
+neg/background/background_1/background_1_51.png 0 0 640 480 320 240
+neg/background/background_1/background_1_52.png 0 0 640 480 320 240
+neg/background/background_1/background_1_53.png 0 0 640 480 320 240
+neg/background/background_1/background_1_54.png 0 0 640 480 320 240
+neg/background/background_1/background_1_55.png 0 0 640 480 320 240
+neg/background/background_1/background_1_56.png 0 0 640 480 320 240
+neg/background/background_1/background_1_57.png 0 0 640 480 320 240
+neg/background/background_1/background_1_58.png 0 0 640 480 320 240
+neg/background/background_1/background_1_59.png 0 0 640 480 320 240
+neg/background/background_1/background_1_60.png 0 0 640 480 320 240
+neg/background/background_1/background_1_61.png 0 0 640 480 320 240
+neg/background/background_1/background_1_62.png 0 0 640 480 320 240
+neg/background/background_1/background_1_63.png 0 0 640 480 320 240
+neg/background/background_1/background_1_64.png 0 0 640 480 320 240
+neg/background/background_1/background_1_65.png 0 0 640 480 320 240
+neg/background/background_1/background_1_66.png 0 0 640 480 320 240
+neg/background/background_1/background_1_67.png 0 0 640 480 320 240
+neg/background/background_1/background_1_68.png 0 0 640 480 320 240
+neg/background/background_1/background_1_69.png 0 0 640 480 320 240
+neg/background/background_1/background_1_70.png 0 0 640 480 320 240
+neg/background/background_1/background_1_71.png 0 0 640 480 320 240
+neg/background/background_10/background_10_10.png 0 0 640 480 320 240
+neg/background/background_10/background_10_100.png 0 0 640 480 320 240
+neg/background/background_10/background_10_101.png 0 0 640 480 320 240
+neg/background/background_10/background_10_102.png 0 0 640 480 320 240
+neg/background/background_10/background_10_103.png 0 0 640 480 320 240
+neg/background/background_10/background_10_104.png 0 0 640 480 320 240
+neg/background/background_10/background_10_105.png 0 0 640 480 320 240
+neg/background/background_10/background_10_106.png 0 0 640 480 320 240
+neg/background/background_10/background_10_107.png 0 0 640 480 320 240
+neg/background/background_10/background_10_108.png 0 0 640 480 320 240
+neg/background/background_10/background_10_109.png 0 0 640 480 320 240
+neg/background/background_10/background_10_11.png 0 0 640 480 320 240
+neg/background/background_10/background_10_110.png 0 0 640 480 320 240
+neg/background/background_10/background_10_111.png 0 0 640 480 320 240
+neg/background/background_10/background_10_112.png 0 0 640 480 320 240
+neg/background/background_10/background_10_113.png 0 0 640 480 320 240
+neg/background/background_10/background_10_114.png 0 0 640 480 320 240
+neg/background/background_10/background_10_115.png 0 0 640 480 320 240
+neg/background/background_10/background_10_116.png 0 0 640 480 320 240
+neg/background/background_10/background_10_117.png 0 0 640 480 320 240
+neg/background/background_10/background_10_118.png 0 0 640 480 320 240
+neg/background/background_10/background_10_119.png 0 0 640 480 320 240
+neg/background/background_10/background_10_12.png 0 0 640 480 320 240
+neg/background/background_10/background_10_120.png 0 0 640 480 320 240
+neg/background/background_10/background_10_121.png 0 0 640 480 320 240
+neg/background/background_10/background_10_122.png 0 0 640 480 320 240
+neg/background/background_10/background_10_123.png 0 0 640 480 320 240
+neg/background/background_10/background_10_13.png 0 0 640 480 320 240
+neg/background/background_10/background_10_14.png 0 0 640 480 320 240
+neg/background/background_10/background_10_15.png 0 0 640 480 320 240
+neg/background/background_10/background_10_16.png 0 0 640 480 320 240
+neg/background/background_10/background_10_17.png 0 0 640 480 320 240
+neg/background/background_10/background_10_18.png 0 0 640 480 320 240
+neg/background/background_10/background_10_23.png 0 0 640 480 320 240
+neg/background/background_10/background_10_25.png 0 0 640 480 320 240
+neg/background/background_10/background_10_26.png 0 0 640 480 320 240
+neg/background/background_10/background_10_37.png 0 0 640 480 320 240
+neg/background/background_10/background_10_38.png 0 0 640 480 320 240
+neg/background/background_10/background_10_39.png 0 0 640 480 320 240
+neg/background/background_10/background_10_40.png 0 0 640 480 320 240
+neg/background/background_10/background_10_41.png 0 0 640 480 320 240
+neg/background/background_10/background_10_42.png 0 0 640 480 320 240
+neg/background/background_10/background_10_43.png 0 0 640 480 320 240
+neg/background/background_10/background_10_44.png 0 0 640 480 320 240
+neg/background/background_10/background_10_45.png 0 0 640 480 320 240
+neg/background/background_10/background_10_46.png 0 0 640 480 320 240
+neg/background/background_10/background_10_47.png 0 0 640 480 320 240
+neg/background/background_10/background_10_48.png 0 0 640 480 320 240
+neg/background/background_10/background_10_49.png 0 0 640 480 320 240
+neg/background/background_10/background_10_50.png 0 0 640 480 320 240
+neg/background/background_10/background_10_51.png 0 0 640 480 320 240
+neg/background/background_10/background_10_52.png 0 0 640 480 320 240
+neg/background/background_10/background_10_53.png 0 0 640 480 320 240
+neg/background/background_10/background_10_54.png 0 0 640 480 320 240
+neg/background/background_10/background_10_55.png 0 0 640 480 320 240
+neg/background/background_10/background_10_6.png 0 0 640 480 320 240
+neg/background/background_10/background_10_7.png 0 0 640 480 320 240
+neg/background/background_10/background_10_72.png 0 0 640 480 320 240
+neg/background/background_10/background_10_73.png 0 0 640 480 320 240
+neg/background/background_10/background_10_74.png 0 0 640 480 320 240
+neg/background/background_10/background_10_75.png 0 0 640 480 320 240
+neg/background/background_10/background_10_76.png 0 0 640 480 320 240
+neg/background/background_10/background_10_77.png 0 0 640 480 320 240
+neg/background/background_10/background_10_78.png 0 0 640 480 320 240
+neg/background/background_10/background_10_79.png 0 0 640 480 320 240
+neg/background/background_10/background_10_8.png 0 0 640 480 320 240
+neg/background/background_10/background_10_80.png 0 0 640 480 320 240
+neg/background/background_10/background_10_81.png 0 0 640 480 320 240
+neg/background/background_10/background_10_82.png 0 0 640 480 320 240
+neg/background/background_10/background_10_83.png 0 0 640 480 320 240
+neg/background/background_10/background_10_84.png 0 0 640 480 320 240
+neg/background/background_10/background_10_85.png 0 0 640 480 320 240
+neg/background/background_10/background_10_86.png 0 0 640 480 320 240
+neg/background/background_10/background_10_87.png 0 0 640 480 320 240
+neg/background/background_10/background_10_88.png 0 0 640 480 320 240
+neg/background/background_10/background_10_89.png 0 0 640 480 320 240
+neg/background/background_10/background_10_9.png 0 0 640 480 320 240
+neg/background/background_10/background_10_90.png 0 0 640 480 320 240
+neg/background/background_10/background_10_91.png 0 0 640 480 320 240
+neg/background/background_10/background_10_92.png 0 0 640 480 320 240
+neg/background/background_10/background_10_93.png 0 0 640 480 320 240
+neg/background/background_10/background_10_94.png 0 0 640 480 320 240
+neg/background/background_10/background_10_95.png 0 0 640 480 320 240
+neg/background/background_10/background_10_96.png 0 0 640 480 320 240
+neg/background/background_10/background_10_97.png 0 0 640 480 320 240
+neg/background/background_10/background_10_98.png 0 0 640 480 320 240
+neg/background/background_10/background_10_99.png 0 0 640 480 320 240
+neg/background/background_11/background_11_10.png 0 0 640 480 320 240
+neg/background/background_11/background_11_100.png 0 0 640 480 320 240
+neg/background/background_11/background_11_101.png 0 0 640 480 320 240
+neg/background/background_11/background_11_102.png 0 0 640 480 320 240
+neg/background/background_11/background_11_103.png 0 0 640 480 320 240
+neg/background/background_11/background_11_104.png 0 0 640 480 320 240
+neg/background/background_11/background_11_105.png 0 0 640 480 320 240
+neg/background/background_11/background_11_106.png 0 0 640 480 320 240
+neg/background/background_11/background_11_107.png 0 0 640 480 320 240
+neg/background/background_11/background_11_108.png 0 0 640 480 320 240
+neg/background/background_11/background_11_109.png 0 0 640 480 320 240
+neg/background/background_11/background_11_110.png 0 0 640 480 320 240
+neg/background/background_11/background_11_111.png 0 0 640 480 320 240
+neg/background/background_11/background_11_112.png 0 0 640 480 320 240
+neg/background/background_11/background_11_113.png 0 0 640 480 320 240
+neg/background/background_11/background_11_114.png 0 0 640 480 320 240
+neg/background/background_11/background_11_115.png 0 0 640 480 320 240
+neg/background/background_11/background_11_116.png 0 0 640 480 320 240
+neg/background/background_11/background_11_117.png 0 0 640 480 320 240
+neg/background/background_11/background_11_118.png 0 0 640 480 320 240
+neg/background/background_11/background_11_12.png 0 0 640 480 320 240
+neg/background/background_11/background_11_120.png 0 0 640 480 320 240
+neg/background/background_11/background_11_122.png 0 0 640 480 320 240
+neg/background/background_11/background_11_123.png 0 0 640 480 320 240
+neg/background/background_11/background_11_124.png 0 0 640 480 320 240
+neg/background/background_11/background_11_125.png 0 0 640 480 320 240
+neg/background/background_11/background_11_126.png 0 0 640 480 320 240
+neg/background/background_11/background_11_127.png 0 0 640 480 320 240
+neg/background/background_11/background_11_128.png 0 0 640 480 320 240
+neg/background/background_11/background_11_129.png 0 0 640 480 320 240
+neg/background/background_11/background_11_13.png 0 0 640 480 320 240
+neg/background/background_11/background_11_130.png 0 0 640 480 320 240
+neg/background/background_11/background_11_131.png 0 0 640 480 320 240
+neg/background/background_11/background_11_132.png 0 0 640 480 320 240
+neg/background/background_11/background_11_133.png 0 0 640 480 320 240
+neg/background/background_11/background_11_134.png 0 0 640 480 320 240
+neg/background/background_11/background_11_135.png 0 0 640 480 320 240
+neg/background/background_11/background_11_136.png 0 0 640 480 320 240
+neg/background/background_11/background_11_137.png 0 0 640 480 320 240
+neg/background/background_11/background_11_138.png 0 0 640 480 320 240
+neg/background/background_11/background_11_139.png 0 0 640 480 320 240
+neg/background/background_11/background_11_14.png 0 0 640 480 320 240
+neg/background/background_11/background_11_140.png 0 0 640 480 320 240
+neg/background/background_11/background_11_141.png 0 0 640 480 320 240
+neg/background/background_11/background_11_142.png 0 0 640 480 320 240
+neg/background/background_11/background_11_147.png 0 0 640 480 320 240
+neg/background/background_11/background_11_148.png 0 0 640 480 320 240
+neg/background/background_11/background_11_149.png 0 0 640 480 320 240
+neg/background/background_11/background_11_15.png 0 0 640 480 320 240
+neg/background/background_11/background_11_150.png 0 0 640 480 320 240
+neg/background/background_11/background_11_151.png 0 0 640 480 320 240
+neg/background/background_11/background_11_152.png 0 0 640 480 320 240
+neg/background/background_11/background_11_153.png 0 0 640 480 320 240
+neg/background/background_11/background_11_154.png 0 0 640 480 320 240
+neg/background/background_11/background_11_155.png 0 0 640 480 320 240
+neg/background/background_11/background_11_156.png 0 0 640 480 320 240
+neg/background/background_11/background_11_157.png 0 0 640 480 320 240
+neg/background/background_11/background_11_158.png 0 0 640 480 320 240
+neg/background/background_11/background_11_159.png 0 0 640 480 320 240
+neg/background/background_11/background_11_16.png 0 0 640 480 320 240
+neg/background/background_11/background_11_160.png 0 0 640 480 320 240
+neg/background/background_11/background_11_161.png 0 0 640 480 320 240
+neg/background/background_11/background_11_162.png 0 0 640 480 320 240
+neg/background/background_11/background_11_163.png 0 0 640 480 320 240
+neg/background/background_11/background_11_164.png 0 0 640 480 320 240
+neg/background/background_11/background_11_165.png 0 0 640 480 320 240
+neg/background/background_11/background_11_166.png 0 0 640 480 320 240
+neg/background/background_11/background_11_167.png 0 0 640 480 320 240
+neg/background/background_11/background_11_168.png 0 0 640 480 320 240
+neg/background/background_11/background_11_169.png 0 0 640 480 320 240
+neg/background/background_11/background_11_17.png 0 0 640 480 320 240
+neg/background/background_11/background_11_170.png 0 0 640 480 320 240
+neg/background/background_11/background_11_171.png 0 0 640 480 320 240
+neg/background/background_11/background_11_172.png 0 0 640 480 320 240
+neg/background/background_11/background_11_176.png 0 0 640 480 320 240
+neg/background/background_11/background_11_19.png 0 0 640 480 320 240
+neg/background/background_11/background_11_20.png 0 0 640 480 320 240
+neg/background/background_11/background_11_21.png 0 0 640 480 320 240
+neg/background/background_11/background_11_22.png 0 0 640 480 320 240
+neg/background/background_11/background_11_23.png 0 0 640 480 320 240
+neg/background/background_11/background_11_24.png 0 0 640 480 320 240
+neg/background/background_11/background_11_25.png 0 0 640 480 320 240
+neg/background/background_11/background_11_26.png 0 0 640 480 320 240
+neg/background/background_11/background_11_27.png 0 0 640 480 320 240
+neg/background/background_11/background_11_28.png 0 0 640 480 320 240
+neg/background/background_11/background_11_32.png 0 0 640 480 320 240
+neg/background/background_11/background_11_34.png 0 0 640 480 320 240
+neg/background/background_11/background_11_35.png 0 0 640 480 320 240
+neg/background/background_11/background_11_36.png 0 0 640 480 320 240
+neg/background/background_11/background_11_37.png 0 0 640 480 320 240
+neg/background/background_11/background_11_38.png 0 0 640 480 320 240
+neg/background/background_11/background_11_41.png 0 0 640 480 320 240
+neg/background/background_11/background_11_42.png 0 0 640 480 320 240
+neg/background/background_11/background_11_43.png 0 0 640 480 320 240
+neg/background/background_11/background_11_44.png 0 0 640 480 320 240
+neg/background/background_11/background_11_45.png 0 0 640 480 320 240
+neg/background/background_11/background_11_46.png 0 0 640 480 320 240
+neg/background/background_11/background_11_47.png 0 0 640 480 320 240
+neg/background/background_11/background_11_48.png 0 0 640 480 320 240
+neg/background/background_11/background_11_49.png 0 0 640 480 320 240
+neg/background/background_11/background_11_50.png 0 0 640 480 320 240
+neg/background/background_11/background_11_51.png 0 0 640 480 320 240
+neg/background/background_11/background_11_52.png 0 0 640 480 320 240
+neg/background/background_11/background_11_53.png 0 0 640 480 320 240
+neg/background/background_11/background_11_54.png 0 0 640 480 320 240
+neg/background/background_11/background_11_55.png 0 0 640 480 320 240
+neg/background/background_11/background_11_56.png 0 0 640 480 320 240
+neg/background/background_11/background_11_57.png 0 0 640 480 320 240
+neg/background/background_11/background_11_58.png 0 0 640 480 320 240
+neg/background/background_11/background_11_59.png 0 0 640 480 320 240
+neg/background/background_11/background_11_60.png 0 0 640 480 320 240
+neg/background/background_11/background_11_61.png 0 0 640 480 320 240
+neg/background/background_11/background_11_62.png 0 0 640 480 320 240
+neg/background/background_11/background_11_63.png 0 0 640 480 320 240
+neg/background/background_11/background_11_64.png 0 0 640 480 320 240
+neg/background/background_11/background_11_65.png 0 0 640 480 320 240
+neg/background/background_11/background_11_66.png 0 0 640 480 320 240
+neg/background/background_11/background_11_67.png 0 0 640 480 320 240
+neg/background/background_11/background_11_68.png 0 0 640 480 320 240
+neg/background/background_11/background_11_69.png 0 0 640 480 320 240
+neg/background/background_11/background_11_7.png 0 0 640 480 320 240
+neg/background/background_11/background_11_70.png 0 0 640 480 320 240
+neg/background/background_11/background_11_74.png 0 0 640 480 320 240
+neg/background/background_11/background_11_75.png 0 0 640 480 320 240
+neg/background/background_11/background_11_76.png 0 0 640 480 320 240
+neg/background/background_11/background_11_77.png 0 0 640 480 320 240
+neg/background/background_11/background_11_78.png 0 0 640 480 320 240
+neg/background/background_11/background_11_79.png 0 0 640 480 320 240
+neg/background/background_11/background_11_8.png 0 0 640 480 320 240
+neg/background/background_11/background_11_80.png 0 0 640 480 320 240
+neg/background/background_11/background_11_81.png 0 0 640 480 320 240
+neg/background/background_11/background_11_82.png 0 0 640 480 320 240
+neg/background/background_11/background_11_86.png 0 0 640 480 320 240
+neg/background/background_11/background_11_87.png 0 0 640 480 320 240
+neg/background/background_11/background_11_88.png 0 0 640 480 320 240
+neg/background/background_11/background_11_89.png 0 0 640 480 320 240
+neg/background/background_11/background_11_9.png 0 0 640 480 320 240
+neg/background/background_11/background_11_92.png 0 0 640 480 320 240
+neg/background/background_11/background_11_93.png 0 0 640 480 320 240
+neg/background/background_11/background_11_99.png 0 0 640 480 320 240
+neg/background/background_2/background_2_1.png 0 0 640 480 320 240
+neg/background/background_2/background_2_10.png 0 0 640 480 320 240
+neg/background/background_2/background_2_100.png 0 0 640 480 320 240
+neg/background/background_2/background_2_101.png 0 0 640 480 320 240
+neg/background/background_2/background_2_102.png 0 0 640 480 320 240
+neg/background/background_2/background_2_103.png 0 0 640 480 320 240
+neg/background/background_2/background_2_104.png 0 0 640 480 320 240
+neg/background/background_2/background_2_105.png 0 0 640 480 320 240
+neg/background/background_2/background_2_106.png 0 0 640 480 320 240
+neg/background/background_2/background_2_107.png 0 0 640 480 320 240
+neg/background/background_2/background_2_108.png 0 0 640 480 320 240
+neg/background/background_2/background_2_109.png 0 0 640 480 320 240
+neg/background/background_2/background_2_11.png 0 0 640 480 320 240
+neg/background/background_2/background_2_110.png 0 0 640 480 320 240
+neg/background/background_2/background_2_111.png 0 0 640 480 320 240
+neg/background/background_2/background_2_112.png 0 0 640 480 320 240
+neg/background/background_2/background_2_113.png 0 0 640 480 320 240
+neg/background/background_2/background_2_114.png 0 0 640 480 320 240
+neg/background/background_2/background_2_115.png 0 0 640 480 320 240
+neg/background/background_2/background_2_116.png 0 0 640 480 320 240
+neg/background/background_2/background_2_117.png 0 0 640 480 320 240
+neg/background/background_2/background_2_118.png 0 0 640 480 320 240
+neg/background/background_2/background_2_119.png 0 0 640 480 320 240
+neg/background/background_2/background_2_12.png 0 0 640 480 320 240
+neg/background/background_2/background_2_120.png 0 0 640 480 320 240
+neg/background/background_2/background_2_121.png 0 0 640 480 320 240
+neg/background/background_2/background_2_122.png 0 0 640 480 320 240
+neg/background/background_2/background_2_123.png 0 0 640 480 320 240
+neg/background/background_2/background_2_124.png 0 0 640 480 320 240
+neg/background/background_2/background_2_125.png 0 0 640 480 320 240
+neg/background/background_2/background_2_126.png 0 0 640 480 320 240
+neg/background/background_2/background_2_127.png 0 0 640 480 320 240
+neg/background/background_2/background_2_128.png 0 0 640 480 320 240
+neg/background/background_2/background_2_129.png 0 0 640 480 320 240
+neg/background/background_2/background_2_13.png 0 0 640 480 320 240
+neg/background/background_2/background_2_130.png 0 0 640 480 320 240
+neg/background/background_2/background_2_131.png 0 0 640 480 320 240
+neg/background/background_2/background_2_132.png 0 0 640 480 320 240
+neg/background/background_2/background_2_133.png 0 0 640 480 320 240
+neg/background/background_2/background_2_134.png 0 0 640 480 320 240
+neg/background/background_2/background_2_135.png 0 0 640 480 320 240
+neg/background/background_2/background_2_136.png 0 0 640 480 320 240
+neg/background/background_2/background_2_137.png 0 0 640 480 320 240
+neg/background/background_2/background_2_138.png 0 0 640 480 320 240
+neg/background/background_2/background_2_139.png 0 0 640 480 320 240
+neg/background/background_2/background_2_14.png 0 0 640 480 320 240
+neg/background/background_2/background_2_140.png 0 0 640 480 320 240
+neg/background/background_2/background_2_141.png 0 0 640 480 320 240
+neg/background/background_2/background_2_142.png 0 0 640 480 320 240
+neg/background/background_2/background_2_143.png 0 0 640 480 320 240
+neg/background/background_2/background_2_144.png 0 0 640 480 320 240
+neg/background/background_2/background_2_145.png 0 0 640 480 320 240
+neg/background/background_2/background_2_146.png 0 0 640 480 320 240
+neg/background/background_2/background_2_147.png 0 0 640 480 320 240
+neg/background/background_2/background_2_148.png 0 0 640 480 320 240
+neg/background/background_2/background_2_149.png 0 0 640 480 320 240
+neg/background/background_2/background_2_15.png 0 0 640 480 320 240
+neg/background/background_2/background_2_150.png 0 0 640 480 320 240
+neg/background/background_2/background_2_151.png 0 0 640 480 320 240
+neg/background/background_2/background_2_16.png 0 0 640 480 320 240
+neg/background/background_2/background_2_17.png 0 0 640 480 320 240
+neg/background/background_2/background_2_18.png 0 0 640 480 320 240
+neg/background/background_2/background_2_19.png 0 0 640 480 320 240
+neg/background/background_2/background_2_2.png 0 0 640 480 320 240
+neg/background/background_2/background_2_20.png 0 0 640 480 320 240
+neg/background/background_2/background_2_21.png 0 0 640 480 320 240
+neg/background/background_2/background_2_22.png 0 0 640 480 320 240
+neg/background/background_2/background_2_23.png 0 0 640 480 320 240
+neg/background/background_2/background_2_24.png 0 0 640 480 320 240
+neg/background/background_2/background_2_25.png 0 0 640 480 320 240
+neg/background/background_2/background_2_26.png 0 0 640 480 320 240
+neg/background/background_2/background_2_27.png 0 0 640 480 320 240
+neg/background/background_2/background_2_28.png 0 0 640 480 320 240
+neg/background/background_2/background_2_29.png 0 0 640 480 320 240
+neg/background/background_2/background_2_30.png 0 0 640 480 320 240
+neg/background/background_2/background_2_31.png 0 0 640 480 320 240
+neg/background/background_2/background_2_32.png 0 0 640 480 320 240
+neg/background/background_2/background_2_33.png 0 0 640 480 320 240
+neg/background/background_2/background_2_34.png 0 0 640 480 320 240
+neg/background/background_2/background_2_35.png 0 0 640 480 320 240
+neg/background/background_2/background_2_36.png 0 0 640 480 320 240
+neg/background/background_2/background_2_37.png 0 0 640 480 320 240
+neg/background/background_2/background_2_38.png 0 0 640 480 320 240
+neg/background/background_2/background_2_39.png 0 0 640 480 320 240
+neg/background/background_2/background_2_4.png 0 0 640 480 320 240
+neg/background/background_2/background_2_40.png 0 0 640 480 320 240
+neg/background/background_2/background_2_41.png 0 0 640 480 320 240
+neg/background/background_2/background_2_42.png 0 0 640 480 320 240
+neg/background/background_2/background_2_43.png 0 0 640 480 320 240
+neg/background/background_2/background_2_44.png 0 0 640 480 320 240
+neg/background/background_2/background_2_45.png 0 0 640 480 320 240
+neg/background/background_2/background_2_46.png 0 0 640 480 320 240
+neg/background/background_2/background_2_47.png 0 0 640 480 320 240
+neg/background/background_2/background_2_48.png 0 0 640 480 320 240
+neg/background/background_2/background_2_49.png 0 0 640 480 320 240
+neg/background/background_2/background_2_5.png 0 0 640 480 320 240
+neg/background/background_2/background_2_50.png 0 0 640 480 320 240
+neg/background/background_2/background_2_51.png 0 0 640 480 320 240
+neg/background/background_2/background_2_52.png 0 0 640 480 320 240
+neg/background/background_2/background_2_53.png 0 0 640 480 320 240
+neg/background/background_2/background_2_54.png 0 0 640 480 320 240
+neg/background/background_2/background_2_55.png 0 0 640 480 320 240
+neg/background/background_2/background_2_56.png 0 0 640 480 320 240
+neg/background/background_2/background_2_57.png 0 0 640 480 320 240
+neg/background/background_2/background_2_58.png 0 0 640 480 320 240
+neg/background/background_2/background_2_59.png 0 0 640 480 320 240
+neg/background/background_2/background_2_6.png 0 0 640 480 320 240
+neg/background/background_2/background_2_60.png 0 0 640 480 320 240
+neg/background/background_2/background_2_61.png 0 0 640 480 320 240
+neg/background/background_2/background_2_62.png 0 0 640 480 320 240
+neg/background/background_2/background_2_63.png 0 0 640 480 320 240
+neg/background/background_2/background_2_64.png 0 0 640 480 320 240
+neg/background/background_2/background_2_65.png 0 0 640 480 320 240
+neg/background/background_2/background_2_66.png 0 0 640 480 320 240
+neg/background/background_2/background_2_67.png 0 0 640 480 320 240
+neg/background/background_2/background_2_68.png 0 0 640 480 320 240
+neg/background/background_2/background_2_69.png 0 0 640 480 320 240
+neg/background/background_2/background_2_7.png 0 0 640 480 320 240
+neg/background/background_2/background_2_70.png 0 0 640 480 320 240
+neg/background/background_2/background_2_71.png 0 0 640 480 320 240
+neg/background/background_2/background_2_72.png 0 0 640 480 320 240
+neg/background/background_2/background_2_73.png 0 0 640 480 320 240
+neg/background/background_2/background_2_74.png 0 0 640 480 320 240
+neg/background/background_2/background_2_75.png 0 0 640 480 320 240
+neg/background/background_2/background_2_76.png 0 0 640 480 320 240
+neg/background/background_2/background_2_77.png 0 0 640 480 320 240
+neg/background/background_2/background_2_78.png 0 0 640 480 320 240
+neg/background/background_2/background_2_79.png 0 0 640 480 320 240
+neg/background/background_2/background_2_8.png 0 0 640 480 320 240
+neg/background/background_2/background_2_80.png 0 0 640 480 320 240
+neg/background/background_2/background_2_81.png 0 0 640 480 320 240
+neg/background/background_2/background_2_82.png 0 0 640 480 320 240
+neg/background/background_2/background_2_83.png 0 0 640 480 320 240
+neg/background/background_2/background_2_84.png 0 0 640 480 320 240
+neg/background/background_2/background_2_85.png 0 0 640 480 320 240
+neg/background/background_2/background_2_86.png 0 0 640 480 320 240
+neg/background/background_2/background_2_87.png 0 0 640 480 320 240
+neg/background/background_2/background_2_88.png 0 0 640 480 320 240
+neg/background/background_2/background_2_89.png 0 0 640 480 320 240
+neg/background/background_2/background_2_9.png 0 0 640 480 320 240
+neg/background/background_2/background_2_90.png 0 0 640 480 320 240
+neg/background/background_2/background_2_91.png 0 0 640 480 320 240
+neg/background/background_2/background_2_92.png 0 0 640 480 320 240
+neg/background/background_2/background_2_93.png 0 0 640 480 320 240
+neg/background/background_2/background_2_94.png 0 0 640 480 320 240
+neg/background/background_2/background_2_95.png 0 0 640 480 320 240
+neg/background/background_2/background_2_96.png 0 0 640 480 320 240
+neg/background/background_2/background_2_97.png 0 0 640 480 320 240
+neg/background/background_2/background_2_98.png 0 0 640 480 320 240
+neg/background/background_2/background_2_99.png 0 0 640 480 320 240
+neg/background/background_3/background_3_10.png 0 0 640 480 320 240
+neg/background/background_3/background_3_100.png 0 0 640 480 320 240
+neg/background/background_3/background_3_101.png 0 0 640 480 320 240
+neg/background/background_3/background_3_102.png 0 0 640 480 320 240
+neg/background/background_3/background_3_103.png 0 0 640 480 320 240
+neg/background/background_3/background_3_104.png 0 0 640 480 320 240
+neg/background/background_3/background_3_105.png 0 0 640 480 320 240
+neg/background/background_3/background_3_106.png 0 0 640 480 320 240
+neg/background/background_3/background_3_107.png 0 0 640 480 320 240
+neg/background/background_3/background_3_108.png 0 0 640 480 320 240
+neg/background/background_3/background_3_109.png 0 0 640 480 320 240
+neg/background/background_3/background_3_11.png 0 0 640 480 320 240
+neg/background/background_3/background_3_110.png 0 0 640 480 320 240
+neg/background/background_3/background_3_111.png 0 0 640 480 320 240
+neg/background/background_3/background_3_112.png 0 0 640 480 320 240
+neg/background/background_3/background_3_113.png 0 0 640 480 320 240
+neg/background/background_3/background_3_12.png 0 0 640 480 320 240
+neg/background/background_3/background_3_13.png 0 0 640 480 320 240
+neg/background/background_3/background_3_14.png 0 0 640 480 320 240
+neg/background/background_3/background_3_15.png 0 0 640 480 320 240
+neg/background/background_3/background_3_16.png 0 0 640 480 320 240
+neg/background/background_3/background_3_17.png 0 0 640 480 320 240
+neg/background/background_3/background_3_18.png 0 0 640 480 320 240
+neg/background/background_3/background_3_19.png 0 0 640 480 320 240
+neg/background/background_3/background_3_20.png 0 0 640 480 320 240
+neg/background/background_3/background_3_21.png 0 0 640 480 320 240
+neg/background/background_3/background_3_22.png 0 0 640 480 320 240
+neg/background/background_3/background_3_23.png 0 0 640 480 320 240
+neg/background/background_3/background_3_24.png 0 0 640 480 320 240
+neg/background/background_3/background_3_25.png 0 0 640 480 320 240
+neg/background/background_3/background_3_26.png 0 0 640 480 320 240
+neg/background/background_3/background_3_27.png 0 0 640 480 320 240
+neg/background/background_3/background_3_28.png 0 0 640 480 320 240
+neg/background/background_3/background_3_29.png 0 0 640 480 320 240
+neg/background/background_3/background_3_3.png 0 0 640 480 320 240
+neg/background/background_3/background_3_30.png 0 0 640 480 320 240
+neg/background/background_3/background_3_31.png 0 0 640 480 320 240
+neg/background/background_3/background_3_32.png 0 0 640 480 320 240
+neg/background/background_3/background_3_33.png 0 0 640 480 320 240
+neg/background/background_3/background_3_34.png 0 0 640 480 320 240
+neg/background/background_3/background_3_35.png 0 0 640 480 320 240
+neg/background/background_3/background_3_36.png 0 0 640 480 320 240
+neg/background/background_3/background_3_37.png 0 0 640 480 320 240
+neg/background/background_3/background_3_38.png 0 0 640 480 320 240
+neg/background/background_3/background_3_39.png 0 0 640 480 320 240
+neg/background/background_3/background_3_4.png 0 0 640 480 320 240
+neg/background/background_3/background_3_40.png 0 0 640 480 320 240
+neg/background/background_3/background_3_41.png 0 0 640 480 320 240
+neg/background/background_3/background_3_42.png 0 0 640 480 320 240
+neg/background/background_3/background_3_43.png 0 0 640 480 320 240
+neg/background/background_3/background_3_44.png 0 0 640 480 320 240
+neg/background/background_3/background_3_45.png 0 0 640 480 320 240
+neg/background/background_3/background_3_46.png 0 0 640 480 320 240
+neg/background/background_3/background_3_47.png 0 0 640 480 320 240
+neg/background/background_3/background_3_48.png 0 0 640 480 320 240
+neg/background/background_3/background_3_49.png 0 0 640 480 320 240
+neg/background/background_3/background_3_5.png 0 0 640 480 320 240
+neg/background/background_3/background_3_50.png 0 0 640 480 320 240
+neg/background/background_3/background_3_51.png 0 0 640 480 320 240
+neg/background/background_3/background_3_52.png 0 0 640 480 320 240
+neg/background/background_3/background_3_53.png 0 0 640 480 320 240
+neg/background/background_3/background_3_54.png 0 0 640 480 320 240
+neg/background/background_3/background_3_55.png 0 0 640 480 320 240
+neg/background/background_3/background_3_56.png 0 0 640 480 320 240
+neg/background/background_3/background_3_57.png 0 0 640 480 320 240
+neg/background/background_3/background_3_58.png 0 0 640 480 320 240
+neg/background/background_3/background_3_59.png 0 0 640 480 320 240
+neg/background/background_3/background_3_6.png 0 0 640 480 320 240
+neg/background/background_3/background_3_60.png 0 0 640 480 320 240
+neg/background/background_3/background_3_61.png 0 0 640 480 320 240
+neg/background/background_3/background_3_62.png 0 0 640 480 320 240
+neg/background/background_3/background_3_63.png 0 0 640 480 320 240
+neg/background/background_3/background_3_64.png 0 0 640 480 320 240
+neg/background/background_3/background_3_65.png 0 0 640 480 320 240
+neg/background/background_3/background_3_66.png 0 0 640 480 320 240
+neg/background/background_3/background_3_67.png 0 0 640 480 320 240
+neg/background/background_3/background_3_68.png 0 0 640 480 320 240
+neg/background/background_3/background_3_69.png 0 0 640 480 320 240
+neg/background/background_3/background_3_7.png 0 0 640 480 320 240
+neg/background/background_3/background_3_70.png 0 0 640 480 320 240
+neg/background/background_3/background_3_71.png 0 0 640 480 320 240
+neg/background/background_3/background_3_72.png 0 0 640 480 320 240
+neg/background/background_3/background_3_73.png 0 0 640 480 320 240
+neg/background/background_3/background_3_74.png 0 0 640 480 320 240
+neg/background/background_3/background_3_75.png 0 0 640 480 320 240
+neg/background/background_3/background_3_76.png 0 0 640 480 320 240
+neg/background/background_3/background_3_77.png 0 0 640 480 320 240
+neg/background/background_3/background_3_78.png 0 0 640 480 320 240
+neg/background/background_3/background_3_79.png 0 0 640 480 320 240
+neg/background/background_3/background_3_8.png 0 0 640 480 320 240
+neg/background/background_3/background_3_80.png 0 0 640 480 320 240
+neg/background/background_3/background_3_81.png 0 0 640 480 320 240
+neg/background/background_3/background_3_82.png 0 0 640 480 320 240
+neg/background/background_3/background_3_83.png 0 0 640 480 320 240
+neg/background/background_3/background_3_84.png 0 0 640 480 320 240
+neg/background/background_3/background_3_85.png 0 0 640 480 320 240
+neg/background/background_3/background_3_86.png 0 0 640 480 320 240
+neg/background/background_3/background_3_87.png 0 0 640 480 320 240
+neg/background/background_3/background_3_88.png 0 0 640 480 320 240
+neg/background/background_3/background_3_89.png 0 0 640 480 320 240
+neg/background/background_3/background_3_9.png 0 0 640 480 320 240
+neg/background/background_3/background_3_90.png 0 0 640 480 320 240
+neg/background/background_3/background_3_91.png 0 0 640 480 320 240
+neg/background/background_3/background_3_92.png 0 0 640 480 320 240
+neg/background/background_3/background_3_93.png 0 0 640 480 320 240
+neg/background/background_3/background_3_94.png 0 0 640 480 320 240
+neg/background/background_3/background_3_95.png 0 0 640 480 320 240
+neg/background/background_3/background_3_96.png 0 0 640 480 320 240
+neg/background/background_3/background_3_97.png 0 0 640 480 320 240
+neg/background/background_3/background_3_98.png 0 0 640 480 320 240
+neg/background/background_3/background_3_99.png 0 0 640 480 320 240
+neg/background/background_4/background_4_10.png 0 0 640 480 320 240
+neg/background/background_4/background_4_100.png 0 0 640 480 320 240
+neg/background/background_4/background_4_101.png 0 0 640 480 320 240
+neg/background/background_4/background_4_102.png 0 0 640 480 320 240
+neg/background/background_4/background_4_103.png 0 0 640 480 320 240
+neg/background/background_4/background_4_104.png 0 0 640 480 320 240
+neg/background/background_4/background_4_105.png 0 0 640 480 320 240
+neg/background/background_4/background_4_106.png 0 0 640 480 320 240
+neg/background/background_4/background_4_107.png 0 0 640 480 320 240
+neg/background/background_4/background_4_108.png 0 0 640 480 320 240
+neg/background/background_4/background_4_109.png 0 0 640 480 320 240
+neg/background/background_4/background_4_11.png 0 0 640 480 320 240
+neg/background/background_4/background_4_110.png 0 0 640 480 320 240
+neg/background/background_4/background_4_111.png 0 0 640 480 320 240
+neg/background/background_4/background_4_112.png 0 0 640 480 320 240
+neg/background/background_4/background_4_119.png 0 0 640 480 320 240
+neg/background/background_4/background_4_12.png 0 0 640 480 320 240
+neg/background/background_4/background_4_120.png 0 0 640 480 320 240
+neg/background/background_4/background_4_121.png 0 0 640 480 320 240
+neg/background/background_4/background_4_122.png 0 0 640 480 320 240
+neg/background/background_4/background_4_123.png 0 0 640 480 320 240
+neg/background/background_4/background_4_124.png 0 0 640 480 320 240
+neg/background/background_4/background_4_125.png 0 0 640 480 320 240
+neg/background/background_4/background_4_126.png 0 0 640 480 320 240
+neg/background/background_4/background_4_127.png 0 0 640 480 320 240
+neg/background/background_4/background_4_128.png 0 0 640 480 320 240
+neg/background/background_4/background_4_129.png 0 0 640 480 320 240
+neg/background/background_4/background_4_13.png 0 0 640 480 320 240
+neg/background/background_4/background_4_130.png 0 0 640 480 320 240
+neg/background/background_4/background_4_131.png 0 0 640 480 320 240
+neg/background/background_4/background_4_132.png 0 0 640 480 320 240
+neg/background/background_4/background_4_133.png 0 0 640 480 320 240
+neg/background/background_4/background_4_134.png 0 0 640 480 320 240
+neg/background/background_4/background_4_135.png 0 0 640 480 320 240
+neg/background/background_4/background_4_136.png 0 0 640 480 320 240
+neg/background/background_4/background_4_137.png 0 0 640 480 320 240
+neg/background/background_4/background_4_138.png 0 0 640 480 320 240
+neg/background/background_4/background_4_139.png 0 0 640 480 320 240
+neg/background/background_4/background_4_14.png 0 0 640 480 320 240
+neg/background/background_4/background_4_140.png 0 0 640 480 320 240
+neg/background/background_4/background_4_141.png 0 0 640 480 320 240
+neg/background/background_4/background_4_142.png 0 0 640 480 320 240
+neg/background/background_4/background_4_143.png 0 0 640 480 320 240
+neg/background/background_4/background_4_144.png 0 0 640 480 320 240
+neg/background/background_4/background_4_145.png 0 0 640 480 320 240
+neg/background/background_4/background_4_15.png 0 0 640 480 320 240
+neg/background/background_4/background_4_16.png 0 0 640 480 320 240
+neg/background/background_4/background_4_17.png 0 0 640 480 320 240
+neg/background/background_4/background_4_18.png 0 0 640 480 320 240
+neg/background/background_4/background_4_19.png 0 0 640 480 320 240
+neg/background/background_4/background_4_20.png 0 0 640 480 320 240
+neg/background/background_4/background_4_21.png 0 0 640 480 320 240
+neg/background/background_4/background_4_22.png 0 0 640 480 320 240
+neg/background/background_4/background_4_23.png 0 0 640 480 320 240
+neg/background/background_4/background_4_24.png 0 0 640 480 320 240
+neg/background/background_4/background_4_25.png 0 0 640 480 320 240
+neg/background/background_4/background_4_26.png 0 0 640 480 320 240
+neg/background/background_4/background_4_27.png 0 0 640 480 320 240
+neg/background/background_4/background_4_28.png 0 0 640 480 320 240
+neg/background/background_4/background_4_29.png 0 0 640 480 320 240
+neg/background/background_4/background_4_30.png 0 0 640 480 320 240
+neg/background/background_4/background_4_31.png 0 0 640 480 320 240
+neg/background/background_4/background_4_32.png 0 0 640 480 320 240
+neg/background/background_4/background_4_33.png 0 0 640 480 320 240
+neg/background/background_4/background_4_34.png 0 0 640 480 320 240
+neg/background/background_4/background_4_35.png 0 0 640 480 320 240
+neg/background/background_4/background_4_36.png 0 0 640 480 320 240
+neg/background/background_4/background_4_37.png 0 0 640 480 320 240
+neg/background/background_4/background_4_38.png 0 0 640 480 320 240
+neg/background/background_4/background_4_39.png 0 0 640 480 320 240
+neg/background/background_4/background_4_40.png 0 0 640 480 320 240
+neg/background/background_4/background_4_41.png 0 0 640 480 320 240
+neg/background/background_4/background_4_42.png 0 0 640 480 320 240
+neg/background/background_4/background_4_43.png 0 0 640 480 320 240
+neg/background/background_4/background_4_44.png 0 0 640 480 320 240
+neg/background/background_4/background_4_45.png 0 0 640 480 320 240
+neg/background/background_4/background_4_46.png 0 0 640 480 320 240
+neg/background/background_4/background_4_47.png 0 0 640 480 320 240
+neg/background/background_4/background_4_48.png 0 0 640 480 320 240
+neg/background/background_4/background_4_49.png 0 0 640 480 320 240
+neg/background/background_4/background_4_50.png 0 0 640 480 320 240
+neg/background/background_4/background_4_51.png 0 0 640 480 320 240
+neg/background/background_4/background_4_52.png 0 0 640 480 320 240
+neg/background/background_4/background_4_53.png 0 0 640 480 320 240
+neg/background/background_4/background_4_54.png 0 0 640 480 320 240
+neg/background/background_4/background_4_55.png 0 0 640 480 320 240
+neg/background/background_4/background_4_57.png 0 0 640 480 320 240
+neg/background/background_4/background_4_58.png 0 0 640 480 320 240
+neg/background/background_4/background_4_59.png 0 0 640 480 320 240
+neg/background/background_4/background_4_60.png 0 0 640 480 320 240
+neg/background/background_4/background_4_61.png 0 0 640 480 320 240
+neg/background/background_4/background_4_62.png 0 0 640 480 320 240
+neg/background/background_4/background_4_63.png 0 0 640 480 320 240
+neg/background/background_4/background_4_64.png 0 0 640 480 320 240
+neg/background/background_4/background_4_65.png 0 0 640 480 320 240
+neg/background/background_4/background_4_66.png 0 0 640 480 320 240
+neg/background/background_4/background_4_67.png 0 0 640 480 320 240
+neg/background/background_4/background_4_68.png 0 0 640 480 320 240
+neg/background/background_4/background_4_69.png 0 0 640 480 320 240
+neg/background/background_4/background_4_70.png 0 0 640 480 320 240
+neg/background/background_4/background_4_71.png 0 0 640 480 320 240
+neg/background/background_4/background_4_72.png 0 0 640 480 320 240
+neg/background/background_4/background_4_73.png 0 0 640 480 320 240
+neg/background/background_4/background_4_74.png 0 0 640 480 320 240
+neg/background/background_4/background_4_75.png 0 0 640 480 320 240
+neg/background/background_4/background_4_76.png 0 0 640 480 320 240
+neg/background/background_4/background_4_77.png 0 0 640 480 320 240
+neg/background/background_4/background_4_78.png 0 0 640 480 320 240
+neg/background/background_4/background_4_79.png 0 0 640 480 320 240
+neg/background/background_4/background_4_80.png 0 0 640 480 320 240
+neg/background/background_4/background_4_81.png 0 0 640 480 320 240
+neg/background/background_4/background_4_82.png 0 0 640 480 320 240
+neg/background/background_4/background_4_83.png 0 0 640 480 320 240
+neg/background/background_4/background_4_84.png 0 0 640 480 320 240
+neg/background/background_4/background_4_85.png 0 0 640 480 320 240
+neg/background/background_4/background_4_86.png 0 0 640 480 320 240
+neg/background/background_4/background_4_87.png 0 0 640 480 320 240
+neg/background/background_4/background_4_88.png 0 0 640 480 320 240
+neg/background/background_4/background_4_89.png 0 0 640 480 320 240
+neg/background/background_4/background_4_9.png 0 0 640 480 320 240
+neg/background/background_4/background_4_90.png 0 0 640 480 320 240
+neg/background/background_4/background_4_91.png 0 0 640 480 320 240
+neg/background/background_4/background_4_92.png 0 0 640 480 320 240
+neg/background/background_4/background_4_93.png 0 0 640 480 320 240
+neg/background/background_4/background_4_94.png 0 0 640 480 320 240
+neg/background/background_4/background_4_95.png 0 0 640 480 320 240
+neg/background/background_4/background_4_96.png 0 0 640 480 320 240
+neg/background/background_4/background_4_97.png 0 0 640 480 320 240
+neg/background/background_4/background_4_98.png 0 0 640 480 320 240
+neg/background/background_4/background_4_99.png 0 0 640 480 320 240
+neg/background/background_5/background_5_1.png 0 0 640 480 320 240
+neg/background/background_5/background_5_10.png 0 0 640 480 320 240
+neg/background/background_5/background_5_100.png 0 0 640 480 320 240
+neg/background/background_5/background_5_101.png 0 0 640 480 320 240
+neg/background/background_5/background_5_102.png 0 0 640 480 320 240
+neg/background/background_5/background_5_103.png 0 0 640 480 320 240
+neg/background/background_5/background_5_104.png 0 0 640 480 320 240
+neg/background/background_5/background_5_105.png 0 0 640 480 320 240
+neg/background/background_5/background_5_106.png 0 0 640 480 320 240
+neg/background/background_5/background_5_107.png 0 0 640 480 320 240
+neg/background/background_5/background_5_108.png 0 0 640 480 320 240
+neg/background/background_5/background_5_109.png 0 0 640 480 320 240
+neg/background/background_5/background_5_11.png 0 0 640 480 320 240
+neg/background/background_5/background_5_110.png 0 0 640 480 320 240
+neg/background/background_5/background_5_111.png 0 0 640 480 320 240
+neg/background/background_5/background_5_112.png 0 0 640 480 320 240
+neg/background/background_5/background_5_113.png 0 0 640 480 320 240
+neg/background/background_5/background_5_114.png 0 0 640 480 320 240
+neg/background/background_5/background_5_115.png 0 0 640 480 320 240
+neg/background/background_5/background_5_116.png 0 0 640 480 320 240
+neg/background/background_5/background_5_117.png 0 0 640 480 320 240
+neg/background/background_5/background_5_118.png 0 0 640 480 320 240
+neg/background/background_5/background_5_119.png 0 0 640 480 320 240
+neg/background/background_5/background_5_12.png 0 0 640 480 320 240
+neg/background/background_5/background_5_120.png 0 0 640 480 320 240
+neg/background/background_5/background_5_121.png 0 0 640 480 320 240
+neg/background/background_5/background_5_122.png 0 0 640 480 320 240
+neg/background/background_5/background_5_123.png 0 0 640 480 320 240
+neg/background/background_5/background_5_124.png 0 0 640 480 320 240
+neg/background/background_5/background_5_125.png 0 0 640 480 320 240
+neg/background/background_5/background_5_126.png 0 0 640 480 320 240
+neg/background/background_5/background_5_127.png 0 0 640 480 320 240
+neg/background/background_5/background_5_128.png 0 0 640 480 320 240
+neg/background/background_5/background_5_129.png 0 0 640 480 320 240
+neg/background/background_5/background_5_13.png 0 0 640 480 320 240
+neg/background/background_5/background_5_130.png 0 0 640 480 320 240
+neg/background/background_5/background_5_131.png 0 0 640 480 320 240
+neg/background/background_5/background_5_14.png 0 0 640 480 320 240
+neg/background/background_5/background_5_15.png 0 0 640 480 320 240
+neg/background/background_5/background_5_16.png 0 0 640 480 320 240
+neg/background/background_5/background_5_17.png 0 0 640 480 320 240
+neg/background/background_5/background_5_18.png 0 0 640 480 320 240
+neg/background/background_5/background_5_19.png 0 0 640 480 320 240
+neg/background/background_5/background_5_2.png 0 0 640 480 320 240
+neg/background/background_5/background_5_20.png 0 0 640 480 320 240
+neg/background/background_5/background_5_21.png 0 0 640 480 320 240
+neg/background/background_5/background_5_22.png 0 0 640 480 320 240
+neg/background/background_5/background_5_23.png 0 0 640 480 320 240
+neg/background/background_5/background_5_24.png 0 0 640 480 320 240
+neg/background/background_5/background_5_25.png 0 0 640 480 320 240
+neg/background/background_5/background_5_26.png 0 0 640 480 320 240
+neg/background/background_5/background_5_27.png 0 0 640 480 320 240
+neg/background/background_5/background_5_28.png 0 0 640 480 320 240
+neg/background/background_5/background_5_29.png 0 0 640 480 320 240
+neg/background/background_5/background_5_3.png 0 0 640 480 320 240
+neg/background/background_5/background_5_30.png 0 0 640 480 320 240
+neg/background/background_5/background_5_31.png 0 0 640 480 320 240
+neg/background/background_5/background_5_32.png 0 0 640 480 320 240
+neg/background/background_5/background_5_33.png 0 0 640 480 320 240
+neg/background/background_5/background_5_34.png 0 0 640 480 320 240
+neg/background/background_5/background_5_35.png 0 0 640 480 320 240
+neg/background/background_5/background_5_36.png 0 0 640 480 320 240
+neg/background/background_5/background_5_37.png 0 0 640 480 320 240
+neg/background/background_5/background_5_38.png 0 0 640 480 320 240
+neg/background/background_5/background_5_39.png 0 0 640 480 320 240
+neg/background/background_5/background_5_4.png 0 0 640 480 320 240
+neg/background/background_5/background_5_40.png 0 0 640 480 320 240
+neg/background/background_5/background_5_41.png 0 0 640 480 320 240
+neg/background/background_5/background_5_42.png 0 0 640 480 320 240
+neg/background/background_5/background_5_43.png 0 0 640 480 320 240
+neg/background/background_5/background_5_44.png 0 0 640 480 320 240
+neg/background/background_5/background_5_45.png 0 0 640 480 320 240
+neg/background/background_5/background_5_46.png 0 0 640 480 320 240
+neg/background/background_5/background_5_47.png 0 0 640 480 320 240
+neg/background/background_5/background_5_48.png 0 0 640 480 320 240
+neg/background/background_5/background_5_49.png 0 0 640 480 320 240
+neg/background/background_5/background_5_5.png 0 0 640 480 320 240
+neg/background/background_5/background_5_50.png 0 0 640 480 320 240
+neg/background/background_5/background_5_51.png 0 0 640 480 320 240
+neg/background/background_5/background_5_52.png 0 0 640 480 320 240
+neg/background/background_5/background_5_53.png 0 0 640 480 320 240
+neg/background/background_5/background_5_54.png 0 0 640 480 320 240
+neg/background/background_5/background_5_55.png 0 0 640 480 320 240
+neg/background/background_5/background_5_56.png 0 0 640 480 320 240
+neg/background/background_5/background_5_57.png 0 0 640 480 320 240
+neg/background/background_5/background_5_58.png 0 0 640 480 320 240
+neg/background/background_5/background_5_59.png 0 0 640 480 320 240
+neg/background/background_5/background_5_6.png 0 0 640 480 320 240
+neg/background/background_5/background_5_60.png 0 0 640 480 320 240
+neg/background/background_5/background_5_61.png 0 0 640 480 320 240
+neg/background/background_5/background_5_62.png 0 0 640 480 320 240
+neg/background/background_5/background_5_63.png 0 0 640 480 320 240
+neg/background/background_5/background_5_64.png 0 0 640 480 320 240
+neg/background/background_5/background_5_65.png 0 0 640 480 320 240
+neg/background/background_5/background_5_66.png 0 0 640 480 320 240
+neg/background/background_5/background_5_67.png 0 0 640 480 320 240
+neg/background/background_5/background_5_68.png 0 0 640 480 320 240
+neg/background/background_5/background_5_69.png 0 0 640 480 320 240
+neg/background/background_5/background_5_7.png 0 0 640 480 320 240
+neg/background/background_5/background_5_70.png 0 0 640 480 320 240
+neg/background/background_5/background_5_71.png 0 0 640 480 320 240
+neg/background/background_5/background_5_72.png 0 0 640 480 320 240
+neg/background/background_5/background_5_73.png 0 0 640 480 320 240
+neg/background/background_5/background_5_74.png 0 0 640 480 320 240
+neg/background/background_5/background_5_75.png 0 0 640 480 320 240
+neg/background/background_5/background_5_76.png 0 0 640 480 320 240
+neg/background/background_5/background_5_77.png 0 0 640 480 320 240
+neg/background/background_5/background_5_78.png 0 0 640 480 320 240
+neg/background/background_5/background_5_79.png 0 0 640 480 320 240
+neg/background/background_5/background_5_8.png 0 0 640 480 320 240
+neg/background/background_5/background_5_80.png 0 0 640 480 320 240
+neg/background/background_5/background_5_81.png 0 0 640 480 320 240
+neg/background/background_5/background_5_82.png 0 0 640 480 320 240
+neg/background/background_5/background_5_83.png 0 0 640 480 320 240
+neg/background/background_5/background_5_84.png 0 0 640 480 320 240
+neg/background/background_5/background_5_85.png 0 0 640 480 320 240
+neg/background/background_5/background_5_86.png 0 0 640 480 320 240
+neg/background/background_5/background_5_87.png 0 0 640 480 320 240
+neg/background/background_5/background_5_88.png 0 0 640 480 320 240
+neg/background/background_5/background_5_89.png 0 0 640 480 320 240
+neg/background/background_5/background_5_9.png 0 0 640 480 320 240
+neg/background/background_5/background_5_90.png 0 0 640 480 320 240
+neg/background/background_5/background_5_91.png 0 0 640 480 320 240
+neg/background/background_5/background_5_92.png 0 0 640 480 320 240
+neg/background/background_5/background_5_93.png 0 0 640 480 320 240
+neg/background/background_5/background_5_94.png 0 0 640 480 320 240
+neg/background/background_5/background_5_95.png 0 0 640 480 320 240
+neg/background/background_5/background_5_96.png 0 0 640 480 320 240
+neg/background/background_5/background_5_97.png 0 0 640 480 320 240
+neg/background/background_5/background_5_98.png 0 0 640 480 320 240
+neg/background/background_5/background_5_99.png 0 0 640 480 320 240
+neg/background/background_6/background_6_10.png 0 0 640 480 320 240
+neg/background/background_6/background_6_100.png 0 0 640 480 320 240
+neg/background/background_6/background_6_103.png 0 0 640 480 320 240
+neg/background/background_6/background_6_104.png 0 0 640 480 320 240
+neg/background/background_6/background_6_105.png 0 0 640 480 320 240
+neg/background/background_6/background_6_106.png 0 0 640 480 320 240
+neg/background/background_6/background_6_107.png 0 0 640 480 320 240
+neg/background/background_6/background_6_108.png 0 0 640 480 320 240
+neg/background/background_6/background_6_109.png 0 0 640 480 320 240
+neg/background/background_6/background_6_11.png 0 0 640 480 320 240
+neg/background/background_6/background_6_110.png 0 0 640 480 320 240
+neg/background/background_6/background_6_111.png 0 0 640 480 320 240
+neg/background/background_6/background_6_112.png 0 0 640 480 320 240
+neg/background/background_6/background_6_113.png 0 0 640 480 320 240
+neg/background/background_6/background_6_114.png 0 0 640 480 320 240
+neg/background/background_6/background_6_115.png 0 0 640 480 320 240
+neg/background/background_6/background_6_116.png 0 0 640 480 320 240
+neg/background/background_6/background_6_118.png 0 0 640 480 320 240
+neg/background/background_6/background_6_119.png 0 0 640 480 320 240
+neg/background/background_6/background_6_12.png 0 0 640 480 320 240
+neg/background/background_6/background_6_120.png 0 0 640 480 320 240
+neg/background/background_6/background_6_121.png 0 0 640 480 320 240
+neg/background/background_6/background_6_122.png 0 0 640 480 320 240
+neg/background/background_6/background_6_123.png 0 0 640 480 320 240
+neg/background/background_6/background_6_124.png 0 0 640 480 320 240
+neg/background/background_6/background_6_125.png 0 0 640 480 320 240
+neg/background/background_6/background_6_13.png 0 0 640 480 320 240
+neg/background/background_6/background_6_19.png 0 0 640 480 320 240
+neg/background/background_6/background_6_20.png 0 0 640 480 320 240
+neg/background/background_6/background_6_21.png 0 0 640 480 320 240
+neg/background/background_6/background_6_22.png 0 0 640 480 320 240
+neg/background/background_6/background_6_23.png 0 0 640 480 320 240
+neg/background/background_6/background_6_24.png 0 0 640 480 320 240
+neg/background/background_6/background_6_25.png 0 0 640 480 320 240
+neg/background/background_6/background_6_26.png 0 0 640 480 320 240
+neg/background/background_6/background_6_30.png 0 0 640 480 320 240
+neg/background/background_6/background_6_31.png 0 0 640 480 320 240
+neg/background/background_6/background_6_32.png 0 0 640 480 320 240
+neg/background/background_6/background_6_33.png 0 0 640 480 320 240
+neg/background/background_6/background_6_34.png 0 0 640 480 320 240
+neg/background/background_6/background_6_35.png 0 0 640 480 320 240
+neg/background/background_6/background_6_36.png 0 0 640 480 320 240
+neg/background/background_6/background_6_37.png 0 0 640 480 320 240
+neg/background/background_6/background_6_38.png 0 0 640 480 320 240
+neg/background/background_6/background_6_39.png 0 0 640 480 320 240
+neg/background/background_6/background_6_46.png 0 0 640 480 320 240
+neg/background/background_6/background_6_47.png 0 0 640 480 320 240
+neg/background/background_6/background_6_48.png 0 0 640 480 320 240
+neg/background/background_6/background_6_49.png 0 0 640 480 320 240
+neg/background/background_6/background_6_50.png 0 0 640 480 320 240
+neg/background/background_6/background_6_51.png 0 0 640 480 320 240
+neg/background/background_6/background_6_52.png 0 0 640 480 320 240
+neg/background/background_6/background_6_53.png 0 0 640 480 320 240
+neg/background/background_6/background_6_54.png 0 0 640 480 320 240
+neg/background/background_6/background_6_8.png 0 0 640 480 320 240
+neg/background/background_6/background_6_81.png 0 0 640 480 320 240
+neg/background/background_6/background_6_88.png 0 0 640 480 320 240
+neg/background/background_6/background_6_89.png 0 0 640 480 320 240
+neg/background/background_6/background_6_9.png 0 0 640 480 320 240
+neg/background/background_6/background_6_90.png 0 0 640 480 320 240
+neg/background/background_6/background_6_91.png 0 0 640 480 320 240
+neg/background/background_6/background_6_92.png 0 0 640 480 320 240
+neg/background/background_6/background_6_93.png 0 0 640 480 320 240
+neg/background/background_6/background_6_94.png 0 0 640 480 320 240
+neg/background/background_6/background_6_95.png 0 0 640 480 320 240
+neg/background/background_6/background_6_96.png 0 0 640 480 320 240
+neg/background/background_6/background_6_97.png 0 0 640 480 320 240
+neg/background/background_6/background_6_99.png 0 0 640 480 320 240
+neg/background/background_7/background_7_10.png 0 0 640 480 320 240
+neg/background/background_7/background_7_100.png 0 0 640 480 320 240
+neg/background/background_7/background_7_101.png 0 0 640 480 320 240
+neg/background/background_7/background_7_102.png 0 0 640 480 320 240
+neg/background/background_7/background_7_103.png 0 0 640 480 320 240
+neg/background/background_7/background_7_104.png 0 0 640 480 320 240
+neg/background/background_7/background_7_105.png 0 0 640 480 320 240
+neg/background/background_7/background_7_106.png 0 0 640 480 320 240
+neg/background/background_7/background_7_107.png 0 0 640 480 320 240
+neg/background/background_7/background_7_108.png 0 0 640 480 320 240
+neg/background/background_7/background_7_109.png 0 0 640 480 320 240
+neg/background/background_7/background_7_11.png 0 0 640 480 320 240
+neg/background/background_7/background_7_110.png 0 0 640 480 320 240
+neg/background/background_7/background_7_111.png 0 0 640 480 320 240
+neg/background/background_7/background_7_112.png 0 0 640 480 320 240
+neg/background/background_7/background_7_113.png 0 0 640 480 320 240
+neg/background/background_7/background_7_114.png 0 0 640 480 320 240
+neg/background/background_7/background_7_12.png 0 0 640 480 320 240
+neg/background/background_7/background_7_13.png 0 0 640 480 320 240
+neg/background/background_7/background_7_14.png 0 0 640 480 320 240
+neg/background/background_7/background_7_15.png 0 0 640 480 320 240
+neg/background/background_7/background_7_16.png 0 0 640 480 320 240
+neg/background/background_7/background_7_17.png 0 0 640 480 320 240
+neg/background/background_7/background_7_18.png 0 0 640 480 320 240
+neg/background/background_7/background_7_19.png 0 0 640 480 320 240
+neg/background/background_7/background_7_20.png 0 0 640 480 320 240
+neg/background/background_7/background_7_21.png 0 0 640 480 320 240
+neg/background/background_7/background_7_22.png 0 0 640 480 320 240
+neg/background/background_7/background_7_23.png 0 0 640 480 320 240
+neg/background/background_7/background_7_24.png 0 0 640 480 320 240
+neg/background/background_7/background_7_25.png 0 0 640 480 320 240
+neg/background/background_7/background_7_26.png 0 0 640 480 320 240
+neg/background/background_7/background_7_27.png 0 0 640 480 320 240
+neg/background/background_7/background_7_28.png 0 0 640 480 320 240
+neg/background/background_7/background_7_29.png 0 0 640 480 320 240
+neg/background/background_7/background_7_30.png 0 0 640 480 320 240
+neg/background/background_7/background_7_31.png 0 0 640 480 320 240
+neg/background/background_7/background_7_32.png 0 0 640 480 320 240
+neg/background/background_7/background_7_33.png 0 0 640 480 320 240
+neg/background/background_7/background_7_34.png 0 0 640 480 320 240
+neg/background/background_7/background_7_35.png 0 0 640 480 320 240
+neg/background/background_7/background_7_36.png 0 0 640 480 320 240
+neg/background/background_7/background_7_37.png 0 0 640 480 320 240
+neg/background/background_7/background_7_38.png 0 0 640 480 320 240
+neg/background/background_7/background_7_39.png 0 0 640 480 320 240
+neg/background/background_7/background_7_40.png 0 0 640 480 320 240
+neg/background/background_7/background_7_41.png 0 0 640 480 320 240
+neg/background/background_7/background_7_42.png 0 0 640 480 320 240
+neg/background/background_7/background_7_43.png 0 0 640 480 320 240
+neg/background/background_7/background_7_44.png 0 0 640 480 320 240
+neg/background/background_7/background_7_45.png 0 0 640 480 320 240
+neg/background/background_7/background_7_46.png 0 0 640 480 320 240
+neg/background/background_7/background_7_47.png 0 0 640 480 320 240
+neg/background/background_7/background_7_48.png 0 0 640 480 320 240
+neg/background/background_7/background_7_49.png 0 0 640 480 320 240
+neg/background/background_7/background_7_50.png 0 0 640 480 320 240
+neg/background/background_7/background_7_51.png 0 0 640 480 320 240
+neg/background/background_7/background_7_52.png 0 0 640 480 320 240
+neg/background/background_7/background_7_53.png 0 0 640 480 320 240
+neg/background/background_7/background_7_54.png 0 0 640 480 320 240
+neg/background/background_7/background_7_55.png 0 0 640 480 320 240
+neg/background/background_7/background_7_6.png 0 0 640 480 320 240
+neg/background/background_7/background_7_68.png 0 0 640 480 320 240
+neg/background/background_7/background_7_69.png 0 0 640 480 320 240
+neg/background/background_7/background_7_7.png 0 0 640 480 320 240
+neg/background/background_7/background_7_70.png 0 0 640 480 320 240
+neg/background/background_7/background_7_71.png 0 0 640 480 320 240
+neg/background/background_7/background_7_72.png 0 0 640 480 320 240
+neg/background/background_7/background_7_73.png 0 0 640 480 320 240
+neg/background/background_7/background_7_74.png 0 0 640 480 320 240
+neg/background/background_7/background_7_75.png 0 0 640 480 320 240
+neg/background/background_7/background_7_76.png 0 0 640 480 320 240
+neg/background/background_7/background_7_77.png 0 0 640 480 320 240
+neg/background/background_7/background_7_78.png 0 0 640 480 320 240
+neg/background/background_7/background_7_79.png 0 0 640 480 320 240
+neg/background/background_7/background_7_8.png 0 0 640 480 320 240
+neg/background/background_7/background_7_80.png 0 0 640 480 320 240
+neg/background/background_7/background_7_81.png 0 0 640 480 320 240
+neg/background/background_7/background_7_82.png 0 0 640 480 320 240
+neg/background/background_7/background_7_83.png 0 0 640 480 320 240
+neg/background/background_7/background_7_84.png 0 0 640 480 320 240
+neg/background/background_7/background_7_85.png 0 0 640 480 320 240
+neg/background/background_7/background_7_86.png 0 0 640 480 320 240
+neg/background/background_7/background_7_87.png 0 0 640 480 320 240
+neg/background/background_7/background_7_88.png 0 0 640 480 320 240
+neg/background/background_7/background_7_89.png 0 0 640 480 320 240
+neg/background/background_7/background_7_9.png 0 0 640 480 320 240
+neg/background/background_7/background_7_90.png 0 0 640 480 320 240
+neg/background/background_7/background_7_91.png 0 0 640 480 320 240
+neg/background/background_7/background_7_92.png 0 0 640 480 320 240
+neg/background/background_7/background_7_93.png 0 0 640 480 320 240
+neg/background/background_7/background_7_94.png 0 0 640 480 320 240
+neg/background/background_7/background_7_95.png 0 0 640 480 320 240
+neg/background/background_7/background_7_96.png 0 0 640 480 320 240
+neg/background/background_7/background_7_98.png 0 0 640 480 320 240
+neg/background/background_7/background_7_99.png 0 0 640 480 320 240
+neg/background/background_8/background_8_10.png 0 0 640 480 320 240
+neg/background/background_8/background_8_100.png 0 0 640 480 320 240
+neg/background/background_8/background_8_101.png 0 0 640 480 320 240
+neg/background/background_8/background_8_102.png 0 0 640 480 320 240
+neg/background/background_8/background_8_103.png 0 0 640 480 320 240
+neg/background/background_8/background_8_104.png 0 0 640 480 320 240
+neg/background/background_8/background_8_11.png 0 0 640 480 320 240
+neg/background/background_8/background_8_12.png 0 0 640 480 320 240
+neg/background/background_8/background_8_13.png 0 0 640 480 320 240
+neg/background/background_8/background_8_14.png 0 0 640 480 320 240
+neg/background/background_8/background_8_15.png 0 0 640 480 320 240
+neg/background/background_8/background_8_16.png 0 0 640 480 320 240
+neg/background/background_8/background_8_17.png 0 0 640 480 320 240
+neg/background/background_8/background_8_18.png 0 0 640 480 320 240
+neg/background/background_8/background_8_19.png 0 0 640 480 320 240
+neg/background/background_8/background_8_20.png 0 0 640 480 320 240
+neg/background/background_8/background_8_21.png 0 0 640 480 320 240
+neg/background/background_8/background_8_24.png 0 0 640 480 320 240
+neg/background/background_8/background_8_25.png 0 0 640 480 320 240
+neg/background/background_8/background_8_28.png 0 0 640 480 320 240
+neg/background/background_8/background_8_29.png 0 0 640 480 320 240
+neg/background/background_8/background_8_30.png 0 0 640 480 320 240
+neg/background/background_8/background_8_31.png 0 0 640 480 320 240
+neg/background/background_8/background_8_32.png 0 0 640 480 320 240
+neg/background/background_8/background_8_33.png 0 0 640 480 320 240
+neg/background/background_8/background_8_34.png 0 0 640 480 320 240
+neg/background/background_8/background_8_35.png 0 0 640 480 320 240
+neg/background/background_8/background_8_36.png 0 0 640 480 320 240
+neg/background/background_8/background_8_37.png 0 0 640 480 320 240
+neg/background/background_8/background_8_38.png 0 0 640 480 320 240
+neg/background/background_8/background_8_39.png 0 0 640 480 320 240
+neg/background/background_8/background_8_40.png 0 0 640 480 320 240
+neg/background/background_8/background_8_41.png 0 0 640 480 320 240
+neg/background/background_8/background_8_42.png 0 0 640 480 320 240
+neg/background/background_8/background_8_43.png 0 0 640 480 320 240
+neg/background/background_8/background_8_44.png 0 0 640 480 320 240
+neg/background/background_8/background_8_45.png 0 0 640 480 320 240
+neg/background/background_8/background_8_46.png 0 0 640 480 320 240
+neg/background/background_8/background_8_5.png 0 0 640 480 320 240
+neg/background/background_8/background_8_56.png 0 0 640 480 320 240
+neg/background/background_8/background_8_57.png 0 0 640 480 320 240
+neg/background/background_8/background_8_58.png 0 0 640 480 320 240
+neg/background/background_8/background_8_59.png 0 0 640 480 320 240
+neg/background/background_8/background_8_6.png 0 0 640 480 320 240
+neg/background/background_8/background_8_60.png 0 0 640 480 320 240
+neg/background/background_8/background_8_61.png 0 0 640 480 320 240
+neg/background/background_8/background_8_62.png 0 0 640 480 320 240
+neg/background/background_8/background_8_63.png 0 0 640 480 320 240
+neg/background/background_8/background_8_64.png 0 0 640 480 320 240
+neg/background/background_8/background_8_65.png 0 0 640 480 320 240
+neg/background/background_8/background_8_66.png 0 0 640 480 320 240
+neg/background/background_8/background_8_67.png 0 0 640 480 320 240
+neg/background/background_8/background_8_68.png 0 0 640 480 320 240
+neg/background/background_8/background_8_69.png 0 0 640 480 320 240
+neg/background/background_8/background_8_7.png 0 0 640 480 320 240
+neg/background/background_8/background_8_70.png 0 0 640 480 320 240
+neg/background/background_8/background_8_71.png 0 0 640 480 320 240
+neg/background/background_8/background_8_72.png 0 0 640 480 320 240
+neg/background/background_8/background_8_73.png 0 0 640 480 320 240
+neg/background/background_8/background_8_74.png 0 0 640 480 320 240
+neg/background/background_8/background_8_75.png 0 0 640 480 320 240
+neg/background/background_8/background_8_76.png 0 0 640 480 320 240
+neg/background/background_8/background_8_77.png 0 0 640 480 320 240
+neg/background/background_8/background_8_8.png 0 0 640 480 320 240
+neg/background/background_8/background_8_86.png 0 0 640 480 320 240
+neg/background/background_8/background_8_87.png 0 0 640 480 320 240
+neg/background/background_8/background_8_88.png 0 0 640 480 320 240
+neg/background/background_8/background_8_89.png 0 0 640 480 320 240
+neg/background/background_8/background_8_9.png 0 0 640 480 320 240
+neg/background/background_8/background_8_90.png 0 0 640 480 320 240
+neg/background/background_8/background_8_91.png 0 0 640 480 320 240
+neg/background/background_8/background_8_92.png 0 0 640 480 320 240
+neg/background/background_8/background_8_93.png 0 0 640 480 320 240
+neg/background/background_8/background_8_94.png 0 0 640 480 320 240
+neg/background/background_8/background_8_95.png 0 0 640 480 320 240
+neg/background/background_8/background_8_96.png 0 0 640 480 320 240
+neg/background/background_8/background_8_97.png 0 0 640 480 320 240
+neg/background/background_8/background_8_98.png 0 0 640 480 320 240
+neg/background/background_8/background_8_99.png 0 0 640 480 320 240
+neg/background/background_9/background_9_10.png 0 0 640 480 320 240
+neg/background/background_9/background_9_104.png 0 0 640 480 320 240
+neg/background/background_9/background_9_105.png 0 0 640 480 320 240
+neg/background/background_9/background_9_106.png 0 0 640 480 320 240
+neg/background/background_9/background_9_107.png 0 0 640 480 320 240
+neg/background/background_9/background_9_108.png 0 0 640 480 320 240
+neg/background/background_9/background_9_109.png 0 0 640 480 320 240
+neg/background/background_9/background_9_11.png 0 0 640 480 320 240
+neg/background/background_9/background_9_110.png 0 0 640 480 320 240
+neg/background/background_9/background_9_111.png 0 0 640 480 320 240
+neg/background/background_9/background_9_112.png 0 0 640 480 320 240
+neg/background/background_9/background_9_113.png 0 0 640 480 320 240
+neg/background/background_9/background_9_114.png 0 0 640 480 320 240
+neg/background/background_9/background_9_115.png 0 0 640 480 320 240
+neg/background/background_9/background_9_116.png 0 0 640 480 320 240
+neg/background/background_9/background_9_117.png 0 0 640 480 320 240
+neg/background/background_9/background_9_118.png 0 0 640 480 320 240
+neg/background/background_9/background_9_119.png 0 0 640 480 320 240
+neg/background/background_9/background_9_12.png 0 0 640 480 320 240
+neg/background/background_9/background_9_120.png 0 0 640 480 320 240
+neg/background/background_9/background_9_121.png 0 0 640 480 320 240
+neg/background/background_9/background_9_124.png 0 0 640 480 320 240
+neg/background/background_9/background_9_125.png 0 0 640 480 320 240
+neg/background/background_9/background_9_126.png 0 0 640 480 320 240
+neg/background/background_9/background_9_127.png 0 0 640 480 320 240
+neg/background/background_9/background_9_128.png 0 0 640 480 320 240
+neg/background/background_9/background_9_129.png 0 0 640 480 320 240
+neg/background/background_9/background_9_13.png 0 0 640 480 320 240
+neg/background/background_9/background_9_130.png 0 0 640 480 320 240
+neg/background/background_9/background_9_131.png 0 0 640 480 320 240
+neg/background/background_9/background_9_132.png 0 0 640 480 320 240
+neg/background/background_9/background_9_133.png 0 0 640 480 320 240
+neg/background/background_9/background_9_139.png 0 0 640 480 320 240
+neg/background/background_9/background_9_14.png 0 0 640 480 320 240
+neg/background/background_9/background_9_140.png 0 0 640 480 320 240
+neg/background/background_9/background_9_141.png 0 0 640 480 320 240
+neg/background/background_9/background_9_142.png 0 0 640 480 320 240
+neg/background/background_9/background_9_147.png 0 0 640 480 320 240
+neg/background/background_9/background_9_148.png 0 0 640 480 320 240
+neg/background/background_9/background_9_15.png 0 0 640 480 320 240
+neg/background/background_9/background_9_16.png 0 0 640 480 320 240
+neg/background/background_9/background_9_17.png 0 0 640 480 320 240
+neg/background/background_9/background_9_18.png 0 0 640 480 320 240
+neg/background/background_9/background_9_19.png 0 0 640 480 320 240
+neg/background/background_9/background_9_20.png 0 0 640 480 320 240
+neg/background/background_9/background_9_21.png 0 0 640 480 320 240
+neg/background/background_9/background_9_22.png 0 0 640 480 320 240
+neg/background/background_9/background_9_23.png 0 0 640 480 320 240
+neg/background/background_9/background_9_24.png 0 0 640 480 320 240
+neg/background/background_9/background_9_25.png 0 0 640 480 320 240
+neg/background/background_9/background_9_26.png 0 0 640 480 320 240
+neg/background/background_9/background_9_27.png 0 0 640 480 320 240
+neg/background/background_9/background_9_28.png 0 0 640 480 320 240
+neg/background/background_9/background_9_29.png 0 0 640 480 320 240
+neg/background/background_9/background_9_30.png 0 0 640 480 320 240
+neg/background/background_9/background_9_31.png 0 0 640 480 320 240
+neg/background/background_9/background_9_32.png 0 0 640 480 320 240
+neg/background/background_9/background_9_33.png 0 0 640 480 320 240
+neg/background/background_9/background_9_34.png 0 0 640 480 320 240
+neg/background/background_9/background_9_35.png 0 0 640 480 320 240
+neg/background/background_9/background_9_36.png 0 0 640 480 320 240
+neg/background/background_9/background_9_37.png 0 0 640 480 320 240
+neg/background/background_9/background_9_38.png 0 0 640 480 320 240
+neg/background/background_9/background_9_39.png 0 0 640 480 320 240
+neg/background/background_9/background_9_40.png 0 0 640 480 320 240
+neg/background/background_9/background_9_41.png 0 0 640 480 320 240
+neg/background/background_9/background_9_42.png 0 0 640 480 320 240
+neg/background/background_9/background_9_43.png 0 0 640 480 320 240
+neg/background/background_9/background_9_44.png 0 0 640 480 320 240
+neg/background/background_9/background_9_45.png 0 0 640 480 320 240
+neg/background/background_9/background_9_46.png 0 0 640 480 320 240
+neg/background/background_9/background_9_47.png 0 0 640 480 320 240
+neg/background/background_9/background_9_48.png 0 0 640 480 320 240
+neg/background/background_9/background_9_49.png 0 0 640 480 320 240
+neg/background/background_9/background_9_50.png 0 0 640 480 320 240
+neg/background/background_9/background_9_51.png 0 0 640 480 320 240
+neg/background/background_9/background_9_52.png 0 0 640 480 320 240
+neg/background/background_9/background_9_53.png 0 0 640 480 320 240
+neg/background/background_9/background_9_54.png 0 0 640 480 320 240
+neg/background/background_9/background_9_56.png 0 0 640 480 320 240
+neg/background/background_9/background_9_66.png 0 0 640 480 320 240
+neg/background/background_9/background_9_67.png 0 0 640 480 320 240
+neg/background/background_9/background_9_68.png 0 0 640 480 320 240
+neg/background/background_9/background_9_69.png 0 0 640 480 320 240
+neg/background/background_9/background_9_70.png 0 0 640 480 320 240
+neg/background/background_9/background_9_71.png 0 0 640 480 320 240
+neg/background/background_9/background_9_72.png 0 0 640 480 320 240
+neg/background/background_9/background_9_73.png 0 0 640 480 320 240
+neg/background/background_9/background_9_74.png 0 0 640 480 320 240
+neg/background/background_9/background_9_75.png 0 0 640 480 320 240
+neg/background/background_9/background_9_8.png 0 0 640 480 320 240
+neg/background/background_9/background_9_84.png 0 0 640 480 320 240
+neg/background/background_9/background_9_85.png 0 0 640 480 320 240
+neg/background/background_9/background_9_86.png 0 0 640 480 320 240
+neg/background/background_9/background_9_87.png 0 0 640 480 320 240
+neg/background/background_9/background_9_88.png 0 0 640 480 320 240
+neg/background/background_9/background_9_89.png 0 0 640 480 320 240
+neg/background/background_9/background_9_9.png 0 0 640 480 320 240
+neg/background/background_9/background_9_90.png 0 0 640 480 320 240
+neg/background/background_9/background_9_92.png 0 0 640 480 320 240
+neg/background/background_9/background_9_93.png 0 0 640 480 320 240
+neg/background/background_9/background_9_94.png 0 0 640 480 320 240
+neg/background/background_9/background_9_95.png 0 0 640 480 320 240
+neg/background/background_9/background_9_96.png 0 0 640 480 320 240

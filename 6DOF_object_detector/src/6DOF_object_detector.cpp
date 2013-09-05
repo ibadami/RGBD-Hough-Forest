@@ -670,7 +670,28 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
             //debug
             if (p.DEBUG){
                 for (unsigned int cNr = 0; cNr < classConfidence.size(); cNr++){
-                    cv::imshow("class",classConfidence[cNr]);
+
+                    cv::Mat img_with_probability = cv::Mat::zeros(img.rows, img.cols, img.type());
+                    for(int i = 0; i < classConfidence[cNr].rows; i++) {
+                        float* pline = classConfidence[cNr].ptr<float>(i);
+                        uchar* imgline = img.ptr(i);
+                        uchar* pimgline = img_with_probability.ptr(i);
+                        for(int j=0; j < classConfidence[cNr].cols; j++, pline++) {
+                            const float p = *pline;
+
+                            *pimgline++ =  static_cast<uchar>(0.5f * *imgline++);
+                            *pimgline++ =  static_cast<uchar>((1.0f - p) * (0.5f * *imgline++) + p*100.0f);
+                            *pimgline++ = static_cast<uchar>((1.0f - p) * (0.5f * *imgline++) + p*255.0f);
+                        }
+                    }
+
+                    double scale = 1.5f;
+                    string text;
+                    if(cNr == 1) text = "background";
+                    else text = p.objectName;
+                    cv::putText(img_with_probability, text.c_str(), cv::Point(10, 30), 1, scale, CV_RGB(0, 255, 255), 2);
+
+                    cv::imshow("class confidence",img_with_probability);
                     cv::waitKey(0);
                 }
             }

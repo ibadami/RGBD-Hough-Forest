@@ -1,0 +1,3 @@
+2
+1 ../rgbd-dataset/train_files/cereal_box_trainimage_pose.txt
+0 ../rgbd-dataset/train_files/neg_cereal_box.txt

@@ -39,7 +39,7 @@ class Surfel {
 public:
     static void imagesToPointCloud(const cv::Mat& depthImg, const cv::Mat& colorImg, pcl::PointCloud<pcl::PointXYZRGB>::Ptr& cloud);
     static void imagesToPointCloud_( cv::Mat& depthImg, cv::Mat& colorImg, pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud, cv::Mat &mask );
-    static void houghPointCloud( std::vector<cv::Mat>& houghImg, std::vector<float> &scales,  pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud, float max_val );
+    static void houghPointCloud( std::vector<cv::Mat>& houghImg, const std::vector<float> &scales,  pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud );
     static void computeSurfel(pcl::PointCloud<pcl::Normal>::Ptr normals, cv::Point2f pt1, cv::Point2f pt2, cv::Point2f center, SurfelFeature &sf, float depth1, float depth2);
     static void calcSurfel2CameraTransformation(cv::Point3f &s1, cv::Point3f &s2, pcl::Normal &n1, pcl::Normal &n2, Eigen::Matrix4f &TransformationSC1, Eigen::Matrix4f &TransformationSC2);
     static void calcQueryPoint2CameraTransformation(cv::Point3f &s1, cv::Point3f &s2, cv::Point3f &query_point, const pcl::Normal &qn1, Eigen::Matrix4f &TransformationQueryC1, Eigen::Matrix4f &TransformationQueryC2);

@@ -76,7 +76,7 @@ CRTree::CRTree(const char* filename, bool& success) {
             ptLN->vPrLabel.resize(num_labels);
             ptLN->vCenter.resize(num_labels);
             ptLN->vCenterWeights.resize(num_labels);
-            ptLN->vID.resize(num_labels);
+//            ptLN->vID.resize(num_labels);
             //ptLN->vLabelDistrib.resize(num_labels);
             ptLN->nOcc.resize(num_labels);
 
@@ -98,7 +98,7 @@ CRTree::CRTree(const char* filename, bool& success) {
 
                 ptLN->vCenter[c].resize(dummy);
                 ptLN->vCenterWeights[c].resize(dummy);
-                ptLN->vID[c].resize(dummy);
+//                ptLN->vID[c].resize(dummy);
                 ptLN->nOcc[c] = dummy;
 
                 ptLN->vPose[c].resize(dummy);
@@ -126,7 +126,7 @@ CRTree::CRTree(const char* filename, bool& success) {
                     in >> string; ptLN->bbSize3D[c][i].z = strtof(string, &stopstring);
 
                     ptLN->vCenterWeights[c][i] = temp_weight;
-                    in >> *(ptLN->vID[c][i]);
+//                    in >> string;
                     ptLN->alpha[c][i].resize(ptLN->depth);
 
                     in >> string; ptLN->vPose[c][i].first.coeffs()[0] = strtof(string, &stopstring);
@@ -166,8 +166,6 @@ CRTree::CRTree(const char* filename, bool& success) {
     }
 
     in.close();
-    cout << GetScale() << endl;
-
 }
 
 /////////////////////// IO Function /////////////////////////////
@@ -217,7 +215,7 @@ bool CRTree::saveTree(const char* filename) const {
                 out << ptLN->vPrLabel[c] << " " << ptLN->vCenter[c].size() << " " << " \n ";
 
                 for(unsigned int i=0; i<ptLN->vCenter[c].size(); ++i) {
-                    out << ptLN->vCenter[c][i].x << " " << ptLN->vCenter[c][i].y << " " << ptLN->vCenter[c][i].z << " " << ptLN->bbSize3D[c][i].x << " " << ptLN->bbSize3D[c][i].y << " " << ptLN->bbSize3D[c][i].z<< " " << ptLN->vID[c][i] << "\n ";
+                    out << ptLN->vCenter[c][i].x << " " << ptLN->vCenter[c][i].y << " " << ptLN->vCenter[c][i].z << " " << ptLN->bbSize3D[c][i].x << " " << ptLN->bbSize3D[c][i].y << " " << ptLN->bbSize3D[c][i].z<< "\n ";// " " << ptLN->vID[c][i] << "\n ";
                     out << ptLN->vPose[c][i].first.coeffs()[0] << " ";
                     out << ptLN->vPose[c][i].first.coeffs()[1] << " ";
                     out << ptLN->vPose[c][i].first.coeffs()[2] << " ";
@@ -287,46 +285,54 @@ bool CRTree::loadHierarchy(const char* filename){
 /////////////////////// Training Function /////////////////////////////
 
 // Start grow tree
-void CRTree::growTree( const Parameters& param, CRPixel& TrData, int samples, int trNr ) {
+void CRTree::growTree( const Parameters& param, const CRPixel& TrData, int samples, int trNr, std::vector< std::vector< int > > numbers ) {
+    
     // Get inverse numbers of pixels
-    vector<float> vRatio(TrData.vRPixels.size());
+    vector<float> vRatio(numbers.size());
 
-    vector<vector< PixelFeature*> > TrainSet( TrData.vRPixels.size() );
-    vector<vector<int*> > TrainIDs(TrData.vImageIDs.size());
+    vector<vector< PixelFeature*> > TrainSet( numbers.size() );
+    vector<vector<int> > TrainIDs(numbers.size());
+    dynFeatureSet.resize(numbers.size());
 
-    for( unsigned int l = 0; l < TrainSet.size(); ++l ) {// l is nlabels of each class
-        TrainSet[l].resize( TrData.vRPixels[l].size() );
-        TrainIDs[l].resize( TrData.vImageIDs[l].size() );
+    for( unsigned int l = 0; l < numbers.size(); ++l ){// l is nlabels of each class
+        TrainSet[l].reserve( numbers[l].size() );
+        TrainIDs[l].reserve( numbers[l].size() );
+        dynFeatureSet[l].reserve( numbers[l].size() );
 
-        if ( TrainSet[l].size() > 0 ){
-            vRatio[l] = 1.0f/(float)TrainSet[l].size();
-        }else{
+        if ( numbers.size() > 1 ) {
+            vRatio[l] = 1.0f/(float)numbers[l].size();
+        } else {
             vRatio[l] = 0.0f;
         }
-        for(unsigned int i=0; i<TrainSet[l].size(); ++i) {
+        for(std::vector< int >::iterator number = numbers[l].begin(); number != numbers[l].end(); number++ ){
+            
+            PixelFeature* pf = new PixelFeature;
+            pf->statFeature = TrData.vRPixels[l][*number]->statFeature;
 
-            TrainSet[l][i] = new PixelFeature;
-
-            TrainSet[l][i]->statFeature = TrData.vRPixels[l][i].statFeature;
-            TrainSet[l][i]->dynFeature->alpha.clear();
-            TrainSet[l][i]->dynFeature->alpha.reserve(max_depth);
-        }
-        for(unsigned int i=0; i<TrainIDs[l].size(); ++i) {
-            TrainIDs[l][i] = &TrData.vImageIDs[l][i];
+            TrainSet[l].push_back(pf);
+            if( TrainSet[l].back()->statFeature->iHeight != 480 )
+                std::cout<<".................erooorrrrrr........"<<std::endl;
+//            TrainIDs[l].push_back(TrData.vImageIDs[l][*number]);
+            
+            DynamicFeature* df = new DynamicFeature;
+            df->alpha.reserve(max_depth);
+            dynFeatureSet[l].push_back(df);
         }
     }
     // Grow tree
-    grow(param, TrainSet, TrainIDs, 0, 0, samples, vRatio , trNr );
+    grow( param, TrainSet, dynFeatureSet, TrainIDs, 0, 0, samples, vRatio , trNr );
 }
 
 // Called by growTree
-void CRTree::grow(const Parameters& param, const vector<vector< PixelFeature*> >& TrainSet, const vector<vector<int*> >& TrainIDs, int node, unsigned int depth, int samples, vector<float>& vRatio, int trNr) {
+void CRTree::grow(const Parameters& param, const vector< vector< PixelFeature*> >& TrainSet, vector<vector< DynamicFeature*> >& dynFeatures, const vector<vector<int> >& TrainIDs, int node, unsigned int depth, int samples, vector<float>& vRatio, int trNr) {
 
     if(depth < max_depth) {
         vector<vector< PixelFeature*> > SetA;
         vector<vector< PixelFeature*> > SetB;
-        vector<vector<int*> > idA;
-        vector<vector<int*> > idB;
+        vector<vector< DynamicFeature*> > dynA;
+        vector<vector< DynamicFeature*> > dynB;
+        vector<vector<int> > idA;
+        vector<vector<int> > idB;
 
         int test[6];
 
@@ -353,7 +359,7 @@ void CRTree::grow(const Parameters& param, const vector<vector< PixelFeature*> >
             cout << "MeasureMode: " <<  measure_mode << ", Depth = " << depth << ", Tree: " << trNr << endl;
 
             // Find optimal test
-            if( check_test = optimizeTest(param, SetA, SetB, idA, idB, TrainSet, TrainIDs, test, samples, measure_mode, vRatio, node) ) {
+            if( check_test = optimizeTest(param, SetA, SetB, dynA, dynB, idA, idB, TrainSet, dynFeatures, TrainIDs,  test, samples, measure_mode, vRatio, node) ) {
 
                 // Store binary test for current node
                 InternalNode* ptT = &nodes[node];
@@ -384,14 +390,14 @@ void CRTree::grow(const Parameters& param, const vector<vector< PixelFeature*> >
                     temp.isLeaf = false;
                     nodes.push_back(temp);
                     num_nodes +=1;
-                    grow(param, SetA, idA, temp.idN, depth+1, samples, vRatio, trNr);
+                    grow(param, SetA, dynA, idA, temp.idN, depth+1, samples, vRatio, trNr);
                 } else {
                     // the leaf id will be assigned to the left child in the makeLeaf
                     // isLeaf will be set to true
                     temp.isLeaf = true;
                     nodes.push_back(temp);
                     num_nodes +=1;
-                    makeLeaf(SetA, idA, vRatio, temp.idN);
+                    makeLeaf(SetA, dynA, idA, vRatio, temp.idN);
                 }
 
                 // Go right
@@ -402,12 +408,12 @@ void CRTree::grow(const Parameters& param, const vector<vector< PixelFeature*> >
                     temp.isLeaf = false;
                     nodes.push_back(temp);
                     num_nodes += 1;
-                    grow(param, SetB, idB, temp.idN, depth+1, samples, vRatio, trNr);
+                    grow(param, SetB,dynB, idB, temp.idN, depth+1, samples, vRatio, trNr);
                 } else {
                     temp.isLeaf = true;
                     nodes.push_back(temp);
                     num_nodes +=1;
-                    makeLeaf(SetB, idB, vRatio, temp.idN);
+                    makeLeaf(SetB, dynB, idB, vRatio, temp.idN);
                 }
 
             } else {
@@ -420,7 +426,7 @@ void CRTree::grow(const Parameters& param, const vector<vector< PixelFeature*> >
                     nodes[node].leftChild = -1;
                     nodes[node].rightChild = -1;
                     nodes[node].data.resize(6,0);
-                    makeLeaf(TrainSet, TrainIDs, vRatio, node);
+                    makeLeaf(TrainSet, dynFeatures, TrainIDs, vRatio, node);
 
                     check_test = true;
                 }
@@ -433,13 +439,13 @@ void CRTree::grow(const Parameters& param, const vector<vector< PixelFeature*> >
         nodes[node].rightChild = -1;
         nodes[node].data.resize(6,0);
         // do not change the parent
-        makeLeaf(TrainSet, TrainIDs, vRatio, node);
+        makeLeaf(TrainSet, dynFeatures, TrainIDs, vRatio, node);
     }
 
 }
 
 // Create leaf node from patches
-void CRTree::makeLeaf(const std::vector<std::vector< PixelFeature*> >& TrainSet, const std::vector<std::vector< int*> >& TrainIDs, std::vector<float>& vRatio, int node) {
+void CRTree::makeLeaf(const std::vector<std::vector< PixelFeature*> >& TrainSet, const std::vector<std::vector< DynamicFeature*> >& dynFeatures, const std::vector<std::vector< int> >& TrainIDs, std::vector<float>& vRatio, int node) {
 
     // setting the leaf pointer
     nodes[node].leftChild = num_leaf;
@@ -451,7 +457,7 @@ void CRTree::makeLeaf(const std::vector<std::vector< PixelFeature*> >& TrainSet,
 
     L.vCenter.resize(TrainSet.size());
     L.vPrLabel.resize(TrainSet.size());
-    L.vID.resize(TrainSet.size());
+//    L.vID.resize(TrainSet.size());
 
     L.vPose.resize(TrainSet.size());
     L.QdisVector.resize(TrainSet.size());
@@ -471,7 +477,7 @@ void CRTree::makeLeaf(const std::vector<std::vector< PixelFeature*> >& TrainSet,
             invsum_pos += L.vPrLabel[l];
 
         L.vCenter[l].resize( TrainSet[l].size() );
-        L.vID[l].resize(TrainIDs[l].size());
+//        L.vID[l].resize(TrainIDs[l].size());
 
         L.vPose[l].resize(TrainSet[l].size());
         L.QdisVector[l].resize(TrainSet[l].size());
@@ -482,16 +488,19 @@ void CRTree::makeLeaf(const std::vector<std::vector< PixelFeature*> >& TrainSet,
         for(unsigned int i = 0; i<TrainSet[l].size(); ++i) {
 
             L.vCenter[l][i] = TrainSet[l][i]->statFeature->disVector;
-            L.vID[l][i] =  TrainIDs[l][i];
+//            L.vID[l][i] =  TrainIDs[l][i];
 
             L.bbSize3D[l][i] = TrainSet[l][i]->statFeature->bbSize3D;
 
-            L.vPose[l][i] = TrainSet[l][i]->dynFeature->pointPairTransformation;
-            L.QdisVector[l][i] = TrainSet[l][i]->dynFeature->disVectorInQueryPixelCordinate;
-            L.alpha[l][i].resize(TrainSet[l][i]->dynFeature->alpha.size());
+            L.vPose[l][i] = dynFeatures[l][i]->pointPairTransformation;
+            L.QdisVector[l][i] = dynFeatures[l][i]->disVectorInQueryPixelCordinate;
+            L.alpha[l][i].resize(dynFeatures[l][i]->alpha.size());
 
-            for(unsigned int j = 0; j < TrainSet[l][i]->dynFeature->alpha.size(); j++)
-                L.alpha[l][i][j] = TrainSet[l][i]->dynFeature->alpha[j];
+            for(unsigned int j = 0; j < dynFeatures[l][i]->alpha.size(); j++)
+                L.alpha[l][i][j] = dynFeatures[l][i]->alpha[j];
+            
+            delete dynFeatures[l][i];
+//            delete TrainSet[l][i];
 
         }
     }
@@ -500,12 +509,12 @@ void CRTree::makeLeaf(const std::vector<std::vector< PixelFeature*> >& TrainSet,
     invsum = 1.0f/invsum;
     if (invsum_pos > 0){
         invsum_pos = 1.0f/invsum_pos;
-        for(unsigned int l=0; l<TrainSet.size(); ++l){
+        for(unsigned int l = 0; l < TrainSet.size(); ++l){
             L.vPrLabel[l] *= invsum;
         }
         L.cL = invsum/invsum_pos;
     }else{ // there is no positive patch in this leaf
-        for(unsigned int l=0; l<TrainSet.size(); ++l){
+        for(unsigned int l=0; l < TrainSet.size(); ++l){
             L.vPrLabel[l] *= invsum;
         }
         L.cL = 0.0f;
@@ -517,7 +526,7 @@ void CRTree::makeLeaf(const std::vector<std::vector< PixelFeature*> >& TrainSet,
     ++num_leaf;
 }
 
-bool CRTree::optimizeTest(const Parameters& param, vector<vector< PixelFeature*> >& SetA, vector<vector< PixelFeature*> >& SetB, vector<vector<int*> >& idA, vector<vector<int*> >& idB , const vector<vector< PixelFeature*> >& TrainSet, const vector<vector<int*> >& TrainIDs , int* test, unsigned int iter, unsigned int measure_mode,const std::vector<float>& vRatio, int node) {
+bool CRTree::optimizeTest(const Parameters& param, vector< std::vector< PixelFeature* > >& SetA, vector< std::vector< PixelFeature* > >& SetB, vector< std::vector< DynamicFeature* > >& dynA, vector< std::vector< DynamicFeature* > >& dynB, vector< std::vector< int > >& idA, vector< std::vector< int > >& idB, const vector< std::vector< PixelFeature* > >& TrainSet, vector< std::vector< DynamicFeature* > >& dynFeatures, const vector< std::vector< int > >& TrainIDs, int* test, unsigned int iter, unsigned int measure_mode, const std::vector< float >& vRatio, int node) {
 
     bool found = false;
     int subsample = 1000*TrainSet.size();
@@ -535,8 +544,10 @@ bool CRTree::optimizeTest(const Parameters& param, vector<vector< PixelFeature*>
         subsample_perclass[sz] = int(sample_rate*float(TrainSet[sz].size()));
     }
     // now we can subsample the patches and their associated ids
-    vector<vector< PixelFeature*> > tmpTrainSet;
-    vector<vector< int* > > tmpTrainIDs;
+    vector< vector< PixelFeature*> > tmpTrainSet;
+    vector< vector< int > > tmpTrainIDs;
+    vector< vector< DynamicFeature* > > tmpDynFeatures;
+    tmpDynFeatures.resize(TrainSet.size());
     tmpTrainSet.resize(TrainSet.size());
     tmpTrainIDs.resize(TrainSet.size());
 
@@ -544,13 +555,17 @@ bool CRTree::optimizeTest(const Parameters& param, vector<vector< PixelFeature*>
     for (unsigned int sz=0; sz < TrainSet.size() ; sz++){
         tmpTrainSet[sz].resize(std::min(int(TrainSet[sz].size()),subsample_perclass[sz]));
         tmpTrainIDs[sz].resize(tmpTrainSet[sz].size());
+        tmpDynFeatures[sz].resize(tmpTrainSet[sz].size());
         if (tmpTrainSet[sz].size()==0)
             continue;
 
         float float_rate = float(TrainSet[sz].size())/float(tmpTrainSet[sz].size());
         for (unsigned int j=0; j < tmpTrainSet[sz].size(); j++){
             tmpTrainSet[sz][j] = TrainSet[sz][int(float_rate*j)];
+            if( tmpTrainSet[sz][j]->statFeature->iHeight != 480 )
+                std::cout<<".................erooorrrrrr........"<<std::endl;
             tmpTrainIDs[sz][j] = TrainIDs[sz][int(float_rate*j)];
+            tmpDynFeatures[sz][j] = dynFeatures[sz][int(float_rate*j)];
         }
     }
 
@@ -568,15 +583,18 @@ bool CRTree::optimizeTest(const Parameters& param, vector<vector< PixelFeature*>
         // temporary data for split into Set A and Set B
         vector<vector< PixelFeature*> > tmpA(tmpTrainSet.size());
         vector<vector< PixelFeature*> > tmpB(tmpTrainSet.size());
-        vector<vector<int*> > tmpIDA(tmpTrainIDs.size());
-        vector<vector<int*> > tmpIDB(tmpTrainIDs.size());
+        vector<vector< DynamicFeature*> > dynA(tmpDynFeatures.size());
+        vector<vector< DynamicFeature*> > dynB(tmpDynFeatures.size());
+        vector<vector<int> > tmpIDA(tmpTrainIDs.size());
+        vector<vector<int> > tmpIDB(tmpTrainIDs.size());
+        
         // temporary data for finding best test
         vector<vector<IntIndex> > tmpValSet(tmpTrainSet.size());
         // generate binary test without threshold
         generateTest(param, &tmpTest[0], class_size[0].first, class_size[0].second, tmpTrainSet[check_label][0]->statFeature->imgAppearance.size());
 
         // compute value for each patch
-        evaluateTest( tmpValSet, &tmpTest[0], tmpTrainSet, node, false, param.addPoseMeasure);
+        evaluateTest( tmpValSet, &tmpTest[0], tmpTrainSet, tmpDynFeatures, node, false, param.addPoseMeasure);
 
         // find min/max values for threshold
         int vmin = INT_MAX;
@@ -598,7 +616,7 @@ bool CRTree::optimizeTest(const Parameters& param, vector<vector< PixelFeature*>
                 int tr = (cvRNG->operator ()(d)) + vmin;
 
                 // Split training data into two sets A,B accroding to threshold t
-                split(tmpA, tmpB, tmpIDA, tmpIDB, tmpTrainSet, tmpValSet, tmpTrainIDs, tr);// include idA , idB, TrainIDs
+                split(tmpA, tmpB, dynA, dynB, tmpIDA, tmpIDB, tmpTrainSet, tmpDynFeatures, tmpTrainIDs, tmpValSet, tr);// include idA , idB, TrainIDs
                 int countA = 0;
                 int countB = 0;
                 for( int l = 0; l< (int)tmpTrainSet.size(); ++l) {
@@ -612,7 +630,7 @@ bool CRTree::optimizeTest(const Parameters& param, vector<vector< PixelFeature*>
 
                 if( countA>10 && countB>10 ) {
                     // Measure quality of split with measure_mode 0 - classification, 1 - regression
-                    tmpDist = measureSet(tmpA, tmpB, measure_mode, vRatio, param.addPoseMeasure);
+                    tmpDist = measureSet(tmpA, tmpB, dynA, dynB, measure_mode, vRatio, param.addPoseMeasure);
 
                     // Take binary test with best split
                     if(tmpDist > bestDist) {
@@ -630,20 +648,22 @@ bool CRTree::optimizeTest(const Parameters& param, vector<vector< PixelFeature*>
     if (found){
         // here we should evaluate the test on all the data
         vector<vector<IntIndex> > valSet(TrainSet.size());
-        evaluateTest( valSet, &test[0], TrainSet, node, true, false);
+        evaluateTest( valSet, &test[0], TrainSet, dynFeatures, node, true, false);
         // now we can keep the best Test and split the whole set according to the best test and threshold
         SetA.resize(TrainSet.size());
         SetB.resize(TrainSet.size());
+        dynA.resize(TrainSet.size());
+        dynB.resize(TrainSet.size());
         idA.resize(TrainSet.size());
         idB.resize(TrainSet.size());
-        split(SetA, SetB, idA, idB, TrainSet, valSet, TrainIDs, test[5]);
+        split(SetA, SetB, dynA, dynB, idA, idB, TrainSet, dynFeatures, TrainIDs, valSet, test[5]);
     }
     // return true if a valid test has been found
     // test is invalid if only splits with with members all less than 10 in set A or B has been created
     return found;
 }
 
-void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const int* test, const std::vector<std::vector< PixelFeature*> >& TrainSet, int node, bool addTransformation, bool addPoseMeasure) {
+void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const int* test, const std::vector<std::vector< PixelFeature*> >& TrainSet, std::vector<std::vector< DynamicFeature*> >& dynFeatures, int node, bool addTransformation, bool addPoseMeasure) {
 
     for( unsigned int l = 0; l < TrainSet.size(); ++l ) {
         valSet[ l ].resize( TrainSet[ l ].size() );
@@ -653,7 +673,8 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
             //reconstruct pixel pair using vectors saved in test array
             cv::Mat ptC;
             cv::Point2f pt1,pt2;
-            PixelFeature* pf = TrainSet[ l ][ i ];
+            const PixelFeature* pf = TrainSet[ l ][ i ];
+            DynamicFeature* df = dynFeatures[ l ][ i ];
 
 
             pt1.x = std::max( int( 0.f /*pf->bbox.x */), int( pf->statFeature->pixelLocation.x + test[ 0 ] * pf->statFeature->scale ) );
@@ -716,7 +737,7 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
 
             if (addTransformation ){
 
-                cv::Point2f center(pf->statFeature->iWidth/2.f, TrainSet[l][i]->statFeature->iHeight/2.f);
+                cv::Point2f center(pf->statFeature->iWidth/2.f, pf->statFeature->iHeight/2.f);
                 cv::Point3f s1 = CRPixel::P3toR3(pt1, center, pf->statFeature->imgAppearance[7].at< unsigned short >(pt1)/1000.f );
                 cv::Point3f s2 = CRPixel::P3toR3(pt2, center, pf->statFeature->imgAppearance[7].at< unsigned short >(pt2)/1000.f );
                 cv::Point3f q = pf->statFeature->pixelLocation_real;
@@ -750,27 +771,27 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
 
                     // save only for first node
                     if(!isnan(QOdisVector1[0]))
-                        TrainSet[l][i]->dynFeature->disVectorInQueryPixelCordinate.first = QOdisVector1;
+                        df->disVectorInQueryPixelCordinate.first = QOdisVector1;
                     else
-                        TrainSet[l][i]->dynFeature->disVectorInQueryPixelCordinate.first = Eigen::Vector3f(0.f,0.f,0.f);
+                        df->disVectorInQueryPixelCordinate.first = Eigen::Vector3f(0.f,0.f,0.f);
                     if(!isnan(QOdisVector2[0]))
-                        TrainSet[l][i]->dynFeature->disVectorInQueryPixelCordinate.second = QOdisVector2;
+                        df->disVectorInQueryPixelCordinate.second = QOdisVector2;
                     else
-                        TrainSet[l][i]->dynFeature->disVectorInQueryPixelCordinate.second = Eigen::Vector3f(0.f,0.f,0.f);
+                        df->disVectorInQueryPixelCordinate.second = Eigen::Vector3f(0.f,0.f,0.f);
                     if(!isnan(QuaternionOQuery1.coeffs()[ 0 ]))
-                        TrainSet[l][i]->dynFeature->pointPairTransformation.first           = QuaternionOQuery1;
+                        df->pointPairTransformation.first           = QuaternionOQuery1;
                     else
-                        TrainSet[l][i]->dynFeature->pointPairTransformation.first           = Eigen::Quaternionf::Identity();
+                        df->pointPairTransformation.first           = Eigen::Quaternionf::Identity();
                     if(!isnan(QuaternionOQuery2.coeffs()[ 0 ]))
-                        TrainSet[l][i]->dynFeature->pointPairTransformation.second          = QuaternionOQuery2;
+                        df->pointPairTransformation.second          = QuaternionOQuery2;
                     else
-                        TrainSet[l][i]->dynFeature->pointPairTransformation.second          = Eigen::Quaternionf::Identity();
+                        df->pointPairTransformation.second          = Eigen::Quaternionf::Identity();
 
-                    TrainSet[l][i]->dynFeature->firstQuerytoCameraTransformation.first  = transformationMatrixQuery1C.block< 3, 3 >( 0, 0 );
-                    TrainSet[l][i]->dynFeature->firstQuerytoCameraTransformation.second = transformationMatrixQuery2C.block< 3, 3 >( 0, 0 );
+                    df->firstQuerytoCameraTransformation.first  = transformationMatrixQuery1C.block< 3, 3 >( 0, 0 );
+                    df->firstQuerytoCameraTransformation.second = transformationMatrixQuery2C.block< 3, 3 >( 0, 0 );
 
-                    Eigen::Matrix3f alphaRotationMatrix1 = TrainSet[l][i]->dynFeature->firstQuerytoCameraTransformation.first.inverse() * transformationMatrixQuery1C.block< 3, 3 >( 0, 0 );
-                    Eigen::Matrix3f alphaRotationMatrix2 = TrainSet[l][i]->dynFeature->firstQuerytoCameraTransformation.second.inverse() * transformationMatrixQuery2C.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3f alphaRotationMatrix1 = df->firstQuerytoCameraTransformation.first.inverse() * transformationMatrixQuery1C.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3f alphaRotationMatrix2 = df->firstQuerytoCameraTransformation.second.inverse() * transformationMatrixQuery2C.block< 3, 3 >( 0, 0 );
 
                     alpha1 = std::atan2(alphaRotationMatrix1(1,0), alphaRotationMatrix1(0,0));
                     alpha2 = std::atan2(alphaRotationMatrix2(1,0), alphaRotationMatrix2(0,0));
@@ -778,14 +799,14 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
                     if(isnan(alpha1)) alpha1 = 0;
                     if(isnan(alpha2)) alpha2 = 0;
 
-                    TrainSet[l][i]->dynFeature->alpha.push_back( std::pair< float, float >( alpha1, alpha2 ));
+                    df->alpha.push_back( std::pair< float, float >( alpha1, alpha2 ));
 
                 }else{
 
                     // save only relative angle and discretized with 2*PI/255 step size
 
-                    Eigen::Matrix3f alphaRotationMatrix1 = TrainSet[l][i]->dynFeature->firstQuerytoCameraTransformation.first.inverse() * transformationMatrixQuery1C.block< 3, 3 >( 0, 0 );
-                    Eigen::Matrix3f alphaRotationMatrix2 = TrainSet[l][i]->dynFeature->firstQuerytoCameraTransformation.second.inverse() * transformationMatrixQuery2C.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3f alphaRotationMatrix1 = df->firstQuerytoCameraTransformation.first.inverse() * transformationMatrixQuery1C.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3f alphaRotationMatrix2 = df->firstQuerytoCameraTransformation.second.inverse() * transformationMatrixQuery2C.block< 3, 3 >( 0, 0 );
 
                     alpha1 = std::atan2(alphaRotationMatrix1(1,0), alphaRotationMatrix1(0,0));
                     alpha2 = std::atan2(alphaRotationMatrix2(1,0), alphaRotationMatrix2(0,0));
@@ -793,19 +814,19 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
                     if(isnan(alpha1)) alpha1 = 0;
                     if(isnan(alpha2)) alpha2 = 0;
 
-                    TrainSet[l][i]->dynFeature->alpha.push_back(std::pair< float, float >(alpha1, alpha2));
+                    df->alpha.push_back(std::pair< float, float >(alpha1, alpha2));
                 }
 
                 //debug
                 if(0){
 
-                    cv::Point3f O = TrainSet[ l ][ i ]->statFeature->pixelLocation_real - TrainSet[ l ][ i ]->statFeature->disVector;
+                    cv::Point3f O = pf->statFeature->pixelLocation_real - pf->statFeature->disVector;
 
                     Eigen::Quaternionf alphaRotation(cos(alpha1/2.f),0.f,0.f,sin(alpha1/2.f));
 
                     Eigen::Vector4f QdisVector1_t = transformationMatrixQuery1C.inverse() * Eigen::Vector4f(O.x, O.y, O.z,1);
 
-                    cout<< "saved vector\n" << TrainSet[l][i]->dynFeature->disVectorInQueryPixelCordinate.first << "\n" << endl;
+                    cout<< "saved vector\n" << df->disVectorInQueryPixelCordinate.first << "\n" << endl;
                     cout<< "debugged Vector\n" << QdisVector1_t <<"\n"<<endl;
 
                 }
@@ -821,7 +842,7 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
                         std::vector<cv::Mat> in(3);
                         for( int channel = 0; channel < 3; channel++ ){
 
-                            in[ channel ] = TrainSet[l][i]->statFeature->imgAppearance[ channel ];
+                            in[ channel ] = pf->statFeature->imgAppearance[ channel ];
                         }
 
                         cv::Mat Lab, rgbImg, depthImg;
@@ -829,9 +850,9 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
                         cv::cvtColor(Lab , rgbImg, CV_Lab2BGR);
                         cv::circle(rgbImg, pt1, 2, CV_RGB( 0, 255, 0 ), -1, 8, 0);
                         cv::circle(rgbImg, pt2, 2, CV_RGB( 0, 255, 0 ), -1, 8, 0);
-                        cv::circle(rgbImg, TrainSet[ l ][ i ]->statFeature->pixelLocation, 2, CV_RGB( 255, 0, 0 ), -1, 8, 0);
+                        cv::circle(rgbImg, pf->statFeature->pixelLocation, 2, CV_RGB( 255, 0, 0 ), -1, 8, 0);
 
-                        depthImg = TrainSet[l][i]->statFeature->imgAppearance[7];
+                        depthImg = pf->statFeature->imgAppearance[7];
 
                         //                        CRPixel::drawTransformation(rgbImg, depthImg ,transformationMatrixOQuery1 );
 
@@ -853,13 +874,13 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
 
                         //                        Eigen::Quaternionf alphaRotationcheck = Eigen::Quaternionf(alphaRotation.toRotationMatrix());
 
-                        Eigen::Matrix3f debugRotationMatrix =  TrainSet[l][i]->dynFeature->firstQuerytoCameraTransformation.first * Eigen::Matrix3f(alphaRotation);
+                        Eigen::Matrix3f debugRotationMatrix =  df->firstQuerytoCameraTransformation.first * Eigen::Matrix3f(alphaRotation);
                         Eigen::Matrix4f debugTransformationMatrix = Eigen::Matrix4f::Identity();
                         debugTransformationMatrix.block<3,3>(0,0) = debugRotationMatrix;
                         debugTransformationMatrix.block<3,1>(0,3) = transformationMatrixQuery1C.block<3,1>(0,3);
 
-                        Eigen::Matrix3f OCRoataionCalculated = transformationMatrixQuery1C.block<3,3>(0,0) * Eigen::Matrix3f(alphaRotation).inverse()*Eigen::Matrix3f(TrainSet[l][i]->dynFeature->pointPairTransformation.first);
-                        Eigen::Vector3f OCTranslationCalculated = transformationMatrixQuery1C.block<3,3>(0,0) * Eigen::Matrix3f(alphaRotation).inverse()*TrainSet[l][i]->dynFeature->disVectorInQueryPixelCordinate.first +  Eigen::Vector3f(TrainSet[l][i]->statFeature->pixelLocation_real.x, TrainSet[l][i]->statFeature->pixelLocation_real.y, TrainSet[l][i]->statFeature->pixelLocation_real.z);
+                        Eigen::Matrix3f OCRoataionCalculated = transformationMatrixQuery1C.block<3,3>(0,0) * Eigen::Matrix3f(alphaRotation).inverse()*Eigen::Matrix3f(dynFeatures[l][i]->pointPairTransformation.first);
+                        Eigen::Vector3f OCTranslationCalculated = transformationMatrixQuery1C.block<3,3>(0,0) * Eigen::Matrix3f(alphaRotation).inverse()*dynFeatures[l][i]->disVectorInQueryPixelCordinate.first +  Eigen::Vector3f(TrainSet[l][i]->statFeature->pixelLocation_real.x, TrainSet[l][i]->statFeature->pixelLocation_real.y, TrainSet[l][i]->statFeature->pixelLocation_real.z);
 
                         Eigen::Matrix4f OCTransformationCalculated =  Eigen::Matrix4f::Identity();
                         OCTransformationCalculated.block<3,3>(0,0) = OCRoataionCalculated;
@@ -904,8 +925,8 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
                     Eigen::Quaternionf QuaternionOQuery1( rotationMatrixOQuery1 );
                     Eigen::Quaternionf QuaternionOQuery2( rotationMatrixOQuery2 );
 
-                    pf->dynFeature->transformationMatrixOQuery_at_current_node.first = QuaternionOQuery1;
-                    pf->dynFeature->transformationMatrixOQuery_at_current_node.second = QuaternionOQuery2;
+                    df->transformationMatrixOQuery_at_current_node.first = QuaternionOQuery1;
+                    df->transformationMatrixOQuery_at_current_node.second = QuaternionOQuery2;
                 }
             }
             valSet[l][i].index = i;
@@ -914,8 +935,10 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
     }
 }
 
-void CRTree::split(vector<vector< PixelFeature*> >& SetA, vector<vector< PixelFeature*> >& SetB, vector<vector<int* > >& idA, vector<vector<int*> >& idB , const vector<vector< PixelFeature*> >& TrainSet, const vector<vector<IntIndex> >& valSet, const vector<vector<int*> >& TrainIDs ,int t) {
+void CRTree::split(vector< std::vector< PixelFeature* > >& SetA, vector< std::vector< PixelFeature* > >& SetB, vector< std::vector< DynamicFeature* > >& dynA,vector< std::vector< DynamicFeature* > >& dynB, std::vector< std::vector< int > >& idA, vector< std::vector< int > >& idB, const vector< std::vector< PixelFeature* > >& TrainSet, vector< std::vector< DynamicFeature* > >& dynFeatures, const vector< std::vector< int > >& TrainIDs, const vector< vector< IntIndex > >& valSet, int t) {
+    
     for(unsigned int l = 0; l<TrainSet.size(); ++l) {
+
         // search largest value such that val<t
         vector<IntIndex>::const_iterator it = valSet[l].begin();
         while(it!=valSet[l].end() && it->val<t) {
@@ -924,25 +947,30 @@ void CRTree::split(vector<vector< PixelFeature*> >& SetA, vector<vector< PixelFe
 
         SetA[l].resize(it-valSet[l].begin());
         idA[l].resize(SetA[l].size());
+        dynA[l].resize(SetA[l].size());
         SetB[l].resize(TrainSet[l].size()-SetA[l].size());
         idB[l].resize(SetB[l].size());
+        dynB[l].resize(SetB[l].size());
+
 
         it = valSet[l].begin();
         for(unsigned int i=0; i<SetA[l].size(); ++i, ++it) {
             SetA[l][i] = TrainSet[l][it->index];
             idA[l][i] = TrainIDs[l][it->index];
+            dynA[l][i] = dynFeatures[l][it->index];
         }
 
         it = valSet[l].begin()+SetA[l].size();
         for(unsigned int i=0; i<SetB[l].size(); ++i, ++it) {
             SetB[l][i] = TrainSet[l][it->index];
             idB[l][i] = TrainIDs[l][it->index];
-        }
+            dynB[l][i] = dynFeatures[l][it->index];
 
+        }
     }
 }
 
-double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >& SetA, const std::vector<std::vector< PixelFeature*> >& SetB){
+double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >& SetA, const std::vector<std::vector< PixelFeature*> >& SetB, const std::vector<std::vector< DynamicFeature*> >& dynA, const std::vector<std::vector< DynamicFeature*> >& dynB){
 
     vector<double> dist(num_labels, 0);
 
@@ -973,8 +1001,8 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
 
             vTransA1.reserve(SetA[c].size());
             vTransA2.reserve(SetA[c].size());
-
-            for(vector< PixelFeature* >::const_iterator it = SetA[c].begin(); it != SetA[c].end(); ++it) { // for all training data of class c in SetA
+            vector< DynamicFeature* >::const_iterator it_d = dynA[c].begin();
+            for(vector< PixelFeature* >::const_iterator it = SetA[c].begin(); it != SetA[c].end(); ++it, ++it_d) { // for all training data of class c in SetA
 
                 cv::RNG rng(cv::getCPUTickCount());
                 float val = rng.uniform( 0.f, 1.f ); // generate a random number within [0,1]
@@ -982,7 +1010,7 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
                 if( val > sample_pose || SetA[c].size()*sample_pose < 100.f ){
 
                     // 1 generate realtive transformation for first offset vector
-                    Eigen::Quaternionf t1 = (*it)->dynFeature->transformationMatrixOQuery_at_current_node.first;
+                    Eigen::Quaternionf t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
 
                     if(! ( isnan(t1.w()) || isnan(t1.x()) || isnan(t1.y()) || isnan(t1.z()) ) ){
                         // push quaternion into stack
@@ -991,7 +1019,7 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
                     }
 
                     // 1 generate realtive transformation for first offset vector
-                    Eigen::Quaternionf t2 = (*it)->dynFeature->transformationMatrixOQuery_at_current_node.second;
+                    Eigen::Quaternionf t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
 
                     if(! ( isnan(t2.w()) || isnan(t2.x()) || isnan(t2.y()) || isnan(t2.z()) ) ){
                         // push quaternion into stack
@@ -1008,10 +1036,10 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
             Eigen::Quaternionf interpA2_inv = interpA2.inverse();
 
             // find dot product between mean and each quaternion and add it to dist
-            for(vector< PixelFeature* >::const_iterator it = SetA[c].begin(); it != SetA[c].end(); ++it) { // for all training data of class c in Set
+            for(vector< PixelFeature* >::const_iterator it = SetA[c].begin(); it != SetA[c].end(); ++it, ++it_d) { // for all training data of class c in Set
 
                 // 1 generate realtive transformation for first offset vector
-                Eigen::Quaternionf t1 = (*it)->dynFeature->transformationMatrixOQuery_at_current_node.first;
+                Eigen::Quaternionf t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
 
                 if(! ( isnan(t1.w()) || isnan(t1.x()) || isnan(t1.y()) || isnan(t1.z()) ) ){
                     // find difference between quaternions
@@ -1025,7 +1053,7 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
                 }
 
                 // 2 generate realtive transformation for second offset vector
-                Eigen::Quaternionf t2 = (*it)->dynFeature->transformationMatrixOQuery_at_current_node.second;
+                Eigen::Quaternionf t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
 
                 if(! ( isnan(t2.w()) || isnan(t2.x()) || isnan(t2.y()) || isnan(t2.z()) ) ){
                     // find difference between quaternions
@@ -1057,7 +1085,7 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
                 if( val > sample_pose || SetB[c].size()*sample_pose < 100.f ){
 
                     // 1 generate realtive transformation for first offset vector
-                    Eigen::Quaternionf t1 = (*it)->dynFeature->transformationMatrixOQuery_at_current_node.first;
+                    Eigen::Quaternionf t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
 
                     if(! ( isnan(t1.w()) || isnan(t1.x()) || isnan(t1.y()) || isnan(t1.z()) ) ){
                         // push quaternion into stack
@@ -1066,7 +1094,7 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
                     }
 
                     // 2 generate realtive transformation for second offset vector
-                    Eigen::Quaternionf t2 = (*it)->dynFeature->transformationMatrixOQuery_at_current_node.second;
+                    Eigen::Quaternionf t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
 
                     if(! ( isnan(t2.w()) || isnan(t2.x()) || isnan(t2.y()) || isnan(t2.z()) ) ){
                         // push quaternion into stack
@@ -1086,7 +1114,7 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
             for(vector< PixelFeature* >::const_iterator it = SetB[c].begin(); it != SetB[c].end(); ++it) { // for all training data of class c in Set
 
                 // 1 generate realtive transformation for first offset vector
-                Eigen::Quaternionf t1 = (*it)->dynFeature->transformationMatrixOQuery_at_current_node.first;
+                Eigen::Quaternionf t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
 
                 if(! ( isnan(t1.w()) || isnan(t1.x()) || isnan(t1.y()) || isnan(t1.z()) ) ){
                     // find difference between quaternions
@@ -1100,7 +1128,7 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
                 }
 
                 // 2 generate realtive transformation for second offset vector
-                Eigen::Quaternionf t2 = (*it)->dynFeature->transformationMatrixOQuery_at_current_node.second;
+                Eigen::Quaternionf t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
 
                 if(! ( isnan(t2.w()) || isnan(t2.x()) || isnan(t2.y()) || isnan(t2.z()) ) ){
                     // find difference between quaternions

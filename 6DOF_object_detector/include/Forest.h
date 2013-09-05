@@ -89,26 +89,46 @@ trainForest(const Parameters& p, rawData& data, int min_s,  int samples ) {
     CRPixel TrData( &pRNG );
     TrData.setClasses( p.nlabels );
     // Extract training patches
-
     CRForestTraining::extract_Pixels( data, p, TrData, &pRNG);
 
-
 #pragma omp parallel for
+
     for( int i = p.off_tree; i < ( int )vTrees.size(); ++i ){
+
+        std::vector<std::vector< int > > numbers( TrData.vRPixels.size() );
+       
+        for(int class_ = 0 ; class_ < TrData.vRPixels.size() ; class_++) {
+            numbers[class_].reserve(TrData.vRPixels[class_].size());
+            for( int j = 0; j < TrData.vRPixels[class_].size(); j++ ) {
+                numbers[class_].push_back(j);
+            }
+            
+            // shuffle and take a subset of the pixels
+            std::random_shuffle ( numbers[class_].begin(), numbers[class_].end() );
+            numbers[class_].resize(static_cast<size_t>(0.50*static_cast<double>(numbers[class_].size())));
+        }
 
         CRTree* Trees = new CRTree( min_s, p.treedepth, TrData.vRPixels.size(), &pRNG );
         Trees->setClassId( p.class_structure );
         Trees->SetScale( p.scale_tree );
         Trees->setTrainingMode( p.training_mode );
         Trees->setObjectSize( p.objectSize );
-        Trees->growTree( p, TrData, samples, i );
+        Trees->growTree( p, TrData, samples, i, numbers);
 
         char buffer[ 200 ];
 
         sprintf_s( buffer, "%s%03d.txt", (p.treepath + "/treetable").c_str(), i );
         Trees->saveTree( buffer);
+        delete Trees;
 
     }
+    
+    for(vector< std::vector< PixelFeature* > >::iterator train = TrData.vRPixels.begin(); train!=TrData.vRPixels.end(); train++){
+        for(std::vector< PixelFeature* >::iterator feature = train->begin(); feature!=train->end(); feature++){
+            
+            delete *feature;
+        }      
+    }   
 }
 
 // IO Functions
@@ -124,7 +144,7 @@ inline bool CRForest::loadForest( string filename, unsigned int offset ) {
 
     char buffer[ 200 ];
     bool final_success = true;
-    //    bool success = true;
+//     bool success = true;
     vector<bool>success(vTrees.size());
 
 #pragma omp parallel for private(buffer)
@@ -133,15 +153,14 @@ inline bool CRForest::loadForest( string filename, unsigned int offset ) {
         bool s;
         vTrees[ i-offset ] = new CRTree( buffer, s );
         success[ i-offset ] = s;
-        //        success = s;
-
+//         success = s;
     }
 
     for(int i = 0; i < vTrees.size(); i++ )
         if(success[i]!=true)
             final_success = false;
     return final_success;
-    //    return success;
+//        return success;
 }
 
 inline void CRForest::loadHierarchy(const char* hierarchy, unsigned int offset){

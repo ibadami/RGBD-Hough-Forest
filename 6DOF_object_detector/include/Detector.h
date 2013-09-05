@@ -16,11 +16,6 @@
 #include "Parameters.h"
 #include "utils.h"
 
-static std::vector<cv::Mat> default_vvImg;
-static std::vector<cv::Mat> default_vImg;
-static long int default_int = -1;
-
-
 // Auxilary structure
 struct XYZIndex {
     int val;

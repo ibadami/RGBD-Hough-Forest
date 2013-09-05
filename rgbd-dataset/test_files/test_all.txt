@@ -1,0 +1,11 @@
+8
+../rgbd-dataset/test_files/table_small_1_testimage.txt
+../rgbd-dataset/test_files/table_small_2_testimage.txt
+../rgbd-dataset/test_files/meeting_small_1_testimage.txt
+../rgbd-dataset/test_files/kitchen_small_1_testimage.txt
+../rgbd-dataset/test_files/table_1_testimage.txt
+../rgbd-dataset/test_files/desk_1_testimage.txt
+../rgbd-dataset/test_files/desk_2_testimage.txt
+../rgbd-dataset/test_files/desk_3_testimage.txt
+
+

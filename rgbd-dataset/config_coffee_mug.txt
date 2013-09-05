@@ -1,21 +1,21 @@
 # Name of an object
 coffee_mug
 # Suffix
-clutterd_neg_offset_0.8_surfel
+for_icra
 # File with names of test images
 ../rgbd-dataset/test_files/test_all.txt
 # test image path
-/home/local/stud/badami/Uni_Bonn/Master_thesis/datasets/rgbd-dataset/test
+/work/badami/datasets/rgbd-dataset/test
 # File with train examples name
 ../rgbd-dataset/train_files/train_all_coffee_mug.txt
 # train image path
-/home/local/stud/badami/Uni_Bonn/Master_thesis/datasets/rgbd-dataset/newTrain2
+/work/badami/datasets/rgbd-dataset/newTrain2
 # Output path
-/home/local/stud/badami/Uni_Bonn/Master_thesis/datasets/rgbd-dataset/output
+/work/badami/datasets/rgbd-dataset/output
 # Objest model path
 ../rgbd-dataset/object_models
 # Number of trees
-5
+8
 # Maximum Depth of trees
 20
 # Subset of positive images, subset of negative images -1: all images
@@ -29,7 +29,7 @@ clutterd_neg_offset_0.8_surfel
 # add minmaxfilt
 1
 # add pose measure
-1
+0
 # Scales (Number of scales - Scales)
 10 0.200000 0.400000 0.600000 0.800000 1.000000 1.200000 1.400000 1.600000 1.800000 2.00000
 # Smoothing Kernel Parameters(kernelwidth, sigma, kernel width, sigma)

@@ -27,6 +27,23 @@ struct IntIndex {
     bool operator<(const IntIndex& a) const { return val<a.val; }
 };
 
+struct DynamicFeature{
+    
+    DynamicFeature(){}
+    
+    std::pair< Eigen::Vector3f, Eigen::Vector3f > disVectorInQueryPixelCordinate;
+    std::pair< Eigen::Vector3f, Eigen::Vector3f > tempDisVectorInQueryPixelCordinate;
+    std::pair< Eigen::Quaternionf, Eigen::Quaternionf > pointPairTransformation;
+    
+    std::pair< Eigen::Matrix3f, Eigen::Matrix3f > firstQuerytoCameraTransformation;
+    
+    std::pair< Eigen::Quaternionf, Eigen::Quaternionf > transformationMatrixOQuery_at_current_node;
+    
+    std::vector< std::pair < float, float > > alpha;
+    
+};
+
+
 // Structure for the leafs
 struct LeafNode {
     // Constructors
@@ -55,7 +72,7 @@ struct LeafNode {
     // Vectors from object center to training pixeles
     std::vector<std::vector<cv::Point3f> > vCenter;
     std::vector<std::vector<float> > vCenterWeights;
-    std::vector<std::vector<int*> > vID;
+    std::vector<std::vector<int> > vID;
     std::vector<std::vector<cv::Point3f > > bbSize3D;
     std::vector<std::vector<std::pair< Eigen::Quaternionf, Eigen::Quaternionf > > > vPose;
     std::vector<std::vector<std::pair< Eigen::Vector3f, Eigen::Vector3f > > > QdisVector;
@@ -189,31 +206,32 @@ public:
     int regression(const std::vector<cv::Mat> &vImg, const pcl::PointCloud<pcl::Normal>::Ptr& normals, cv::Point &pt, float &scale) const;
 
     // Training
-    void growTree( const Parameters& param, CRPixel& TrData, int samples, int trNr);
+    void growTree( const Parameters& param,  const CRPixel& TrData, int samples, int trNr, std::vector< std::vector< int > > numbers );
 
     // IO functions
     bool saveTree(const char* filename) const;
     bool loadHierarchy(const char* filename);
+    std::vector< std::vector<DynamicFeature*> > dynFeatureSet;
 
 private:
 
     // Private functions for training
-    void grow(const Parameters& param, const std::vector<std::vector< PixelFeature*> >& TrainSet, const std::vector<std::vector<int*> >& TrainIDs, int node, unsigned int depth, int samples, std::vector<float>& vRatio, int trNr);
+    void grow(const Parameters& param, const vector< vector< PixelFeature*> >& TrainSet, vector<vector< DynamicFeature*> >& dynFeatures, const vector<vector<int> >& TrainIDs, int node, unsigned int depth, int samples, vector<float>& vRatio, int trNr) ;
 
     int getStatSet(const std::vector<std::vector< PixelFeature*> >& TrainSet, int* stat);
 
-    void makeLeaf(const std::vector<std::vector< PixelFeature*> >& TrainSet, const std::vector<std::vector< int*> >& TrainIDs , std::vector<float>& vRatio, int node);
+    void makeLeaf(const std::vector<std::vector< PixelFeature*> >& TrainSet, const std::vector<std::vector< DynamicFeature*> >& dynFeatures, const std::vector<std::vector< int> >& TrainIDs, std::vector<float>& vRatio, int node);
 
-    bool optimizeTest(const Parameters& param , std::vector<std::vector< PixelFeature*> >& SetA, std::vector<std::vector< PixelFeature*> >& SetB, std::vector<std::vector<int*> >& idA, std::vector<std::vector<int*> >& idB, const std::vector<std::vector< PixelFeature*> >& TrainSet, const std::vector<std::vector<int*> >& TrainIDs, int* test, unsigned int iter, unsigned int mode, const std::vector<float>& vRatio, int node);
+    bool optimizeTest(const Parameters& param, vector<vector< PixelFeature*> >& SetA, vector<vector< PixelFeature*> >& SetB, vector<vector< DynamicFeature*> >& dynA, vector<vector< DynamicFeature*> >& dynB, vector<vector<int> >& idA, vector<vector<int> >& idB , const vector<vector<  PixelFeature*> >& TrainSet, vector<vector<  DynamicFeature*> >& dynFeatures, const vector<vector<int> >& TrainIDs , int* test, unsigned int iter, unsigned int measure_mode,const std::vector<float>& vRatio, int node);
 
     void generateTest(const Parameters& p, int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c);
 
-    void evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const int* test, const std::vector<std::vector< PixelFeature*> >& TrainSet, int node, bool addTransformation, bool addPoseMeasure);
+    void evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const int* test, const std::vector< std::vector< PixelFeature*> >& TrainSet, std::vector<std::vector< DynamicFeature*> >& dynFeatures, int node, bool addTransformation, bool addPoseMeasure);
 
-    void split( std::vector<std::vector< PixelFeature*> >& SetA, std::vector<std::vector< PixelFeature*> >& SetB, std::vector<std::vector<int* > >& idA, std::vector<std::vector<int*> >& idB , const std::vector<std::vector< PixelFeature*> >& TrainSet, const std::vector<std::vector<IntIndex> >& valSet, const std::vector<std::vector<int*> >& TrainIDs ,int t);
+    void split(vector< std::vector< PixelFeature* > >& SetA, vector< std::vector< PixelFeature* > >& SetB, vector< std::vector< DynamicFeature* > >& dynA, vector< std::vector< DynamicFeature* > >& dynB, vector< std::vector< int > >& idA, vector< std::vector< int > >& idB, const vector< std::vector< PixelFeature* > >& TrainSet, vector< std::vector< DynamicFeature* > >& dynFeatures, const vector< std::vector< int > >& TrainIDs, const vector< vector< IntIndex > >& valSet, int t);
 
-    double measureSet( const std::vector<std::vector< PixelFeature*> >& SetA, const std::vector<std::vector< PixelFeature*> >& SetB, unsigned int mode, const std::vector<float>& vRatio, bool addPoseMeasure) {
-
+    double measureSet( const std::vector<std::vector< PixelFeature*> >& SetA, const std::vector<std::vector< PixelFeature*> >& SetB,  const std::vector<std::vector< DynamicFeature*> >& dynA, const std::vector<std::vector< DynamicFeature*> >& dynB, unsigned int mode, const std::vector<float>& vRatio, bool addPoseMeasure) {
+ 
         if ( mode == 0 || mode == -1 ) {
 
             if ( training_mode == 0 ){ // two class information gain
@@ -236,7 +254,7 @@ private:
             if( addPoseMeasure ){
                 if( mode == 1 )
                     // calculate pose measure
-                    return -orientationMeanMC( SetA, SetB );
+                    return -orientationMeanMC( SetA, SetB , dynA, dynB);
                 else{
 
                     if ( training_mode == 2 || training_mode == 0 ){
@@ -263,7 +281,7 @@ private:
 
     double distMeanMC(const std::vector<std::vector< PixelFeature*> >& SetA, const std::vector<std::vector< PixelFeature*> >& SetB);
 
-    double orientationMeanMC(const std::vector<std::vector< PixelFeature*> >& SetA, const std::vector<std::vector< PixelFeature*> >& SetB);
+    double orientationMeanMC(const std::vector<std::vector< PixelFeature*> >& SetA, const std::vector<std::vector< PixelFeature*> >& SetB, const std::vector<std::vector< DynamicFeature*> >& dynA, const std::vector<std::vector< DynamicFeature*> >& dynB);
 
     double distMeanMC_pose(const vector< vector< PixelFeature* > >& SetA, const vector<vector< PixelFeature* > >& SetB) ;
 
