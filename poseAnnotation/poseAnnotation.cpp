@@ -18,9 +18,9 @@
 using namespace std;
 string objName;
 string testClassFiles = "./test_all.txt";
-string testClassPath = "/home/local/stud/badami/Uni_Bonn/Master_thesis/datasets/rgbd-dataset/test";
-string poseGroundTruth = "/home/local/stud/badami/Uni_Bonn/Master_thesis/datasets/rgbd-dataset/groundTruth/pose/";
-string locationGroundTruth = "/home/local/stud/badami/Uni_Bonn/Master_thesis/datasets/rgbd-dataset/groundTruth/location/";
+string testClassPath = "/work/badami/datasets/rgbd-dataset/test";
+string poseGroundTruth = "/work/badami/datasets/rgbd-dataset/groundTruth/pose/";
+string locationGroundTruth = "/work/badami/datasets/rgbd-dataset/groundTruth/location/";
 
 bool DEBUG = 0;
 
@@ -134,7 +134,8 @@ inline void selectPlane( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::Poi
 
         MouseEvent mouse;
         cv::setMouseCallback( "Select turn table Plane", onMouse, &mouse );
-        cv::waitKey( 10 );
+        char key = cv::waitKey( 10 );
+
 
         if( mouse.event == CV_EVENT_LBUTTONDOWN ) {
 
@@ -156,12 +157,16 @@ inline void selectPlane( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::Poi
             }
 
         }
-        else if( mouse.event == CV_EVENT_RBUTTONDOWN && convexHull_.size() >=3) {
+        else if( mouse.event == CV_EVENT_RBUTTONDOWN ) {
             stopSelection = true;
         }
-        else if( mouse.event == CV_EVENT_MBUTTONDOWN ) {
+//        else if( mouse.event == CV_EVENT_MBUTTONDOWN && convexHull_.size() >=3) {
+//            stopSelection = true;
+//        }
+        else if( (key == ' ') && convexHull_.size() >=3) {
             stopSelection = true;
         }
+
     }
 
     if( convexHull_.size() < 3 ) {
@@ -354,7 +359,7 @@ int main(int argc, char* argv[]) {
         vector< vector< string > > vFilenames;
         loadTestClassFile( testClassFiles, vFilenames);
 
-        for(unsigned int i = 2;  i <  vFilenames.size();  i++ ){
+        for(unsigned int i = 0;  i <  vFilenames.size();  i++ ){
 
             // create test set folder
             string foldername = vFilenames[i][0];

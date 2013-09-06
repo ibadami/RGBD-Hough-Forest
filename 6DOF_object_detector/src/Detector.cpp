@@ -531,8 +531,8 @@ void CRForestDetector::detectPosePeaks_slerp(std::vector<Eigen::Quaternionf>& qM
 void CRForestDetector::detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score){
 
     // smoothing of the houghspace with gaussian kernel
-    float sigma = 0.2;
-    int kSize = 3;
+    float sigma = 1.f;
+    int kSize = 5;
     cv::Mat gauss = cv::getGaussianKernel( kSize , sigma, CV_32F);
 
     vector<vector<cv::Mat> > poseHoughSpace_smoothed(poseHoughSpace.size());
@@ -1272,7 +1272,7 @@ void CRForestDetector::detectCenterPeaks(std::vector<Candidate >& candidates, co
         int candNr = 0;
         bool goodCandidate;
 
-        for ( int count = 0; count < param.max_candidates  ; count++ ){// count can go until infinity
+        for ( int count = 0; count < param.max_candidates; count++ ){// count can go until infinity
 
             bool flag = false;
             std::vector< cv::Point > max_loc_temp( nScales );

@@ -1,7 +1,7 @@
 # Name of an object
 cap
 # Suffix
-for_icra
+for_icra_with_tight_sampling_and_parallel_training
 # File with names of test imagessure
 ../rgbd-dataset/test_files/test_all.txt
 # test image path
@@ -23,7 +23,7 @@ for_icra
 # Sample pixels pos images, sample pixel neg images
 1000 1000
 # add surfel Channel
-0
+1
 # add hog channel
 0
 # add minmaxfilt

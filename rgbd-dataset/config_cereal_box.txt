@@ -1,7 +1,7 @@
 # Name of an object
 cereal_box
 # Suffix
-for_icra
+for_icra_with_tight_sampling_and_parallel_training
 # File with names of test images
 ../rgbd-dataset/test_files/test_all.txt
 # test image path
@@ -23,7 +23,7 @@ for_icra
 # Sample pixels pos images, sample pixel neg images
 2000 2000
 # add surfel Channel
-0
+1
 # add hog channel
 0
 # add minmaxfilt
@@ -33,7 +33,7 @@ for_icra
 # Scales (Number of scales - Scales)
 10 0.200000 0.400000 0.600000 0.800000 1.000000 1.200000 1.400000 1.600000 1.800000 2.00000
 # Smoothing Kernel Parameters(kernelwidth, sigma, kernel width, sigma)
-4 15.000000 0.800000  3.000000 0.200
+4 15.000000 4.00000  5.000000 1.00
 # threshold for detection( thresh_detection )
 0.01
 # threshold for boundingBox( thresh_bb )

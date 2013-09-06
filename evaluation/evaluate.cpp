@@ -11,6 +11,7 @@
 #include <stdio.h>
 
 #include <boost/thread/thread.hpp>
+#include <boost/shared_ptr.hpp>
 #include <pcl/point_types.h>
 #include <pcl/point_cloud.h>
 #include <pcl/common/common_headers.h>
@@ -31,21 +32,23 @@ using namespace std;
 
 // set some gloabal parameters keep changing for different configurations
 
-string testimagepath = "/home/local/stud/badami/Uni_Bonn/Master_thesis/datasets/rgbd-dataset/test";
+string testimagepath = "/work/badami/datasets/rgbd-dataset/test";
 
-string testimagefiles = "test_all.txt";
+string testimagefiles = "./test_all.txt";
 
-string boundingboxFolder = "boundingBox_original";
+//string boundingboxFolder = "boundingBox_original";
 
-string groundTruthFolder = "../multiclassOD/rgbd-dataset/groundTruth/location";
+string boundingboxFolder = "boundingBox";
 
-string groundTPoseFolder = "../multiclassOD/rgbd-dataset/groundTruth/pose";
+string groundTruthFolder = "/work/badami/datasets/rgbd-dataset/groundTruth/location";
 
-string suffix = "";
+string groundTPoseFolder = "/work/badami/datasets/rgbd-dataset/groundTruth/pose";
 
-string candidatepath = "../multiclassOD/rgbd-dataset/output/detection";
+string suffix = "_for_icra_with_tight_sampling_and_parallel_training";
 
-bool pose_present = 0;
+string candidatepath = "/work/badami/datasets/rgbd-dataset/output/detection";
+
+bool pose_present = 1;
 
 string objname;
 
@@ -244,11 +247,13 @@ void calcPRA_all(vector< float>& tp, vector< float>& fp, vector< float>& fn, vec
 
     for( unsigned int i = 0; i < tp.size(); i++ ){
 
-        PRA[i].resize(3);
+        PRA[i].resize(3,0);
+        if(tp[i] > 0){
         PRA[i][0] = tp[i]/ (tp[i] + fp[i]); // precision
         PRA[i][1] = tp[i]/ (tp[i] + fn[i]); // recall
 
         PRA[i][2] = ( tp[i] ) / (tp[i] + fp[i]+ fn[i] ); // accuracy
+        }
 
     }
 
@@ -368,7 +373,7 @@ int main( int argc, char* argv[ ] ){
         // save statistics in a vector of vector
         vector< vector< float > > tftf;
 
-        float minThresh = 0.f, maxThresh = 3.f, step = 0.1f;
+        float minThresh = 0.f, maxThresh = 5.f, step = 0.1f;
         int size_of_vector = int((maxThresh-minThresh)/step);
 
         vector<float>falsePositive_all(size_of_vector, 0);
@@ -526,12 +531,14 @@ int main( int argc, char* argv[ ] ){
                                         normal_dt.y = center.y + pose_z[b][1];
                                         normal_dt.z = center.z + pose_z[b][2];
 
-                                        boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer ( new pcl::visualization::PCLVisualizer ("3D Viewer") );
+
                                         pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
 
-                                        cv::imshow("img", img); cv::waitKey(0);
+                                        cv::imshow("img", img); cv::waitKey(20);
                                         cv::imshow("depthimg", depthImg); cv::waitKey(0);
                                         imagesToPointCloud(depthImg, img,  cloud);
+
+                                        boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer ( new pcl::visualization::PCLVisualizer ("3D Viewer") );
                                         pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> cloud_rgb( cloud );
 
                                         viewer->setBackgroundColor( 1, 1, 1 );

@@ -776,7 +776,7 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
                     if(candidates[cand].weight > p.thresh_bb){
 
                         createWireFrame (copy_img, imagePoints);
-                        printScore(copy_img, p.objectName, candidates[cand].weight, candidates[cand].center, 0 );
+                        printScore(copy_img, p.objectName, candidates[cand].weight, candidates[cand].center, 1 );
 
                     }
                     for ( unsigned int ptNr = 0; ptNr < imagePoints.size(); ptNr++ )
@@ -795,7 +795,7 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
 
             }
 
-            cv::imshow("Detected object", copy_img); cv::waitKey(10);
+          //  cv::imshow("Detected object", copy_img); cv::waitKey(10);
 
             cv::imwrite(( p.bbpath + "/" + vFilenames[tcNr][i]).c_str(), copy_img);
 

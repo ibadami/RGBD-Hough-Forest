@@ -1,7 +1,7 @@
 # Name of an object
 coffee_mug
 # Suffix
-for_icra
+for_icra_with_tight_sampling_and_parallel_training
 # File with names of test images
 ../rgbd-dataset/test_files/test_all.txt
 # test image path
@@ -21,9 +21,9 @@ for_icra
 # Subset of positive images, subset of negative images -1: all images
 250 250
 # Sample pixels pos images, sample pixel neg images
-1000 1000
+2000 2000
 # add surfel Channel
-0
+1
 # add hog channel
 0
 # add minmaxfilt
