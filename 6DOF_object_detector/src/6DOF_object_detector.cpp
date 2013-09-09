@@ -164,6 +164,11 @@ void loadConfig( string& filename, int mode,  Parameters& p ) {
         in >> p.samples_pixel_neg;
         in.getline( buffer, 1000 );
 
+        // add intensity channel
+        in.getline( buffer, 1000 );
+        in >> p.addIntensity;
+        in.getline( buffer, 1000 );
+
         // add surfel Channel
         in.getline( buffer, 1000 );
         in >> p.addSurfel;

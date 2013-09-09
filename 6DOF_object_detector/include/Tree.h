@@ -406,14 +406,20 @@ inline void CRTree::generateTest(const Parameters& p, int* test, unsigned int ma
     //	cv::Point pt1, pt2;
 
     float scale_factor = 0.8f;
+
     test[ 0 ] = cvRNG->operator ()( max_w * scale_factor ) - max_w * scale_factor / 2.0f;
     test[ 1 ] = cvRNG->operator ()( max_h * scale_factor ) - max_h * scale_factor / 2.0f;
     test[ 2 ] = cvRNG->operator ()( max_w * scale_factor ) - max_w * scale_factor / 2.0f;
     test[ 3 ] = cvRNG->operator ()( max_h * scale_factor ) - max_h * scale_factor / 2.0f;
-    if(p.addSurfel)
-        test[ 4 ] = cvRNG->operator ()( max_c + 4 ) ;  //max_c  + 4 dimension for surfel feature
-    else
+
+    if( p.addSurfel && p.addIntensity )
+        test[ 4 ] = cvRNG->operator ()( max_c + 4 );  //max_c  + 4 dimension for surfel feature
+    else if(!p.addSurfel && p.addIntensity)
         test[ 4 ] = cvRNG->operator ()( max_c ) ;
+    else if( p.addSurfel && !p.addIntensity )
+        test[ 4 ] = cvRNG->operator()(max_c + 4 -1) +1;
+    else
+         test[ 4 ] = cvRNG->operator()( max_c - 1) + 1;
 
 }
 

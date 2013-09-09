@@ -57,32 +57,32 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
 
     cv::Point2f imgCenter(img.cols/2.f,img.rows/2.f);
 
-    // generate x,y locations
+//     generate x,y locations
 
-    //    float scale_factor = 0; // also defined in generateTest function in CRTree.cpp
+        float scale_factor = 0; // also defined in generateTest function in CRTree.cpp
 
-    //    int sub_width = box->width * scale_factor;
-    //    int sub_height = box->height * scale_factor;
+        int sub_width = box->width * scale_factor;
+        int sub_height = box->height * scale_factor;
 
-    //    cv::Mat locations = cv::Mat( (box->width - sub_width) * (box->height-sub_height), 2, CV_32SC2 );
-    //    cvRNG->fill(locations, CV_RAND_UNI, cv::Scalar( box->x + sub_width/2 , box->y + sub_height/2 ,0 ,0),cv::Scalar(box->x+box->width - sub_width/2, box->y+box->height - sub_height/2,0,0));
-    ////    cvRNG->fill(locations, CV_RAND_UNI, cv::Point2f( box->x + sub_width/2 , box->y + sub_height/2 ), cv::Point2f(box->x+box->width - sub_width/2, box->y+box->height - sub_height/2));
+        cv::Mat locations = cv::Mat( (box->width - sub_width) * (box->height-sub_height), 2, CV_32SC2 );
+        cvRNG->fill(locations, CV_RAND_UNI, cv::Scalar( box->x + sub_width/2 , box->y + sub_height/2 ,0 ,0),cv::Scalar(box->x+box->width - sub_width/2, box->y+box->height - sub_height/2,0,0));
+    //    cvRNG->fill(locations, CV_RAND_UNI, cv::Point2f( box->x + sub_width/2 , box->y + sub_height/2 ), cv::Point2f(box->x+box->width - sub_width/2, box->y+box->height - sub_height/2));
 
-    //    //    cv::Mat locations = cv::Mat( (box->width)*(box->height), 2, CV_32SC2 );
-    //    //    cvRNG->fill(locations,CV_RAND_UNI, cv::Scalar( box->x, box->y,0,0),cv::Scalar(box->x+box->width,box->y+box->height,0,0));
+        //    cv::Mat locations = cv::Mat( (box->width)*(box->height), 2, CV_32SC2 );
+        //    cvRNG->fill(locations,CV_RAND_UNI, cv::Scalar( box->x, box->y,0,0),cv::Scalar(box->x+box->width,box->y+box->height,0,0));
 
-    std::vector<cv::Point2f>locations;
-    locations.reserve(n);
-    int stepsize = static_cast<int>(std::sqrt(box->width*box->height/n)) + 1;
+//    std::vector<cv::Point2f>locations;
+//    locations.reserve(n);
+//    int stepsize = static_cast<int>(std::sqrt(box->width*box->height/n)) + 1;
 
-    // sample pixels uniformly from bounding box
-    for( unsigned int y = box->y; y < box->height + box->y; y+=stepsize ){
-        for( unsigned int x = box->x; x < box->width + box->x; x+=stepsize ){
-            if( maskImg.at<uchar>(y,x) != 0 )
-                locations.push_back(cv::Point(x,y));
-        }
-    }
-    n = locations.size();
+//    // sample pixels uniformly from bounding box
+//    for( unsigned int y = box->y; y < box->height + box->y; y+=stepsize ){
+//        for( unsigned int x = box->x; x < box->width + box->x; x+=stepsize ){
+//            if( maskImg.at<uchar>(y,x) != 0 )
+//                locations.push_back(cv::Point(x,y));
+//        }
+//    }
+//    n = locations.size();
     // reserve memory
     unsigned int offset = vRPixels[label].size();
     vRPixels[label].reserve(offset+n);
@@ -91,7 +91,7 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
     // save pixel features
     for( unsigned int i = 0; i < n ; i++ ) {
 
-        cv::Point2f pt(locations[i]);
+        cv::Point2f pt(locations.at<int>(i,0), locations.at<int>(i,1));
 
         PixelFeature* pf = new PixelFeature;
 
@@ -160,20 +160,20 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
             std::cout<<".................errrorrr............."<<endl;
 
         // debug visualize randomly generated pixels
-        if(0){
+        if( 0 ){
             cv::Mat img_show;
             img.copyTo(img_show);
             cv::circle(img_show, pt, 1, CV_RGB( 255, 0, 0 ), 8, 8, 0);
             cv::circle(img_show, *vCenter, 1, CV_RGB( 0, 255, 0 ), 8, 8, 0);
-            cv::line(img_show, pt, *vCenter, CV_RGB(255,0,255), 2, 8, 0);
+            cv::line(img_show, pt, *vCenter, CV_RGB( 255, 0, 255 ), 2, 8, 0);
             cv::imshow("img", img_show); cv::waitKey(0);
         }
 
         // debug visualize assignment of channel pointers
-        if(0){
-            for(unsigned int c=0; c<vImg.size(); ++c){
-                cv::imshow("debug",pf->statFeature->imgAppearance[c]);
-                cv::waitKey(0);
+        if( 0 ){
+            for( unsigned int c = 0; c < vImg.size(); ++c ){
+                cv::imshow( " debug ", pf->statFeature->imgAppearance[ c ] );
+                cv::waitKey( 0 );
             }
         }
 
@@ -196,6 +196,7 @@ void CRPixel::extractFeatureChannels(const Parameters& param, const cv::Mat& img
     // currently we are using the first 7 raw feature channel
     vImg.resize(total_channels);
     for( unsigned int c = 0; c < total_channels; ++c ){
+
         vImg[ c ] = cv::Mat::zeros( img.rows, img.cols, CV_8UC1 );
 
     }

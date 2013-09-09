@@ -120,6 +120,9 @@ struct Parameters{
     // add minmaxfilt
     bool addMinMaxFilt;
 
+    // add intensity
+    bool addIntensity;
+
     // setting these variables to determine what classes to do detection/training and test with
     vector<int> train_classes, detect_classes, emp_classes;
 
