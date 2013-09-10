@@ -800,7 +800,7 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
 
             }
 
-          //  cv::imshow("Detected object", copy_img); cv::waitKey(10);
+            cv::imshow("Detected object", copy_img); cv::waitKey(5);
 
             cv::imwrite(( p.bbpath + "/" + vFilenames[tcNr][i]).c_str(), copy_img);
 
@@ -844,7 +844,7 @@ void run_detect( Parameters& p ) {
         for( int trNr = 0; trNr < crForest.vTrees.size(); trNr++){
             for( int ndNr = 0; ndNr < crForest.vTrees[trNr]->getNumNodes(); ndNr++){
                 InternalNode *node = crForest.getNode(trNr,ndNr);
-                out << node->data[ 4 ] << endl;
+                out << node->data[ 4 ] << " " << node->depth << endl;
             }
         }
     }

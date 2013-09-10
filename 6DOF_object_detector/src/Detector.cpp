@@ -26,17 +26,17 @@ int COUNT;
 // matching the image to the forest and store the leaf assignments in vImgAssing
 void CRForestDetector::assignCluster(const cv::Mat &img, const cv::Mat &depthImg, vector<cv::Mat> &vImgAssign, const vector<cv::Mat>& vImg, const pcl::PointCloud<pcl::Normal>::Ptr& normals){
 
-     cv::Point pt;
-     time_t t = time(NULL);
-     int seed = (int)t;
-     double value= 0.0;
-     CvRNG pRNG(seed);
-     vector< int > result;
+    cv::Point pt;
+    time_t t = time(NULL);
+    int seed = (int)t;
+    double value= 0.0;
+    CvRNG pRNG(seed);
+    vector< int > result;
 
     float scale;
     bool do_regression;
 
-//#pragma omp parallel for private( pt, seed, value, pRNG, result )
+    //#pragma omp parallel for private( pt, seed, value, pRNG, result )
     for(int y=0; y < img.rows ; ++y) {
         for(int x=0; x < img.cols; ++x) {
 
@@ -528,59 +528,136 @@ void CRForestDetector::detectPosePeaks_slerp(std::vector<Eigen::Quaternionf>& qM
 
 }
 
-void CRForestDetector::detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score){
+//void CRForestDetector::detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score){
+
+//    // smoothing of the houghspace with gaussian kernel
+//    float sigma = 1.f;
+//    int kSize = 5;
+//    cv::Mat gauss = cv::getGaussianKernel( kSize , sigma, CV_32F);
+
+//    vector<vector<cv::Mat> > poseHoughSpace_smoothed(poseHoughSpace.size());
+
+//    // smoothing in qx qy dimensions
+//    for(int i = 0; i < step; i++){ // qw
+//        poseHoughSpace_smoothed[i].resize(poseHoughSpace[i].size());
+
+//        for (int j = 0; j < step; j++){ // qz
+//            cv::GaussianBlur(poseHoughSpace[i][j], poseHoughSpace_smoothed[i][j], cv::Size(kSize, kSize), sigma);
+
+//        }
+//    }
+
+
+//    score = 0;
+//    cv::Mat maximaInXY = cv::Mat::zeros(step, step, CV_32FC1);
+//    cv::Mat locationInX = cv::Mat::zeros(step, step, CV_32FC1);
+//    cv::Mat locationInY = cv::Mat::zeros(step, step, CV_32FC1);
+
+//    for(int i = 0; i < step; i++){ // qw
+//        for (int j = 0; j < step; j++){ // qz
+//            double maxVal, minVal;
+//            cv::Point maxIdx, minIdx;
+//            cv::minMaxLoc(poseHoughSpace[i][j], &minVal, &maxVal, &minIdx, &maxIdx);
+//            maximaInXY.at<float>(j,i) = maxVal;
+//            locationInX.at<float> (j,i) = maxIdx.x;
+//            locationInY.at<float> (j,i) = maxIdx.y;
+
+//        }
+//    }
+
+//    double maxVal, minVal;
+//    cv::Point maxIdx, minIdx;
+//    cv::minMaxLoc(maximaInXY, &minVal, &maxVal, &minIdx, &maxIdx);
+
+//    score = maxVal;
+
+//    float dqw = maxIdx.x;
+//    float dqz = maxIdx.y;
+
+//    float dqy = locationInY.at<float>(maxIdx);
+//    float dqx = locationInX.at<float>(maxIdx);
+
+//    float qx = (dqx + 1.f) * 2.f/(float)step - 1.f;
+//    float qy = (dqy + 1.f) * 2.f/(float)step - 1.f;
+//    float qz = (dqz + 1.f) * 2.f/(float)step - 1.f;
+//    float qw = (dqw + 1.f) * 2.f/(float)step - 1.f;
+
+//    Eigen::Quaternionf rotation(qw, qx, qy, qz);
+
+//    rotation.normalize();
+//    finalOC = Eigen::Matrix3f(rotation);
+
+//}
+
+
+void CRForestDetector::detectMaxima(const vector<cv::Mat> & poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score){
 
     // smoothing of the houghspace with gaussian kernel
     float sigma = 1.f;
     int kSize = 5;
     cv::Mat gauss = cv::getGaussianKernel( kSize , sigma, CV_32F);
 
-    vector<vector<cv::Mat> > poseHoughSpace_smoothed(poseHoughSpace.size());
+    vector< cv::Mat > poseHoughSpace_smoothed(poseHoughSpace.size());
 
     // smoothing in qx qy dimensions
-    for(int i = 0; i < step; i++){ // qw
-        poseHoughSpace_smoothed[i].resize(poseHoughSpace[i].size());
+    for(int i = 0; i < step; i++){ // qx, qy
 
-        for (int j = 0; j < step; j++){ // qz
-            cv::GaussianBlur(poseHoughSpace[i][j], poseHoughSpace_smoothed[i][j], cv::Size(kSize, kSize), sigma);
+        cv::GaussianBlur( poseHoughSpace[i], poseHoughSpace_smoothed[i], cv::Size(kSize, kSize), sigma );
+    }
 
+    vector<cv::Mat> poseHoughSmoothed3(step);
+
+    for(int i = 0; i < step; i++){ // qx, qy
+
+        poseHoughSmoothed3[i] = cv::Mat::zeros(step, step, CV_32FC1);
+    }
+
+    cv::Mat gaussKernel = cv::getGaussianKernel( kSize, sigma, CV_32F );
+
+    // Smoothing in third dimension
+    for( int r = 0; r < poseHoughSpace_smoothed[0].rows; r++ ){
+        for( int c = 0; c< poseHoughSpace_smoothed[ 0 ].cols; c++ ){
+
+            for( int s = 0; s < step; s++ ){
+                int scBegin = std::max( 0, s - int( kSize / 2 ) );
+                int scEnd = std::min( s + int( kSize/ 2 ) + 1, step );
+
+                float convSum = 0;
+                int k = 0;
+
+                for( int td = scBegin; td < scEnd; td++, k++ ){
+
+                    convSum += poseHoughSpace_smoothed[ td ].at< float >( r, c ) * gaussKernel.at< float >( k );
+
+                }
+
+                poseHoughSmoothed3[ s ].at< float >( r, c ) = convSum;
+            }
         }
     }
 
 
-    score = 0;
-    cv::Mat maximaInXY = cv::Mat::zeros(step, step, CV_32FC1);
-    cv::Mat locationInX = cv::Mat::zeros(step, step, CV_32FC1);
-    cv::Mat locationInY = cv::Mat::zeros(step, step, CV_32FC1);
+    vector<cv::Point> max_loc;
+    vector<double> max_val;
+    for(int i = 0; i < step; i++) // qz
 
-    for(int i = 0; i < step; i++){ // qw
-        for (int j = 0; j < step; j++){ // qz
-            double maxVal, minVal;
-            cv::Point maxIdx, minIdx;
-            cv::minMaxLoc(poseHoughSpace[i][j], &minVal, &maxVal, &minIdx, &maxIdx);
-            maximaInXY.at<float>(j,i) = maxVal;
-            locationInX.at<float> (j,i) = maxIdx.x;
-            locationInY.at<float> (j,i) = maxIdx.y;
+        cv::minMaxLoc(poseHoughSmoothed3[i], 0, &max_val[i], 0, &max_loc[i], cv::Mat());
 
-        }
-    }
+    std::vector< double >::iterator it;
+    it = std::max_element( max_val.begin(),max_val.end() );
+    int max_index = std::distance( max_val.begin(), it );
 
-    double maxVal, minVal;
-    cv::Point maxIdx, minIdx;
-    cv::minMaxLoc(maximaInXY, &minVal, &maxVal, &minIdx, &maxIdx);
+    score = *it;
 
-    score = maxVal;
+    float dqz = max_index;
 
-    float dqw = maxIdx.x;
-    float dqz = maxIdx.y;
-
-    float dqy = locationInY.at<float>(maxIdx);
-    float dqx = locationInX.at<float>(maxIdx);
+    float dqy = max_loc[max_index].y;
+    float dqx = max_loc[max_index].x;
 
     float qx = (dqx + 1.f) * 2.f/(float)step - 1.f;
     float qy = (dqy + 1.f) * 2.f/(float)step - 1.f;
     float qz = (dqz + 1.f) * 2.f/(float)step - 1.f;
-    float qw = (dqw + 1.f) * 2.f/(float)step - 1.f;
+    float qw = std::sqrt( 1 - qx*qx -qy*qy -qz*qz);
 
     Eigen::Quaternionf rotation(qw, qx, qy, qz);
 
@@ -588,6 +665,7 @@ void CRForestDetector::detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpa
     finalOC = Eigen::Matrix3f(rotation);
 
 }
+
 
 void CRForestDetector::axisOfSymmetry(std::vector<Eigen::Quaternionf> &qMean, Eigen::Quaternionf &qfinalOC){
 
@@ -823,13 +901,13 @@ void CRForestDetector::detectMaximaK_means(std::vector<Eigen::Quaternionf> &qMea
 
 }
 
-void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::vector< std::vector< std::vector<std::vector< std::pair< cv::Point, int > > > > > >& voterImages, const std::vector<cv::Mat>& vImgAssign, std::vector<Candidate>& candidates, const vector<cv::Mat>& vImg, const pcl::PointCloud<pcl::Normal>::Ptr& normals, const int kernel_width, const std::vector<float>&scales, const float thresh, const bool DEBUG, const bool addPoseScore){
+void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::vector< std::vector< std::vector<std::vector< std::pair< cv::Point, int > > > > > >& voterImages, const std::vector<cv::Mat>& vImgAssign, const std::vector<std::vector<cv::Mat> >& vImgDetect, std::vector<Candidate>& candidates, const vector<cv::Mat>& vImg, const pcl::PointCloud<pcl::Normal>::Ptr& normals, const int kernel_width, const std::vector<float>&scales, const float thresh, const bool DEBUG, const bool addPoseScore){
 
     if(candidates.size() > 0){
 
         std::vector< Eigen::Matrix4f, Eigen::aligned_allocator< Eigen::Matrix4f> > candPoses;
         candPoses.reserve(candidates.size());
-        int  count = 0;
+        int nTrees = vImgAssign.size();
 
         for ( unsigned int cand = 0; cand < candidates.size(); cand++ ){ // loop on candidates we will take for now only the first candidate
 
@@ -840,31 +918,9 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
             int cNr = candidates[cand].c;
 
             std::vector <Eigen::Quaternionf> qMean;
-            std::vector <std::vector <cv::Mat>  > poseHoughSpace(step);
-            for(int i = 0; i<step; i++){
-                poseHoughSpace[i].resize(step);
-                for(int j = 0; j < step; j++){
-                    poseHoughSpace[i][j] = cv::Mat::zeros(step, step, CV_32FC1);
-
-                }
-            }
-
-
-            //            std::vector < std::vector < std::vector < std::vector< std::vector< int> > > > > poseVoter(step);
-
-            //            for(int i = 0; i <step; i++){
-            //                poseVoter[i].resize(step);
-            //                for(int j = 0; j < step; j++){
-            //                    poseVoter[i][j].resize(step);
-            //                    for(int k = 0; k < step; k++){
-            //                        poseVoter[i][j][k].resize(step);
-            //                        for(int l = 0; l <step; l++){
-            //                            poseVoter[i][j][k].reserve(50000);
-            //                        }
-            //                    }
-
-            //                }
-            //            }
+            std::vector <cv::Mat> poseHoughSpace(step);
+            for(int i = 0; i<step; i++)
+                poseHoughSpace[i] = cv::Mat::zeros(step, step, CV_32FC1);
 
             int x = candidates[ cand ].center.x;
             int y = candidates[ cand ].center.y;
@@ -889,16 +945,17 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
                 for(int cy =  min_y; cy < max_y; cy++ ){ // y
                     for( int cx =  min_x; cx < max_x; cx++ ){ //x
 
-                        //            int cx = x;
-                        //            int cy = y;
-                        //            int scNr = scale_number;
+                        float weight_ = vImgDetect[cNr][scNr].at< float >(y,x) / nTrees;
+
                         for ( unsigned int trNr = 0; trNr < vImgAssign.size(); trNr ++ ){ // loop for all the trees
 
                             for ( unsigned int pVotes = 0; pVotes < voterImages[ trNr ][scNr][ cy  ][ cx ].size(); pVotes++ ){ // loop for all the training pixels voted for the center
 
+                                weight_ /= voterImages[ trNr ][scNr][ cy  ][ cx ].size();
+
                                 cv::Point2f qPixel = voterImages[ trNr ][ scNr ][ cy  ][ cx ][ pVotes ].first;
                                 int index = voterImages[ trNr ][ scNr ][ cy  ][ cx ][ pVotes ].second;
-                                int leafID = vImgAssign[trNr].at<float>(qPixel);
+                                int leafID = vImgAssign[trNr].at< float >(qPixel);
                                 LeafNode* L = crForest->getLeaf( trNr, leafID );// getLeaf(index);
                                 unsigned int depth = L->depth;
 
@@ -912,14 +969,12 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
 
                                 // find the parent node, collect the test and create two offsets
 
-                                std::vector<int> nodeIDs(L->depth);
+                                std::vector< int > nodeIDs(L->depth);
                                 InternalNode* node  = crForest->getNode( trNr, L->parent );
-
-                                float weight_ = L->vPrLabel[cNr] * L->vCenterWeights[cNr][index] /(L->depth *crForest->GetSize());
 
                                 for(int d = 0; d < L->depth; d++){
 
-                                    nodeIDs[L->depth -1 - d] = node->idN;
+                                    nodeIDs[ L->depth -1 - d ] = node->idN;
                                     node = crForest->getNode( trNr, node->parent );
                                 }
 
@@ -972,7 +1027,9 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
                                     // for first offset
                                     if( !(isnan( QuaternionO1C.coeffs()[ 0 ] ) || isnan( QuaternionO1C.coeffs()[ 1 ] ) || isnan( QuaternionO1C.coeffs()[ 2 ] ) || isnan( QuaternionO1C.coeffs()[ 3 ] ) ) ){
 
+                                        QuaternionO1C.normalize();
                                         qMean.push_back(QuaternionO1C);
+
 
                                         int qx = std::max( 0,  int( ( QuaternionO1C.x() + 1.f ) * (float)step / 2.f - 1 ) );
                                         qx = std::min( qx, step - 1 );
@@ -983,26 +1040,18 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
                                         int qw = std::max( 0,  int( ( QuaternionO1C.w() + 1.f ) * (float)step / 2.f - 1 ) );
                                         qw = std::min( qw, step - 1 );
 
-                                        poseHoughSpace[ qw ][ qz ].at< float >( qy, qx )+= weight_;
-                                        //                                        poseVoter[ qw ][ qz ][ qy ][qx].push_back( qMean.size() - 1 );
+                                        // add weight of the hough image
+                                        poseHoughSpace[ qz ].at< float >( qy, qx ) += weight_;
 
-                                        //                                                        Eigen::Matrix4f tempOC1 = Eigen::Matrix4f::Identity();
-                                        //                                                        tempOC1.block<3,3>(0,0) = Eigen::Matrix3f(QuaternionO1C);
-                                        //                                                        tempOC1.block<3,1>(0,3) = Eigen::Vector3f(oCenter_real.x, oCenter_real.y, oCenter_real.z);
-                                        //                                                        stringstream ss; ss << count;
-                                        //                                                        if(subsample_count%int(100*candidates[cand].weight) == 0){
-
-                                        //                                                            Surfel::addCoordinateSystem(tempOC1, viewer, ss.str());
-                                        //                                                            count++;
-
-                                        //                                                        }
 
                                     }
 
                                     // for second offset
                                     if( !(isnan( QuaternionO2C.coeffs()[ 0 ] ) || isnan( QuaternionO2C.coeffs()[ 1 ] ) || isnan( QuaternionO2C.coeffs()[ 2 ] ) || isnan( QuaternionO2C.coeffs()[ 3 ] ) ) ){
 
+                                        QuaternionO1C.normalize();
                                         qMean.push_back(QuaternionO2C);
+
 
                                         int qx = std::max( 0,  int( ( QuaternionO2C.x() + 1.f ) * (float)step / 2.f - 1 ) );
                                         qx = std::min( qx, step - 1 );
@@ -1013,20 +1062,7 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
                                         int qw = std::max( 0,  int( ( QuaternionO2C.w() + 1.f ) * (float)step / 2.f - 1 ) );
                                         qw = std::min( qw, step - 1 );
 
-                                        poseHoughSpace[ qw ][ qz ].at< float >( qy, qx )+= weight_;
-                                        //                                        poseVoter[ qw ][ qz ][ qy ][ qx ].push_back( qMean.size() - 1 );
-
-
-                                        //                                                        Eigen::Matrix4f tempOC2 = Eigen::Matrix4f::Identity();
-                                        //                                                        tempOC2.block<3,3>(0,0) = Eigen::Matrix3f(QuaternionO2C);
-                                        //                                                        tempOC2.block<3,1>(0,3) = Eigen::Vector3f(oCenter_real.x, oCenter_real.y, oCenter_real.z);
-                                        //                                                        stringstream ss; ss << count;
-                                        //                                                        if(subsample_count%int(100*candidates[cand].weight) == 0){
-                                        //                                                            Surfel::addCoordinateSystem(tempOC2, viewer, ss.str());
-                                        //                                                            count++;
-                                        //                                                            cout<<"count: "<<count<<" subsample_count: "<<subsample_count<< endl;
-                                        //                                                        }
-
+                                        poseHoughSpace[ qz ].at< float >( qy, qx )+= weight_;
 
 
                                     }
@@ -1047,7 +1083,7 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
             //smooth the accumulator and find the peak
 
             Eigen::Quaternionf qfinalOC;
-            //            detectMaxima(poseHoughSpace, qMean, poseVoter, qfinalOC, step);
+
             float poseScore;
             detectMaxima(poseHoughSpace, qfinalOC, step, poseScore);
             Eigen::Matrix3f finalOC = Eigen::Matrix3f(qfinalOC);
@@ -1135,6 +1171,7 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
         }
     }
 }
+
 
 void CRForestDetector::detectCenterPeaks(std::vector<Candidate >& candidates, const std::vector<std::vector<cv::Mat> >& imgDetect, const std::vector<cv::Mat>& vImgAssign, const std::vector< std::vector< std::vector< std::vector<std::vector< std::pair< cv::Point, int > > > > > >& voterImages, const  cv::Mat& depthImg, const cv::Mat& img, const Parameters& param, int this_class){
 
@@ -1975,6 +2012,6 @@ void CRForestDetector::detectObject(const cv::Mat &img, const cv::Mat &depthImg,
 
     // detecting pose of the found candidates
     tstart = clock();
-    voteForPose( img, voterImages, vImgAssign, candidates, vImg, normals, p.kernel_width[0], p.scales, p.thresh_detection, p.DEBUG, p.addPoseScore);
+    voteForPose( img, voterImages, vImgAssign, vImgDetect, candidates, vImg, normals, p.kernel_width[0], p.scales, p.thresh_detection, p.DEBUG, p.addPoseScore);
     cout << "\t Time for detecting pose.....\t" << (double)(clock() - tstart)/CLOCKS_PER_SEC << " sec" << endl;
 }

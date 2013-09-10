@@ -94,9 +94,10 @@ struct InternalNode {
         idN = arg.idN;
         depth = arg.depth;
         data.resize(arg.data.size());
-        for (unsigned int dNr=0; dNr < arg.data.size(); dNr++)
+        for (unsigned int dNr = 0; dNr < arg.data.size(); dNr++)
             data[dNr] = arg.data[dNr];
         isLeaf = arg.isLeaf;
+
     }
 
     // relative node Ids
