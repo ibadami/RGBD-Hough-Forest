@@ -48,7 +48,7 @@ public:
 private:
     void assignCluster(const cv::Mat &img, const cv::Mat &depthImg, vector<cv::Mat> &vImgAssign, const vector<cv::Mat>& vImg, const pcl::PointCloud<pcl::Normal>::Ptr& normals);
 
-    void voteForCenter(const std::vector<cv::Mat>& vImgAssign, std::vector< std::vector<cv::Mat> >& vImgDetect, const  cv::Mat& depthImg, std::vector< std::vector< std::vector< std::vector< std::vector< std::pair< cv::Point, int > > > > > >& voterImages, const pcl::PointCloud<pcl::Normal>::Ptr& normals, const std::vector<float>& scales, int& this_class, cv::Rect* focus, const float& prob_threshold, const std::vector<cv::Mat>& classProbs, bool addPoseInformation = false,  bool addScaleInformation = false  );
+    void voteForCenter(const std::vector<cv::Mat>& vImgAssign, std::vector< std::vector<cv::Mat> >& vImgDetect, const  cv::Mat& depthImg, std::vector< std::vector< std::vector< std::vector< std::vector< std::pair< cv::Point, int > > > > > >& voterImages, const pcl::PointCloud<pcl::Normal>::Ptr& normals, const std::vector<float>& scales, int& this_class, cv::Rect* focus, const float& prob_threshold, const std::vector<cv::Mat>& classProbs, const Parameters& param, bool addPoseInformation = false,  bool addScaleInformation = false  );
 
     void detectCenterPeaks(std::vector<Candidate >& candidates, const std::vector<std::vector<cv::Mat> >& imgDetect, const std::vector<cv::Mat>& vImgAssign, const std::vector< std::vector< std::vector< std::vector<std::vector< std::pair< cv::Point, int > > > > > >& voterImages, const  cv::Mat& depthImg, const cv::Mat& img, const Parameters& param, int this_class);
 
@@ -62,8 +62,8 @@ private:
 
     void detectPosePeaks_slerp(std::vector<Eigen::Quaternionf>& qMean,Eigen::Matrix3f &finalOC);
 
-//    void detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score);
-    void detectMaxima(const vector<cv::Mat> & poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score);
+    void detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score);
+//    void detectMaxima(const vector<cv::Mat> & poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score);
 
     void detectMaximaK_means(std::vector<Eigen::Quaternionf>& qMean, Eigen::Matrix3f &finalOC);
 

@@ -323,7 +323,7 @@ void loadTrainClassFile( Parameters& p , std::vector<std::vector<string> >& vFil
         vPitchAngle.resize(p.nlabels);
 
         p.class_structure.resize(p.nlabels);
-        //        p.objectSize.resize(p.nlabels);
+       
         cout << "Classes: " << p.nlabels << endl;
         string labelfile;
         internal_files.resize(p.nlabels);
@@ -406,8 +406,7 @@ void loadTestClassFile( Parameters& p, std::vector<std::vector<string> >& vFilen
         int n_test_classes;
         in_class >> n_test_classes;
         vFilenames.resize(n_test_classes);
-        //test_classes.resize(n_test_classes);
-
+      
         cout << "number Classes: " << vFilenames.size() << endl;
         string labelfile;
         for(int l=0; l < n_test_classes;++l) {
@@ -648,14 +647,12 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
                 max_widths[l] = p.objectSize.first/2.f;
             }
 
-//            cv::imshow("original", img); cv::waitKey(0);
             // after reading the images and check if candidates are not already detected
             /*******************************************************************************************************************************************************************/
             //1. Assign the right clusters to them
 
 
             // extract features
-//            std::cout << " extracting feature channels " << std::endl;
             int tstart = clock();
             vector<cv::Mat> vImg;
             pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>);
@@ -663,7 +660,6 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
             cout << "extracting feature channels\t\t" << (double)(clock() - tstart)/CLOCKS_PER_SEC << " sec" << endl;
 
             // 1.0 Assign the reached leaf
-//            std::cout << " assigning clusters " << std::endl;
             tstart = clock();
             vector<cv::Mat> vImgAssign;
             crDetect.fullAssignCluster(img, depthImg, vImgAssign, vImg, normals);
@@ -703,8 +699,6 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
             cout << "assignment and class confidence\t\t" << (double)(clock() - tstart)/CLOCKS_PER_SEC << " sec" << endl;
 
             // 1.2 vote for the center of the object class and detect the peaks as a candidate
-//            std::cout << "starting with voting of the object centers " << std::endl;
-//            tstart = clock();
 
             vector<Candidate > candidates;
 
@@ -720,8 +714,6 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
                 for (unsigned int candNr = 0; candNr < temp_candidates.size(); candNr++)
                     candidates.push_back(temp_candidates[candNr]);
             }
-
-//            cout << "objects detected in total time \t" << (double)(clock() - tstart)/CLOCKS_PER_SEC << " sec" << endl;
 
             // 2.Sorting the candidates based on their weight
 
@@ -829,13 +821,6 @@ void run_detect( Parameters& p ) {
 
     // Load forest
     crForest.loadForest( p.treepath.c_str(), p.off_tree );
-
-//    for( int trNr = 0; trNr < crForest.vTrees.size(); trNr++){
-//        for( int ndNr = 0; ndNr < crForest.vTrees[trNr]->getNumNodes(); ndNr++){
-//            LeafNode *node = crForest.vTrees[trNr].getNumLeaf()
-//            out << node->data[ 4 ] << endl;
-//        }
-//    }
 
     // forest statistics
     ofstream out(nodeFile.c_str());

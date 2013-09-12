@@ -71,13 +71,11 @@ CRTree::CRTree(const char* filename, bool& success) {
             in >> ptLN->depth;
             in >> ptLN->parent;
             in >> ptLN->cL;
-            //in >> ptLN->eL;
-            //in >> ptLN->fL;
+
             ptLN->vPrLabel.resize(num_labels);
             ptLN->vCenter.resize(num_labels);
             ptLN->vCenterWeights.resize(num_labels);
-//            ptLN->vID.resize(num_labels);
-            //ptLN->vLabelDistrib.resize(num_labels);
+
             ptLN->nOcc.resize(num_labels);
 
             ptLN->vPose.resize(num_labels);
@@ -86,19 +84,18 @@ CRTree::CRTree(const char* filename, bool& success) {
 
             ptLN->bbSize3D.resize(num_labels);
 
+            for(unsigned int c = 0; c < num_labels;++c ) {
 
-
-            for(unsigned int c=0; c<num_labels;++c) {
                 in >> ptLN->vPrLabel[c];
                 in >> dummy;
 
-                if (ptLN->vPrLabel[c]<0){
+                if (ptLN->vPrLabel[c]<0)
                     std::cerr<<ptLN->vPrLabel[c]<<std::endl;
-                }
+
 
                 ptLN->vCenter[c].resize(dummy);
                 ptLN->vCenterWeights[c].resize(dummy);
-//                ptLN->vID[c].resize(dummy);
+
                 ptLN->nOcc[c] = dummy;
 
                 ptLN->vPose[c].resize(dummy);
@@ -107,26 +104,20 @@ CRTree::CRTree(const char* filename, bool& success) {
 
                 ptLN->bbSize3D[c].resize(dummy);
 
+                float temp_weight = 1.0f / dummy ;
 
-                float temp_weight = 1.0f/float(ptLN->nOcc[c]);
-
-                //                cout << "label: "<< c << " "<< dummy << " ";
-                for(int i=0; i<dummy; ++i) {
+                for(int i=0; i < dummy; ++i) {
 
                     char string[10], *stopstring;
                     in >> string; ptLN->vCenter[c][i].x= strtof(string, &stopstring);
                     in >> string; ptLN->vCenter[c][i].y= strtof(string, &stopstring);
                     in >> string; ptLN->vCenter[c][i].z= strtof(string, &stopstring);
 
-                    //                    in >> string; ptLN->PCdimension[c][i].width = strtof(string, &stopstring);
-                    //                    in >> string; ptLN->PCdimension[c][i].height = strtof(string, &stopstring);
-                    //                    in >> string; ptLN->PCrotAngle[c][i] = strtof(string, &stopstring);
                     in >> string; ptLN->bbSize3D[c][i].x = strtof(string, &stopstring);
                     in >> string; ptLN->bbSize3D[c][i].y = strtof(string, &stopstring);
                     in >> string; ptLN->bbSize3D[c][i].z = strtof(string, &stopstring);
 
                     ptLN->vCenterWeights[c][i] = temp_weight;
-//                    in >> string;
                     ptLN->alpha[c][i].resize(ptLN->depth);
 
                     in >> string; ptLN->vPose[c][i].first.coeffs()[0] = strtof(string, &stopstring);
@@ -142,12 +133,11 @@ CRTree::CRTree(const char* filename, bool& success) {
                     in >> string; ptLN->QdisVector[c][i].first[0] = strtof(string, &stopstring);
                     in >> string; ptLN->QdisVector[c][i].first[1] = strtof(string, &stopstring);
                     in >> string; ptLN->QdisVector[c][i].first[2] = strtof(string, &stopstring);
-                    //                    in >> string; ptLN->QdisVector[c][i].first[3] = strtof(string, &stopstring);
 
                     in >> string; ptLN->QdisVector[c][i].second[0] = strtof(string, &stopstring);
                     in >> string; ptLN->QdisVector[c][i].second[1] = strtof(string, &stopstring);
                     in >> string; ptLN->QdisVector[c][i].second[2] = strtof(string, &stopstring);
-                    //                    in >> string; ptLN->QdisVector[c][i].second[3] = strtof(string, &stopstring);
+
 
                     for(unsigned int j = 0; j < ptLN->depth; j++){
 
@@ -157,7 +147,6 @@ CRTree::CRTree(const char* filename, bool& success) {
                 }
             }
 
-            //            cout << "\n" << endl;
         }
 
     } else {

@@ -528,136 +528,59 @@ void CRForestDetector::detectPosePeaks_slerp(std::vector<Eigen::Quaternionf>& qM
 
 }
 
-//void CRForestDetector::detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score){
-
-//    // smoothing of the houghspace with gaussian kernel
-//    float sigma = 1.f;
-//    int kSize = 5;
-//    cv::Mat gauss = cv::getGaussianKernel( kSize , sigma, CV_32F);
-
-//    vector<vector<cv::Mat> > poseHoughSpace_smoothed(poseHoughSpace.size());
-
-//    // smoothing in qx qy dimensions
-//    for(int i = 0; i < step; i++){ // qw
-//        poseHoughSpace_smoothed[i].resize(poseHoughSpace[i].size());
-
-//        for (int j = 0; j < step; j++){ // qz
-//            cv::GaussianBlur(poseHoughSpace[i][j], poseHoughSpace_smoothed[i][j], cv::Size(kSize, kSize), sigma);
-
-//        }
-//    }
-
-
-//    score = 0;
-//    cv::Mat maximaInXY = cv::Mat::zeros(step, step, CV_32FC1);
-//    cv::Mat locationInX = cv::Mat::zeros(step, step, CV_32FC1);
-//    cv::Mat locationInY = cv::Mat::zeros(step, step, CV_32FC1);
-
-//    for(int i = 0; i < step; i++){ // qw
-//        for (int j = 0; j < step; j++){ // qz
-//            double maxVal, minVal;
-//            cv::Point maxIdx, minIdx;
-//            cv::minMaxLoc(poseHoughSpace[i][j], &minVal, &maxVal, &minIdx, &maxIdx);
-//            maximaInXY.at<float>(j,i) = maxVal;
-//            locationInX.at<float> (j,i) = maxIdx.x;
-//            locationInY.at<float> (j,i) = maxIdx.y;
-
-//        }
-//    }
-
-//    double maxVal, minVal;
-//    cv::Point maxIdx, minIdx;
-//    cv::minMaxLoc(maximaInXY, &minVal, &maxVal, &minIdx, &maxIdx);
-
-//    score = maxVal;
-
-//    float dqw = maxIdx.x;
-//    float dqz = maxIdx.y;
-
-//    float dqy = locationInY.at<float>(maxIdx);
-//    float dqx = locationInX.at<float>(maxIdx);
-
-//    float qx = (dqx + 1.f) * 2.f/(float)step - 1.f;
-//    float qy = (dqy + 1.f) * 2.f/(float)step - 1.f;
-//    float qz = (dqz + 1.f) * 2.f/(float)step - 1.f;
-//    float qw = (dqw + 1.f) * 2.f/(float)step - 1.f;
-
-//    Eigen::Quaternionf rotation(qw, qx, qy, qz);
-
-//    rotation.normalize();
-//    finalOC = Eigen::Matrix3f(rotation);
-
-//}
-
-
-void CRForestDetector::detectMaxima(const vector<cv::Mat> & poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score){
+void CRForestDetector::detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score){
 
     // smoothing of the houghspace with gaussian kernel
     float sigma = 1.f;
     int kSize = 5;
     cv::Mat gauss = cv::getGaussianKernel( kSize , sigma, CV_32F);
 
-    vector< cv::Mat > poseHoughSpace_smoothed(poseHoughSpace.size());
+    vector<vector<cv::Mat> > poseHoughSpace_smoothed(poseHoughSpace.size());
 
-    // smoothing in qx qy dimensions
-    for(int i = 0; i < step; i++){ // qx, qy
+    //    // smoothing in qx qy dimensions
+    //    for(int i = 0; i < step; i++){ // qw
+    //        poseHoughSpace_smoothed[i].resize(poseHoughSpace[i].size());
 
-        cv::GaussianBlur( poseHoughSpace[i], poseHoughSpace_smoothed[i], cv::Size(kSize, kSize), sigma );
-    }
+    //        for (int j = 0; j < step; j++){ // qz
+    //            cv::GaussianBlur(poseHoughSpace[i][j], poseHoughSpace_smoothed[i][j], cv::Size(kSize, kSize), sigma);
 
-    vector<cv::Mat> poseHoughSmoothed3(step);
+    //        }
+    //    }
 
-    for(int i = 0; i < step; i++){ // qx, qy
 
-        poseHoughSmoothed3[i] = cv::Mat::zeros(step, step, CV_32FC1);
-    }
+    score = 0;
+    cv::Mat maximaInXY = cv::Mat::zeros(step, step, CV_32FC1);
+    cv::Mat locationInX = cv::Mat::zeros(step, step, CV_32FC1);
+    cv::Mat locationInY = cv::Mat::zeros(step, step, CV_32FC1);
 
-    cv::Mat gaussKernel = cv::getGaussianKernel( kSize, sigma, CV_32F );
+    for(int i = 0; i < step; i++){ // qw
+        for (int j = 0; j < step; j++){ // qz
+            double maxVal, minVal;
+            cv::Point maxIdx, minIdx;
+            cv::minMaxLoc(poseHoughSpace[i][j], &minVal, &maxVal, &minIdx, &maxIdx);
+            maximaInXY.at<float>(j,i) = maxVal;
+            locationInX.at<float> (j,i) = maxIdx.x;
+            locationInY.at<float> (j,i) = maxIdx.y;
 
-    // Smoothing in third dimension
-    for( int r = 0; r < poseHoughSpace_smoothed[0].rows; r++ ){
-        for( int c = 0; c< poseHoughSpace_smoothed[ 0 ].cols; c++ ){
-
-            for( int s = 0; s < step; s++ ){
-                int scBegin = std::max( 0, s - int( kSize / 2 ) );
-                int scEnd = std::min( s + int( kSize/ 2 ) + 1, step );
-
-                float convSum = 0;
-                int k = 0;
-
-                for( int td = scBegin; td < scEnd; td++, k++ ){
-
-                    convSum += poseHoughSpace_smoothed[ td ].at< float >( r, c ) * gaussKernel.at< float >( k );
-
-                }
-
-                poseHoughSmoothed3[ s ].at< float >( r, c ) = convSum;
-            }
         }
     }
 
+    double maxVal, minVal;
+    cv::Point maxIdx, minIdx;
+    cv::minMaxLoc(maximaInXY, &minVal, &maxVal, &minIdx, &maxIdx);
 
-    vector<cv::Point> max_loc;
-    vector<double> max_val;
-    for(int i = 0; i < step; i++) // qz
+    score = maxVal;
 
-        cv::minMaxLoc(poseHoughSmoothed3[i], 0, &max_val[i], 0, &max_loc[i], cv::Mat());
+    float dqw = maxIdx.x;
+    float dqz = maxIdx.y;
 
-    std::vector< double >::iterator it;
-    it = std::max_element( max_val.begin(),max_val.end() );
-    int max_index = std::distance( max_val.begin(), it );
-
-    score = *it;
-
-    float dqz = max_index;
-
-    float dqy = max_loc[max_index].y;
-    float dqx = max_loc[max_index].x;
+    float dqy = locationInY.at<float>(maxIdx);
+    float dqx = locationInX.at<float>(maxIdx);
 
     float qx = (dqx + 1.f) * 2.f/(float)step - 1.f;
     float qy = (dqy + 1.f) * 2.f/(float)step - 1.f;
     float qz = (dqz + 1.f) * 2.f/(float)step - 1.f;
-    float qw = std::sqrt( 1 - qx*qx -qy*qy -qz*qz);
+    float qw = (dqw + 1.f) * 2.f/(float)step - 1.f;
 
     Eigen::Quaternionf rotation(qw, qx, qy, qz);
 
@@ -665,6 +588,83 @@ void CRForestDetector::detectMaxima(const vector<cv::Mat> & poseHoughSpace,  Eig
     finalOC = Eigen::Matrix3f(rotation);
 
 }
+
+
+//void CRForestDetector::detectMaxima(const vector<cv::Mat> & poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score){
+
+//    // smoothing of the houghspace with gaussian kernel
+//    float sigma = 1.f;
+//    int kSize = 5;
+//    cv::Mat gauss = cv::getGaussianKernel( kSize , sigma, CV_32F);
+
+//    vector< cv::Mat > poseHoughSpace_smoothed(poseHoughSpace.size());
+
+//    // smoothing in qx qy dimensions
+//    for(int i = 0; i < step; i++){ // qx, qy
+
+//        cv::GaussianBlur( poseHoughSpace[i], poseHoughSpace_smoothed[i], cv::Size(kSize, kSize), sigma );
+//    }
+
+//    vector<cv::Mat> poseHoughSmoothed3(step);
+
+//    for(int i = 0; i < step; i++){ // qx, qy
+
+//        poseHoughSmoothed3[i] = cv::Mat::zeros(step, step, CV_32FC1);
+//    }
+
+//    cv::Mat gaussKernel = cv::getGaussianKernel( kSize, sigma, CV_32F );
+
+//    // Smoothing in third dimension
+//    for( int r = 0; r < poseHoughSpace_smoothed[0].rows; r++ ){
+//        for( int c = 0; c< poseHoughSpace_smoothed[ 0 ].cols; c++ ){
+
+//            for( int s = 0; s < step; s++ ){
+//                int scBegin = std::max( 0, s - int( kSize / 2 ) );
+//                int scEnd = std::min( s + int( kSize/ 2 ) + 1, step );
+
+//                float convSum = 0;
+//                int k = 0;
+
+//                for( int td = scBegin; td < scEnd; td++, k++ ){
+
+//                    convSum += poseHoughSpace_smoothed[ td ].at< float >( r, c ) * gaussKernel.at< float >( k );
+
+//                }
+
+//                poseHoughSmoothed3[ s ].at< float >( r, c ) = convSum;
+//            }
+//        }
+//    }
+
+
+//    vector<cv::Point> max_loc(step);
+//    vector<double> max_val(step);
+//    for(int i = 0; i < step; i++) // qz
+
+//        cv::minMaxLoc(poseHoughSmoothed3[i], 0, &max_val[i], 0, &max_loc[i], cv::Mat());
+
+//    std::vector< double >::iterator it;
+//    it = std::max_element( max_val.begin(),max_val.end() );
+//    int max_index = std::distance( max_val.begin(), it );
+
+//    score = *it;
+
+//    float dqz = max_index;
+
+//    float dqy = max_loc[max_index].y;
+//    float dqx = max_loc[max_index].x;
+
+//    float qx = (dqx + 1.f) * 2.f/(float)step - 1.f;
+//    float qy = (dqy + 1.f) * 2.f/(float)step - 1.f;
+//    float qz = (dqz + 1.f) * 2.f/(float)step - 1.f;
+//    float qw = std::sqrt( 1 - qx*qx -qy*qy -qz*qz);
+
+//    Eigen::Quaternionf rotation(qw, qx, qy, qz);
+
+//    rotation.normalize();
+//    finalOC = Eigen::Matrix3f(rotation);
+
+//}
 
 
 void CRForestDetector::axisOfSymmetry(std::vector<Eigen::Quaternionf> &qMean, Eigen::Quaternionf &qfinalOC){
@@ -914,13 +914,16 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
             if(candidates[cand].weight < thresh)
                 continue;
 
-            int step = 20, subsample_count = 0;
+            int steps = 50, subsample_count = 0;
             int cNr = candidates[cand].c;
 
             std::vector <Eigen::Quaternionf> qMean;
-            std::vector <cv::Mat> poseHoughSpace(step);
-            for(int i = 0; i<step; i++)
-                poseHoughSpace[i] = cv::Mat::zeros(step, step, CV_32FC1);
+            std::vector <std::vector <cv::Mat> >poseHoughSpace(steps);
+            for(int i = 0; i<steps; i++){
+                poseHoughSpace[i].resize(steps);
+                for(int j = 0; j<steps ; j++)
+                    poseHoughSpace[i][j] = cv::Mat::zeros(steps, steps, CV_32FC1);
+            }
 
             int x = candidates[ cand ].center.x;
             int y = candidates[ cand ].center.y;
@@ -950,8 +953,6 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
                         for ( unsigned int trNr = 0; trNr < vImgAssign.size(); trNr ++ ){ // loop for all the trees
 
                             for ( unsigned int pVotes = 0; pVotes < voterImages[ trNr ][scNr][ cy  ][ cx ].size(); pVotes++ ){ // loop for all the training pixels voted for the center
-
-                                weight_ /= voterImages[ trNr ][scNr][ cy  ][ cx ].size();
 
                                 cv::Point2f qPixel = voterImages[ trNr ][ scNr ][ cy  ][ cx ][ pVotes ].first;
                                 int index = voterImages[ trNr ][ scNr ][ cy  ][ cx ][ pVotes ].second;
@@ -1031,17 +1032,17 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
                                         qMean.push_back(QuaternionO1C);
 
 
-                                        int qx = std::max( 0,  int( ( QuaternionO1C.x() + 1.f ) * (float)step / 2.f - 1 ) );
-                                        qx = std::min( qx, step - 1 );
-                                        int qy = std::max( 0,  int( ( QuaternionO1C.y() + 1.f ) * (float)step / 2.f - 1 ) );
-                                        qy = std::min( qy, step - 1 );
-                                        int qz = std::max( 0,  int( ( QuaternionO1C.z() + 1.f ) * (float)step / 2.f - 1 ) );
-                                        qz = std::min( qz, step - 1 );
-                                        int qw = std::max( 0,  int( ( QuaternionO1C.w() + 1.f ) * (float)step / 2.f - 1 ) );
-                                        qw = std::min( qw, step - 1 );
+                                        int qx = int( ( QuaternionO1C.x() + 1.f )/ 2.f * (float)(steps - 1)  ) ;
+
+                                        int qy = int( ( QuaternionO1C.y() + 1.f )/ 2.f  * (float)(steps - 1)  ) ;
+
+                                        int qz = int( ( QuaternionO1C.z() + 1.f )/ 2.f  * (float)(steps - 1) ) ;
+
+                                        int qw = int( ( QuaternionO1C.w() + 1.f )/ 2.f  * (float)(steps - 1)  ) ;
+
 
                                         // add weight of the hough image
-                                        poseHoughSpace[ qz ].at< float >( qy, qx ) += weight_;
+                                        poseHoughSpace[ qw ][ qz ].at< float >( qy, qx ) += weight_ / (voterImages[ trNr ][scNr][ cy  ][ cx ].size() * 2 * depth) ;
 
 
                                     }
@@ -1053,16 +1054,16 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
                                         qMean.push_back(QuaternionO2C);
 
 
-                                        int qx = std::max( 0,  int( ( QuaternionO2C.x() + 1.f ) * (float)step / 2.f - 1 ) );
-                                        qx = std::min( qx, step - 1 );
-                                        int qy = std::max( 0,  int( ( QuaternionO2C.y() + 1.f ) * (float)step / 2.f - 1 ) );
-                                        qy = std::min( qy, step - 1 );
-                                        int qz = std::max( 0,  int( ( QuaternionO2C.z() + 1.f ) * (float)step / 2.f - 1 ) );
-                                        qz = std::min( qz, step - 1 );
-                                        int qw = std::max( 0,  int( ( QuaternionO2C.w() + 1.f ) * (float)step / 2.f - 1 ) );
-                                        qw = std::min( qw, step - 1 );
+                                        int qx = int( ( QuaternionO2C.x() + 1.f )/ 2.f * (float)(steps - 1)  ) ;
 
-                                        poseHoughSpace[ qz ].at< float >( qy, qx )+= weight_;
+                                        int qy = int( ( QuaternionO2C.y() + 1.f )/ 2.f  * (float)(steps - 1)  ) ;
+
+                                        int qz = int( ( QuaternionO2C.z() + 1.f )/ 2.f  * (float)(steps - 1) ) ;
+
+                                        int qw = int( ( QuaternionO2C.w() + 1.f )/ 2.f  * (float)(steps - 1)  ) ;
+
+
+                                        poseHoughSpace[ qw ][ qz ].at< float >( qy, qx ) += weight_ / (voterImages[ trNr ][scNr][ cy  ][ cx ].size() * 2 * depth) ;
 
 
                                     }
@@ -1085,11 +1086,11 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
             Eigen::Quaternionf qfinalOC;
 
             float poseScore;
-            detectMaxima(poseHoughSpace, qfinalOC, step, poseScore);
+            detectMaxima(poseHoughSpace, qfinalOC, steps, poseScore);
             Eigen::Matrix3f finalOC = Eigen::Matrix3f(qfinalOC);
 
             if(addPoseScore)
-                candidates[cand].weight += poseScore;
+                candidates[cand].weight = poseScore;
 
             if(0){
                 // estimate axis of symmetry
@@ -1097,7 +1098,7 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
 
             }
 
-            //            cout<<"mean rotation\n" << finalOC <<endl;
+            // cout<<"mean rotation\n" << finalOC <<endl;
             Eigen::Matrix4f tempOC = Eigen::Matrix4f::Identity();
             tempOC.block<3,3>(0,0) = finalOC;
             tempOC.block<3,1>(0,3) = Eigen::Vector3f(oCenter_real.x, oCenter_real.y, oCenter_real.z);
@@ -1142,7 +1143,7 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
                 //                Surfel::addCoordinateSystem(tempQ2, viewer, "4");
             }
 
-        }
+        }// end of candidates
 
         if( DEBUG ){
 
@@ -1183,69 +1184,18 @@ void CRForestDetector::detectCenterPeaks(std::vector<Candidate >& candidates, co
     if ((this_class >= 0) )
         default_class = this_class;
 
-    // for third dimension
-    int kernelSize = 3;
-    float std = 0.1;
-
     unsigned int nScales = param.scales.size();
-
-    //define variables
-    std::vector< cv::Mat > smoothAcc( nScales );
-    std::vector< cv::Mat > smoothAccTemp( nScales );
-    std::vector< cv::Mat > dilatedImg( nScales ), comp( nScales);
-    std::vector< cv::Mat > localMax(nScales);
-    cv::Mat gaussKernel = cv::getGaussianKernel( kernelSize, std, CV_32F );
-
 
     for ( unsigned int cNr = 0; cNr < imgDetect.size(); cNr++ ){
 
         if ( ( this_class >= 0 ) && ( this_class != (int)cNr ) )
             continue;
 
-        if( 0 )
-            for(unsigned int scNr = 0; scNr < nScales; scNr++ ){
-                cv::imshow("hough", imgDetect[cNr][scNr]); cv::waitKey(0);
-            }
+        //define variables
+        std::vector< cv::Mat > dilatedImg( nScales ), comp( nScales);
+        std::vector< cv::Mat > localMax(nScales);
 
-        for(unsigned int scNr = 0; scNr< nScales; scNr++){
-
-            // smoothing the accumulator matrix
-            int adapKwidth = int( param.kernel_width[0] * param.scales[scNr] / 2.0f ) * 2 + 1;
-            float adapKstd  = param.kernel_width[1] * param.scales[scNr];
-
-            smoothAcc[scNr] = imgDetect[cNr][scNr].clone();
-            cv::GaussianBlur( smoothAcc[scNr], smoothAccTemp[scNr], cv::Size( adapKwidth, adapKwidth ), adapKstd ); // smooth in direction of x and y
-            smoothAcc[scNr] = smoothAccTemp[scNr];
-        }
-
-
-        // Smoothing in third dimension
-        for( int r = 0; r < smoothAcc[ 0 ].rows; r++ ){
-            for( int c = 0; c< smoothAcc[ 0 ].cols; c++ ){
-
-                for( int scNr = 0; scNr < ( int )nScales; scNr++ ){
-                    int scBegin = std::max( 0, scNr - int( kernelSize / 2 ) );
-                    int scEnd = std::min( scNr + int( kernelSize / 2 ) + 1, ( int )nScales );
-
-                    float convSum = 0;
-                    int k = 0;
-
-                    for( int td = scBegin; td < scEnd; td++, k++ ){
-
-                        convSum += smoothAcc[ td ].at< float >( r, c ) * gaussKernel.at< float >( k );
-
-                    }
-
-                    smoothAccTemp[ scNr ].at< float >( r, c ) = convSum;
-                }
-            }
-        }
-
-        if( 0 )
-            for( unsigned int scNr = 0; scNr < nScales; scNr++ ){
-                cv::imshow( "smooth_hough_scales", smoothAcc[ scNr ]); cv::waitKey( 0 );
-            }
-
+        int kernelSize = 5;
 
         // find local maximum
 
@@ -1255,10 +1205,10 @@ void CRForestDetector::detectCenterPeaks(std::vector<Candidate >& candidates, co
         //dilate in x and y direction
         for( unsigned int scNr = 0; scNr < nScales; scNr++ ){
 
-            smoothAcc[scNr] = smoothAccTemp[scNr].clone();
+
             int adapKwidth = int( param.kernel_width[0] * param.scales[scNr] / 2.0f ) * 2 + 1;
             cv::Mat kernel = cv::Mat::ones( adapKwidth, adapKwidth, CV_32FC1 );
-            cv::dilate(smoothAcc[ scNr ], dilatedImg[ scNr ], kernel );
+            cv::dilate(imgDetect[cNr][scNr] , dilatedImg[ scNr ], kernel );
 
         }
 
@@ -1295,8 +1245,8 @@ void CRForestDetector::detectCenterPeaks(std::vector<Candidate >& candidates, co
 
         for(unsigned int scNr = 0; scNr < nScales; scNr++ ){
 
-            cv::compare( smoothAcc[ scNr ], dilatedImg[ scNr ], comp[ scNr ], CV_CMP_EQ ); //cv::imshow("compare", comp[ scNr ]); cv::waitKey(0);
-            cv::multiply( smoothAcc[ scNr ], comp[ scNr ], localMax[ scNr ], 1/255.f, CV_32F ); //cv::imshow("localmax", localMax); cv::waitKey(0);
+            cv::compare( imgDetect[cNr][scNr], dilatedImg[ scNr ], comp[ scNr ], CV_CMP_EQ ); //cv::imshow("compare", comp[ scNr ]); cv::waitKey(0);
+            cv::multiply( imgDetect[cNr][scNr] , comp[ scNr ], localMax[ scNr ], 1/255.f, CV_32F ); //cv::imshow("localmax", localMax); cv::waitKey(0);
         }
 
         if( 0 )
@@ -1352,56 +1302,21 @@ void CRForestDetector::detectCenterPeaks(std::vector<Candidate >& candidates, co
                         int maxY = std::min( imgDetect[ cNr ][ 0 ].rows, int(max_loc_temp[ max_index ].y + spatialRadius * param.scales[wscale] ));
 
                         for( int wx = minX; wx < maxX ; wx++ ){
+
                             for(int wy = minY; wy < maxY ; wy++ ){
 
-                                score_sum  = score_sum + smoothAcc[ wscale ].at<float>(wy,wx);
+                                score_sum  = score_sum + imgDetect[cNr][ wscale ].at<float>(wy,wx);
 
                                 // averaging the scale
-                                avgWeight += smoothAcc[ wscale ].at<float>(wy,wx);
-                                avgScale += param.scales[wscale] * smoothAcc[ wscale ].at<float>(wy,wx) ;
-                                avgX += wx * smoothAcc[ wscale ].at<float>(wy,wx) ;
-                                avgY += wy * smoothAcc[ wscale ].at<float>(wy,wx) ;
+                                avgWeight += imgDetect[cNr][ wscale ].at<float>(wy,wx);
+                                avgScale += param.scales[wscale] * imgDetect[cNr][ wscale ].at<float>(wy,wx) ;
+                                avgX += wx * imgDetect[cNr][ wscale ].at<float>(wy,wx) ;
+                                avgY += wy *imgDetect[cNr][ wscale ].at<float>(wy,wx) ;
 
                                 // averaging the bounding box size
 
                                 unsigned int total_votes = voterImages[ trNr ][ wscale ][ wy ][ wx ].size();
                                 num_votes += total_votes;
-
-
-
-                                //                                for( unsigned int count = 0; count < total_votes; count++ ){
-                                //                                    int voteIndex = voterImages[ trNr ][ wscale][ wy][ wx][count].second;
-                                //                                    cv::Point2f pt = voterImages[ trNr ][ wscale][ wy][ wx][count].first;
-                                //                                    LeafNode* tmp = crForest->vTrees[ trNr ]->getLeaf(vImgAssign[ trNr ].at<float>(pt));
-                                //                                    //                                    cv::Point3f pt_real = CRPixel::P3toR3(pt, imgCenter, depthImg.at<unsigned short> (pt)/1000.f);
-
-                                //                                    //                                    cv::Point3f objCenterPoint = pt_real - ( tmp->vCenter[cNr][voteIndex] );
-                                //                                    //                                    cv::Point2f objCenterPixel;
-                                //                                    //                                    float objCenterdepth;
-
-                                //                                    //                                    CRPixel::R3toP3( objCenterPoint, imgCenter, objCenterPixel, objCenterdepth );
-
-                                //                                    //                                    float tempScale  = 1.f/objCenterdepth;
-                                //                                    //                                    if( int( objCenterPixel.y ) >= 0 && int( objCenterPixel.y ) < localMax[ 0 ].rows && int(objCenterPixel.x) >= 0 && int(objCenterPixel.x) < localMax[ 0 ].cols){
-                                //                                    //                                        mX.push_back(objCenterPixel.x);
-                                //                                    //                                        mY.push_back(objCenterPixel.y);
-                                //                                    //                                        mScale.push_back(tempScale);
-                                //                                    //                                    }
-
-                                //                                    float tmpWidth = tmp->bbSize3D[cNr][voteIndex].x;// * tmp->vPrLabel[cNr] ;
-                                //                                    float tmpHeight = tmp->bbSize3D[cNr][voteIndex].y;// * tmp->vCenterWeights[cNr][voteIndex] * tmp->vPrLabel[cNr] ;
-                                //                                    float tmpDepth = tmp->bbSize3D[cNr][voteIndex].z;
-                                //                                    //                                    float fwidth = std::max( std::abs(tmpWidth*cos(rotAngle)), std::abs(tmpHeight*sin(rotAngle)));
-                                //                                    //                                    float fheight = std::max( std::abs(tmpHeight*cos(rotAngle)), std::abs(tmpWidth*sin(rotAngle)));
-                                //                                    //                                    fwidth = fwidth*(1000.f/depthImg.at<unsigned short> (pt))/1.5f;
-                                //                                    //                                    fheight = fheight*(1000.f/depthImg.at<unsigned short> (pt))/1.5f;
-
-                                //                                    bbWidth.push_back(tmpWidth);
-                                //                                    bbHeight.push_back(tmpHeight);
-                                //                                    bbDepth.push_back(tmpDepth);
-                                //                                }
-
-
 
                             }
                         }
@@ -1417,151 +1332,6 @@ void CRForestDetector::detectCenterPeaks(std::vector<Candidate >& candidates, co
                     max_position.center.y = float(max_loc_temp[max_index].y);
                     max_position.scale = param.scales[max_index];
                 }
-
-
-                //                max_position[ 0 ] = score_sum/num_pixels;
-
-                //                // Mean shift for x y scale
-                //                float meanshift_x = 0.f;
-                //                float weightsum_x =0.f;
-
-                //                float meanshift_y = 0.f;
-                //                float weightsum_y =0.f;
-
-                //                float meanshift_scale = 0.f;
-                //                float weightsum_scale =0.f;
-
-                //                int midPoint_spatial = mX.size()/2;
-
-                //                if(midPoint_spatial !=0){
-
-                //                    std::sort(mX.begin(), mX.end());
-                //                    std::sort(mY.begin(), mY.end());
-                //                    std::sort(mScale.begin(), mScale.end());
-
-                //                    float median_x = mX[midPoint_spatial];
-                //                    float median_y = mY[midPoint_spatial];
-                //                    float median_scale = mScale[midPoint_spatial];
-
-                //                    float windowScale_scale = 0.3;
-                //                    float windowScale_xy = 5;
-
-                //                    // local meanshift from current width and height estimate
-                //                    const float scaleMeanShiftWindowSize =  windowScale_scale;// * median_width;
-                //                    const float XYMeanShiftWindowSize =  windowScale_xy;// * median_height;
-
-                //                    for( unsigned int f = 0; f < mX.size(); f++ ) {
-                //                        if( fabsf( mX[f] - median_x ) < XYMeanShiftWindowSize ) {
-                //                            meanshift_x += mX[f];
-                //                            weightsum_x += 1.f;
-                //                        }
-                //                        if( fabsf( mY[f] - median_y ) < XYMeanShiftWindowSize ) {
-                //                            meanshift_y += mY[f];
-                //                            weightsum_y += 1.f;
-                //                        }
-                //                        if( fabsf( mScale[f] - median_scale ) < scaleMeanShiftWindowSize ) {
-                //                            meanshift_scale += mScale[f];
-                //                            weightsum_scale += 1.f;
-                //                        }
-                //                    }
-
-                //                    if( weightsum_x > std::numeric_limits<float>::epsilon() )
-                //                        meanshift_x = meanshift_x / weightsum_x;
-                //                    else
-                //                        meanshift_x = median_x;
-
-                //                    if( weightsum_y > std::numeric_limits<float>::epsilon() )
-                //                        meanshift_y = meanshift_y / weightsum_y;
-                //                    else
-                //                        meanshift_y = median_y;
-
-                //                    if( weightsum_scale > std::numeric_limits<float>::epsilon() )
-                //                        meanshift_scale = meanshift_scale / weightsum_scale;
-                //                    else
-                //                        meanshift_scale = median_scale;
-
-                //                    if( meanshift_x > 640 )
-                //                        cout<<"there is a problem"<<endl;
-
-                //                    max_position.center.x = meanshift_x;
-                //                    max_position.center.y = meanshift_y;
-                //                    max_position.scale = meanshift_scale;
-
-                //                }else{
-
-
-                //                }
-
-                // Mean shift bounding box dimensions
-
-                //                double meanshift_width = 0.f;
-                //                double weightsum_width = 0.f;
-                //                double meanshift_height = 0.f;
-                //                double weightsum_height = 0.f;
-                //                double meanshift_depth = 0.f;
-                //                double weightsum_depth = 0.f;
-
-                //                int midPoint = bbWidth.size()/2;
-                //                if(midPoint !=0){
-
-                //                    std::sort(bbWidth.begin(), bbWidth.end());
-                //                    std::sort(bbHeight.begin(), bbHeight.end());
-                //                    std::sort(bbDepth.begin(), bbDepth.end());
-
-
-                //                    float median_width = bbWidth[midPoint];
-                //                    float median_height = bbHeight[midPoint];
-                //                    float median_depth = bbDepth[midPoint];
-
-                //                    float windowScale = 0.5;
-
-                //                    // local meanshift from current width and height estimate
-                //                    const float bbWidthMeanShiftWindowSize =  windowScale * median_width;
-                //                    const float bbHeightMeanShiftWindowSize =  windowScale * median_height;
-                //                    const float bbDepthMeanShiftWindowSize =  windowScale * median_depth;
-
-                //                    for( unsigned int f = 0; f < bbWidth.size(); f++ ) {
-                //                        if( fabsf( bbWidth[f] - median_width ) < bbWidthMeanShiftWindowSize ) {
-                //                            meanshift_width += bbWidth[f];
-                //                            weightsum_width += 1.f;
-                //                        }
-                //                        if( fabsf( bbHeight[f] - median_height ) < bbHeightMeanShiftWindowSize ) {
-                //                            meanshift_height += bbHeight[f];
-                //                            weightsum_height += 1.f;
-                //                        }
-                //                        if( fabsf( bbDepth[f] - median_depth ) < bbDepthMeanShiftWindowSize ) {
-                //                            meanshift_depth += bbDepth[f];
-                //                            weightsum_depth += 1.f;
-                //                        }
-                //                    }
-                //                    if( weightsum_width > std::numeric_limits<float>::epsilon() )
-                //                        meanshift_width = meanshift_width / weightsum_width;
-                //                    else
-                //                        meanshift_width = median_width;
-                //                    if( weightsum_height > std::numeric_limits<float>::epsilon() )
-                //                        meanshift_height = meanshift_height / weightsum_height;
-                //                    else
-                //                        meanshift_height = median_height;
-                //                    if( weightsum_depth > std::numeric_limits<float>::epsilon() )
-                //                        meanshift_depth = meanshift_depth / weightsum_depth;
-                //                    else
-                //                        meanshift_depth = median_depth;
-
-                //                    max_position.bbSize.x = meanshift_width;
-                //                    max_position.bbSize.y = meanshift_height;
-                //                    max_position.bbSize.z = meanshift_depth;
-                //                    goodCandidate = 1;
-
-                //                }else{
-
-                //                    cout<< "this happened" << endl;
-
-                //                    goodCandidate = 0;
-                //                    //                    //                      continue;
-                //                    //                    max_position.bbSize.x = 2 * kernel_width / 525.f;
-                //                    //                    max_position.bbSize.y = 2 * kernel_width / 525.f;
-                //                    //                    max_position.bbSize.z = 2 * kernel_width / 525.f;
-                //                }
 
 
                 max_position.c = cNr;
@@ -1650,12 +1420,12 @@ void CRForestDetector::detectCenterPeaks(std::vector<Candidate >& candidates, co
 }
 
 // given the cluster assignment images, we are voting into the voting space vImgDetect
-void CRForestDetector::voteForCenter(const std::vector<cv::Mat>& vImgAssign, std::vector< std::vector<cv::Mat> >& vImgDetect, const  cv::Mat& depthImg, std::vector< std::vector< std::vector< std::vector< std::vector< std::pair< cv::Point, int > > > > > >& voterImages, const pcl::PointCloud<pcl::Normal>::Ptr& normals, const std::vector<float>& scales, int& this_class, cv::Rect* focus, const float& prob_threshold, const std::vector<cv::Mat>& classProbs, bool addPoseInformation,  bool addScaleInformation ){
+void CRForestDetector::voteForCenter(const std::vector<cv::Mat>& vImgAssign, std::vector< std::vector<cv::Mat> >& vImgDetect, const  cv::Mat& depthImg, std::vector< std::vector< std::vector< std::vector< std::vector< std::pair< cv::Point, int > > > > > >& voterImages, const pcl::PointCloud<pcl::Normal>::Ptr& normals, const std::vector<float>& scales, int& this_class, cv::Rect* focus, const float& prob_threshold, const std::vector<cv::Mat>& classProbs, const Parameters& param, bool addPoseInformation,  bool addScaleInformation ){
 
 
     // vImgDetect are all initialized before
 
-    if (vImgAssign.size()<1)
+    if ( vImgAssign.size() < 1)
         return;
 
 
@@ -1931,7 +1701,7 @@ void CRForestDetector::voteForCenter(const std::vector<cv::Mat>& vImgAssign, std
                                     scNr = scales.size() - 1;
 
                                 if(addScaleInformation)
-                                    wScale = 1.f/scales[scNr];//std::pow(scales[scNr],2);
+                                    wScale = 1.f/std::pow(scales[scNr],2);
 
                                 if ( focus==NULL ){
                                     if( int(objCenterPixel.y) >= 0 && int(objCenterPixel.y) < vImgDetect[ cNr ][ scNr ].rows && int(objCenterPixel.x) >= 0 && int(objCenterPixel.x) < vImgDetect[ cNr ][ scNr ].cols ) {
@@ -1958,6 +1728,63 @@ void CRForestDetector::voteForCenter(const std::vector<cv::Mat>& vImgAssign, std
             }
         }
     }
+
+
+    // smoothing hough space
+    int kernelSize = 3;
+    float sigma = 1;
+    std::vector< cv::Mat > smoothAcc( nScales );
+
+    cv::Mat gaussKernel = cv::getGaussianKernel( kernelSize, sigma, CV_32F );
+
+
+    for ( unsigned int cNr = 0; cNr < vImgDetect.size(); cNr++ ){
+
+        if ( ( this_class >= 0 ) && ( this_class != (int)cNr ) )
+            continue;
+
+        if( 0 )
+            for(unsigned int scNr = 0; scNr < nScales; scNr++ ){
+                cv::imshow("hough", vImgDetect[cNr][scNr]); cv::waitKey(0);
+            }
+
+        for(unsigned int scNr = 0; scNr< nScales; scNr++){
+
+            // smoothing the accumulator matrix
+            int adapKwidth = int( param.kernel_width[0] * param.scales[scNr] / 2.0f ) * 2 + 1;
+            float adapKstd  = param.kernel_width[1] * param.scales[scNr];
+
+            cv::GaussianBlur( vImgDetect[cNr][scNr], smoothAcc[scNr], cv::Size( adapKwidth, adapKwidth ), adapKstd ); // smooth in direction of x and y
+
+        }
+
+
+//        // Smoothing in third dimension
+//        for( int r = 0; r < smoothAcc[ 0 ].rows; r++ ){
+
+//            for( int c = 0; c < smoothAcc[ 0 ].cols; c++ ){
+
+//                for( int scNr = 0; scNr < ( int )nScales; scNr++ ){
+//                    int scBegin = std::max( 0, scNr - kernelSize / 2 );
+//                    int scEnd = std::min( scNr + kernelSize / 2 + 1, (int)nScales );
+
+//                    float convSum = 0;
+//                    int k = 0;
+//                    float* kernel_line = gaussKernel.ptr<float>(gaussKernel.rows/2) + std::max(0, -scNr + kernelSize / 2);
+
+//                    for( int td = scBegin; td < scEnd; td++, k++ /*kernel_line++*/ ){
+
+//                        convSum += smoothAcc[ td ].at< float >( r, c ) * /**kernel_line;*/gaussKernel.at< float >( k );
+
+//                    }
+
+//                    vImgDetect[cNr][ scNr ].at< float >( r, c ) = convSum;
+//                }
+//            }
+//        }
+
+    }
+
 }
 
 void CRForestDetector::detectObject(const cv::Mat &img, const cv::Mat &depthImg,  const vector<cv::Mat>& vImg, const pcl::PointCloud<pcl::Normal>::Ptr& normals, const std::vector< cv::Mat >& vImgAssign, const std::vector<cv::Mat>& classProbs,  const Parameters& p, int this_class, std::vector<Candidate >& candidates){
@@ -1977,7 +1804,7 @@ void CRForestDetector::detectObject(const cv::Mat &img, const cv::Mat &depthImg,
 
     // vote for object center in hough space
     int tstart = clock();
-    voteForCenter( vImgAssign, vImgDetect, depthImg, voterImages, normals, p.scales, this_class, NULL, p.thresh_vote, classProbs, p.addPoseInformation, p.addScaleInformation);
+    voteForCenter( vImgAssign, vImgDetect, depthImg, voterImages, normals, p.scales, this_class, NULL, p.thresh_vote, classProbs, p, p.addPoseInformation, p.addScaleInformation);
     cout << "\t Time for voting for center..\t" << (double)(clock() - tstart)/CLOCKS_PER_SEC << " sec" << endl;
 
     if( p.DEBUG ){
