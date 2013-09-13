@@ -296,10 +296,10 @@ void CRTree::growTree( const Parameters& param, const CRPixel& TrData, int sampl
         for(std::vector< int >::iterator number = numbers[l].begin(); number != numbers[l].end(); number++ ){
             
             PixelFeature* pf = new PixelFeature;
-            pf->statFeature = TrData.vRPixels[l][*number]->statFeature;
+            pf = TrData.vRPixels[l][*number];
 
             TrainSet[l].push_back(pf);
-            if( TrainSet[l].back()->statFeature->iHeight != 480 )
+            if( TrainSet[l].back()->iHeight != 480 )
                 std::cout<<".................erooorrrrrr........"<<std::endl;
 //            TrainIDs[l].push_back(TrData.vImageIDs[l][*number]);
             
@@ -476,10 +476,10 @@ void CRTree::makeLeaf(const std::vector<std::vector< PixelFeature*> >& TrainSet,
 
         for(unsigned int i = 0; i<TrainSet[l].size(); ++i) {
 
-            L.vCenter[l][i] = TrainSet[l][i]->statFeature->disVector;
+            L.vCenter[l][i] = TrainSet[l][i]->disVector;
 //            L.vID[l][i] =  TrainIDs[l][i];
 
-            L.bbSize3D[l][i] = TrainSet[l][i]->statFeature->bbSize3D;
+            L.bbSize3D[l][i] = TrainSet[l][i]->bbSize3D;
 
             L.vPose[l][i] = dynFeatures[l][i]->pointPairTransformation;
             L.QdisVector[l][i] = dynFeatures[l][i]->disVectorInQueryPixelCordinate;
@@ -551,7 +551,7 @@ bool CRTree::optimizeTest(const Parameters& param, vector< std::vector< PixelFea
         float float_rate = float(TrainSet[sz].size())/float(tmpTrainSet[sz].size());
         for (unsigned int j=0; j < tmpTrainSet[sz].size(); j++){
             tmpTrainSet[sz][j] = TrainSet[sz][int(float_rate*j)];
-            if( tmpTrainSet[sz][j]->statFeature->iHeight != 480 )
+            if( tmpTrainSet[sz][j]->iHeight != 480 )
                 std::cout<<".................erooorrrrrr........"<<std::endl;
             tmpTrainIDs[sz][j] = TrainIDs[sz][int(float_rate*j)];
             tmpDynFeatures[sz][j] = dynFeatures[sz][int(float_rate*j)];
@@ -580,7 +580,7 @@ bool CRTree::optimizeTest(const Parameters& param, vector< std::vector< PixelFea
         // temporary data for finding best test
         vector<vector<IntIndex> > tmpValSet(tmpTrainSet.size());
         // generate binary test without threshold
-        generateTest(param, &tmpTest[0], class_size[0].first, class_size[0].second, tmpTrainSet[check_label][0]->statFeature->imgAppearance.size());
+        generateTest(param, &tmpTest[0], class_size[0].first, class_size[0].second, tmpTrainSet[check_label][0]->imgAppearance.size());
 
         // compute value for each patch
         evaluateTest( tmpValSet, &tmpTest[0], tmpTrainSet, tmpDynFeatures, node, false, param.addPoseMeasure);
@@ -666,24 +666,24 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
             DynamicFeature* df = dynFeatures[ l ][ i ];
 
 
-            pt1.x = std::max( int( 0.f /*pf->bbox.x */), int( pf->statFeature->pixelLocation.x + test[ 0 ] * pf->statFeature->scale ) );
-            pt1.x = std::min( int( pt1.x ), pf->statFeature->iWidth /*pf->bbox.width + pf->bbox.x*/ - 1 );
+            pt1.x = std::max( int( 0.f /*pf->bbox.x */), int( pf->pixelLocation.x + test[ 0 ] * pf->scale ) );
+            pt1.x = std::min( int( pt1.x ), pf->iWidth /*pf->bbox.width + pf->bbox.x*/ - 1 );
 
-            pt1.y = std::max( int( 0.f /*pf->bbox.y*/ ), int(pf->statFeature->pixelLocation.y + test[ 1 ] * pf->statFeature->scale ) );
-            pt1.y = std::min( int( pt1.y), pf->statFeature->iHeight /*pf->bbox.height + pf->bbox.y*/ -1);
+            pt1.y = std::max( int( 0.f /*pf->bbox.y*/ ), int(pf->pixelLocation.y + test[ 1 ] * pf->scale ) );
+            pt1.y = std::min( int( pt1.y), pf->iHeight /*pf->bbox.height + pf->bbox.y*/ -1);
 
-            pt2.x = std::max( int( 0.f /*pf->bbox.x*/ ), int(pf->statFeature->pixelLocation.x + test[ 2 ] * pf->statFeature->scale ) );
-            pt2.x = std::min( int( pt2.x), pf->statFeature->iWidth /*pf->bbox.width + pf->bbox.x*/ -1);
+            pt2.x = std::max( int( 0.f /*pf->bbox.x*/ ), int(pf->pixelLocation.x + test[ 2 ] * pf->scale ) );
+            pt2.x = std::min( int( pt2.x), pf->iWidth /*pf->bbox.width + pf->bbox.x*/ -1);
 
-            pt2.y = std::max( int( 0.f /*pf->bbox.y*/ ), int( pf->statFeature->pixelLocation.y + test[ 3 ] * pf->statFeature->scale ) );
-            pt2.y = std::min( int( pt2.y),  pf->statFeature->iHeight /*pf->bbox.height + pf->bbox.y*/ -1 );
+            pt2.y = std::max( int( 0.f /*pf->bbox.y*/ ), int( pf->pixelLocation.y + test[ 3 ] * pf->scale ) );
+            pt2.y = std::min( int( pt2.y),  pf->iHeight /*pf->bbox.height + pf->bbox.y*/ -1 );
 
             //debug
             if(0){
 
                 cv::Mat img_show = cv::Mat( ptC.rows, ptC.cols, CV_8UC3,cv::Scalar(0) );
-                cv::cvtColor( pf->statFeature->imgAppearance[ 0 ], img_show, CV_GRAY2RGB );
-                cv::Point pixel = pf->statFeature->pixelLocation;
+                cv::cvtColor( pf->imgAppearance[ 0 ], img_show, CV_GRAY2RGB );
+                cv::Point pixel = pf->pixelLocation;
 
                 cv::circle(img_show, pt1, 1, CV_RGB( 255, 0, 0 ), 8, 8, 0);
                 cv::circle(img_show, pt2, 1, CV_RGB( 255, 0, 0 ), 8, 8, 0);
@@ -695,16 +695,16 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
             }
 
             // if the channel is not Surfel feature
-            if( test[4] < pf->statFeature->imgAppearance.size() && test[4] != 7 && test[4] != 15 && test[4] != 24 ){
+            if( test[4] < pf->imgAppearance.size() && test[4] != 7 && test[4] != 15 && test[4] != 24 ){
                 // pointer to channel
-                ptC = pf->statFeature->imgAppearance[test[4]];
+                ptC = pf->imgAppearance[test[4]];
                 // get pixel values
                 int p1 = (int)(ptC.at<unsigned char>(pt1));
                 int p2 = (int)(ptC.at<unsigned char>(pt2));
                 valSet[l][i].val = p1 - p2;
             }else if(test[4] == 7 || test[4] == 15 || test[4] == 24){
                 // pointer to channel
-                ptC = pf->statFeature->imgAppearance[test[4]];
+                ptC = pf->imgAppearance[test[4]];
                 // get pixel values
                 int p1 = (int)(ptC.at<unsigned short>(pt1));
                 int p2 = (int)(ptC.at<unsigned short>(pt2));
@@ -713,8 +713,8 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
 
                 // calculate surfel feature
                 SurfelFeature sf;
-                Surfel::computeSurfel(pf->statFeature->normals, cv::Point2f(pt1.x, pt1.y), cv::Point2f(pt2.x, pt2.y), cv::Point2f(pf->statFeature->iWidth/2.f, pf->statFeature->iHeight/2.f), sf, pf->statFeature->imgAppearance[7].at<unsigned short>(pt1)/1000.f, pf->statFeature->imgAppearance[7].at<unsigned short>(pt2)/1000.f  );
-                float  tempVal = sf.fVector[test[4] - TrainSet[l][i]->statFeature->imgAppearance.size()];
+                Surfel::computeSurfel(pf->normals, cv::Point2f(pt1.x, pt1.y), cv::Point2f(pt2.x, pt2.y), cv::Point2f(pf->iWidth/2.f, pf->iHeight/2.f), sf, pf->imgAppearance[7].at<unsigned short>(pt1)/1000.f, pf->imgAppearance[7].at<unsigned short>(pt2)/1000.f  );
+                float  tempVal = sf.fVector[test[4] - TrainSet[l][i]->imgAppearance.size()];
                 if(isnan(tempVal)){
                     if(i == 0)
                         tempVal = 0;
@@ -726,61 +726,61 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
 
             if (addTransformation ){
 
-                cv::Point2f center(pf->statFeature->iWidth/2.f, pf->statFeature->iHeight/2.f);
-                cv::Point3f s1 = CRPixel::P3toR3(pt1, center, pf->statFeature->imgAppearance[7].at< unsigned short >(pt1)/1000.f );
-                cv::Point3f s2 = CRPixel::P3toR3(pt2, center, pf->statFeature->imgAppearance[7].at< unsigned short >(pt2)/1000.f );
-                cv::Point3f q = pf->statFeature->pixelLocation_real;
+                cv::Point2f center(pf->iWidth/2.f, pf->iHeight/2.f);
+                cv::Point3f s1 = CRPixel::P3toR3(pt1, center, pf->imgAppearance[7].at< unsigned short >(pt1)/1000.f );
+                cv::Point3f s2 = CRPixel::P3toR3(pt2, center, pf->imgAppearance[7].at< unsigned short >(pt2)/1000.f );
+                cv::Point3f q = pf->pixelLocation_real;
 
-                pcl::Normal qn = pf->statFeature->normals->at(pf->statFeature->pixelLocation.x, pf->statFeature->pixelLocation.y);
+                pcl::Normal qn = pf->normals->at(pf->pixelLocation.x, pf->pixelLocation.y);
 
                 // find transformation from query pixel coordinate system to object coordinate system
-                Eigen::Matrix4f transformationMatrixQuery1C, transformationMatrixQuery2C;
-                Surfel::calcQueryPoint2CameraTransformation(s1, s2, q, qn, transformationMatrixQuery1C, transformationMatrixQuery2C);
+                Eigen::Matrix4d transformationMatrixQuery1C, transformationMatrixQuery2C;
+//                 Surfel::calcQueryPoint2CameraTransformation(s1, s2, q, qn, transformationMatrixQuery1C, transformationMatrixQuery2C);
 
-                Eigen::Matrix4f transformationMatrixOQuery1 , transformationMatrixOQuery2;
+                Eigen::Matrix4d transformationMatrixOQuery1 , transformationMatrixOQuery2;
                 float alpha1, alpha2;
 
                 if( node == 0){
 
                     // find transformation from query pixel coordinate system to object coordinate system
-                    transformationMatrixOQuery1 = transformationMatrixQuery1C.inverse() * pf->statFeature->transformationMatrixOC;
-                    transformationMatrixOQuery2 = transformationMatrixQuery2C.inverse() * pf->statFeature->transformationMatrixOC;
+                    transformationMatrixOQuery1 = transformationMatrixQuery1C.inverse() * pf->transformationMatrixOC;
+                    transformationMatrixOQuery2 = transformationMatrixQuery2C.inverse() * pf->transformationMatrixOC;
 
                     // Extract rotation matrix out of transformation matrix
-                    Eigen::Matrix3f rotationMatrixOQuery1 = transformationMatrixOQuery1.block< 3, 3 >( 0, 0 );
-                    Eigen::Matrix3f rotationMatrixOQuery2 = transformationMatrixOQuery2.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3d rotationMatrixOQuery1 = transformationMatrixOQuery1.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3d rotationMatrixOQuery2 = transformationMatrixOQuery2.block< 3, 3 >( 0, 0 );
 
                     // Convert rotation matrix to quaternions
-                    Eigen::Quaternionf QuaternionOQuery1( rotationMatrixOQuery1);
-                    Eigen::Quaternionf QuaternionOQuery2( rotationMatrixOQuery2 );
+                    Eigen::Quaterniond QuaternionOQuery1( rotationMatrixOQuery1);
+                    Eigen::Quaterniond QuaternionOQuery2( rotationMatrixOQuery2 );
 
                     // Extract translation from the transfomation matrix
-                    Eigen::Vector3f QOdisVector1 = transformationMatrixOQuery1.block< 3, 1 >( 0, 3 );
-                    Eigen::Vector3f QOdisVector2 = transformationMatrixOQuery2.block< 3, 1 >( 0, 3 );
+                    Eigen::Vector3d QOdisVector1 = transformationMatrixOQuery1.block< 3, 1 >( 0, 3 );
+                    Eigen::Vector3d QOdisVector2 = transformationMatrixOQuery2.block< 3, 1 >( 0, 3 );
 
                     // save only for first node
                     if(!isnan(QOdisVector1[0]))
                         df->disVectorInQueryPixelCordinate.first = QOdisVector1;
                     else
-                        df->disVectorInQueryPixelCordinate.first = Eigen::Vector3f(0.f,0.f,0.f);
+                        df->disVectorInQueryPixelCordinate.first = Eigen::Vector3d(0.f,0.f,0.f);
                     if(!isnan(QOdisVector2[0]))
                         df->disVectorInQueryPixelCordinate.second = QOdisVector2;
                     else
-                        df->disVectorInQueryPixelCordinate.second = Eigen::Vector3f(0.f,0.f,0.f);
+                        df->disVectorInQueryPixelCordinate.second = Eigen::Vector3d(0.f,0.f,0.f);
                     if(!isnan(QuaternionOQuery1.coeffs()[ 0 ]))
                         df->pointPairTransformation.first           = QuaternionOQuery1;
                     else
-                        df->pointPairTransformation.first           = Eigen::Quaternionf::Identity();
+                        df->pointPairTransformation.first           = Eigen::Quaterniond::Identity();
                     if(!isnan(QuaternionOQuery2.coeffs()[ 0 ]))
                         df->pointPairTransformation.second          = QuaternionOQuery2;
                     else
-                        df->pointPairTransformation.second          = Eigen::Quaternionf::Identity();
+                        df->pointPairTransformation.second          = Eigen::Quaterniond::Identity();
 
                     df->firstQuerytoCameraTransformation.first  = transformationMatrixQuery1C.block< 3, 3 >( 0, 0 );
                     df->firstQuerytoCameraTransformation.second = transformationMatrixQuery2C.block< 3, 3 >( 0, 0 );
 
-                    Eigen::Matrix3f alphaRotationMatrix1 = df->firstQuerytoCameraTransformation.first.inverse() * transformationMatrixQuery1C.block< 3, 3 >( 0, 0 );
-                    Eigen::Matrix3f alphaRotationMatrix2 = df->firstQuerytoCameraTransformation.second.inverse() * transformationMatrixQuery2C.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3d alphaRotationMatrix1 = df->firstQuerytoCameraTransformation.first.inverse() * transformationMatrixQuery1C.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3d alphaRotationMatrix2 = df->firstQuerytoCameraTransformation.second.inverse() * transformationMatrixQuery2C.block< 3, 3 >( 0, 0 );
 
                     alpha1 = std::atan2(alphaRotationMatrix1(1,0), alphaRotationMatrix1(0,0));
                     alpha2 = std::atan2(alphaRotationMatrix2(1,0), alphaRotationMatrix2(0,0));
@@ -794,8 +794,8 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
 
                     // save only relative angle and discretized with 2*PI/255 step size
 
-                    Eigen::Matrix3f alphaRotationMatrix1 = df->firstQuerytoCameraTransformation.first.inverse() * transformationMatrixQuery1C.block< 3, 3 >( 0, 0 );
-                    Eigen::Matrix3f alphaRotationMatrix2 = df->firstQuerytoCameraTransformation.second.inverse() * transformationMatrixQuery2C.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3d alphaRotationMatrix1 = df->firstQuerytoCameraTransformation.first.inverse() * transformationMatrixQuery1C.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3d alphaRotationMatrix2 = df->firstQuerytoCameraTransformation.second.inverse() * transformationMatrixQuery2C.block< 3, 3 >( 0, 0 );
 
                     alpha1 = std::atan2(alphaRotationMatrix1(1,0), alphaRotationMatrix1(0,0));
                     alpha2 = std::atan2(alphaRotationMatrix2(1,0), alphaRotationMatrix2(0,0));
@@ -809,11 +809,11 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
                 //debug
                 if(0){
 
-                    cv::Point3f O = pf->statFeature->pixelLocation_real - pf->statFeature->disVector;
+                    cv::Point3f O = pf->pixelLocation_real - pf->disVector;
 
-                    Eigen::Quaternionf alphaRotation(cos(alpha1/2.f),0.f,0.f,sin(alpha1/2.f));
+                    Eigen::Quaterniond alphaRotation(cos(alpha1/2.f),0.f,0.f,sin(alpha1/2.f));
 
-                    Eigen::Vector4f QdisVector1_t = transformationMatrixQuery1C.inverse() * Eigen::Vector4f(O.x, O.y, O.z,1);
+                    Eigen::Vector4d QdisVector1_t = transformationMatrixQuery1C.inverse() * Eigen::Vector4d(O.x, O.y, O.z,1);
 
                     cout<< "saved vector\n" << df->disVectorInQueryPixelCordinate.first << "\n" << endl;
                     cout<< "debugged Vector\n" << QdisVector1_t <<"\n"<<endl;
@@ -831,7 +831,7 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
                         std::vector<cv::Mat> in(3);
                         for( int channel = 0; channel < 3; channel++ ){
 
-                            in[ channel ] = pf->statFeature->imgAppearance[ channel ];
+                            in[ channel ] = pf->imgAppearance[ channel ];
                         }
 
                         cv::Mat Lab, rgbImg, depthImg;
@@ -839,9 +839,9 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
                         cv::cvtColor(Lab , rgbImg, CV_Lab2BGR);
                         cv::circle(rgbImg, pt1, 2, CV_RGB( 0, 255, 0 ), -1, 8, 0);
                         cv::circle(rgbImg, pt2, 2, CV_RGB( 0, 255, 0 ), -1, 8, 0);
-                        cv::circle(rgbImg, pf->statFeature->pixelLocation, 2, CV_RGB( 255, 0, 0 ), -1, 8, 0);
+                        cv::circle(rgbImg, pf->pixelLocation, 2, CV_RGB( 255, 0, 0 ), -1, 8, 0);
 
-                        depthImg = pf->statFeature->imgAppearance[7];
+                        depthImg = pf->imgAppearance[7];
 
                         //                        CRPixel::drawTransformation(rgbImg, depthImg ,transformationMatrixOQuery1 );
 
@@ -855,23 +855,23 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
                         viewer->addCoordinateSystem	(0.1f,0.f,0.f,0.f, 0 );
                         viewer->addPointCloud<pcl::PointXYZRGB> (cloud, rgb, "sample cloud");
                         viewer->setBackgroundColor(1.f,1.f,1.f);
-                        Surfel::addCoordinateSystem(TrainSet[l][i]->statFeature->transformationMatrixOC, viewer, "1");
+                        Surfel::addCoordinateSystem(TrainSet[l][i]->transformationMatrixOC, viewer, "1");
                         Surfel::addCoordinateSystem(transformationMatrixQuery1C, viewer, "2");
 
 
-                        Eigen::Quaternionf alphaRotation(cos(alpha1/2.f),0.f,0.f,sin(alpha1/2.f));
+                        Eigen::Quaterniond alphaRotation(cos(alpha1/2.f),0.f,0.f,sin(alpha1/2.f));
 
-                        //                        Eigen::Quaternionf alphaRotationcheck = Eigen::Quaternionf(alphaRotation.toRotationMatrix());
+                        //                        Eigen::Quaterniond alphaRotationcheck = Eigen::Quaterniond(alphaRotation.toRotationMatrix());
 
-                        Eigen::Matrix3f debugRotationMatrix =  df->firstQuerytoCameraTransformation.first * Eigen::Matrix3f(alphaRotation);
-                        Eigen::Matrix4f debugTransformationMatrix = Eigen::Matrix4f::Identity();
+                        Eigen::Matrix3d debugRotationMatrix =  df->firstQuerytoCameraTransformation.first * Eigen::Matrix3d(alphaRotation);
+                        Eigen::Matrix4d debugTransformationMatrix = Eigen::Matrix4d::Identity();
                         debugTransformationMatrix.block<3,3>(0,0) = debugRotationMatrix;
                         debugTransformationMatrix.block<3,1>(0,3) = transformationMatrixQuery1C.block<3,1>(0,3);
 
-                        Eigen::Matrix3f OCRoataionCalculated = transformationMatrixQuery1C.block<3,3>(0,0) * Eigen::Matrix3f(alphaRotation).inverse()*Eigen::Matrix3f(dynFeatures[l][i]->pointPairTransformation.first);
-                        Eigen::Vector3f OCTranslationCalculated = transformationMatrixQuery1C.block<3,3>(0,0) * Eigen::Matrix3f(alphaRotation).inverse()*dynFeatures[l][i]->disVectorInQueryPixelCordinate.first +  Eigen::Vector3f(TrainSet[l][i]->statFeature->pixelLocation_real.x, TrainSet[l][i]->statFeature->pixelLocation_real.y, TrainSet[l][i]->statFeature->pixelLocation_real.z);
+                        Eigen::Matrix3d OCRoataionCalculated = transformationMatrixQuery1C.block<3,3>(0,0) * Eigen::Matrix3d(alphaRotation).inverse()*Eigen::Matrix3d(dynFeatures[l][i]->pointPairTransformation.first);
+                        Eigen::Vector3d OCTranslationCalculated = transformationMatrixQuery1C.block<3,3>(0,0) * Eigen::Matrix3d(alphaRotation).inverse()*dynFeatures[l][i]->disVectorInQueryPixelCordinate.first +  Eigen::Vector3d(TrainSet[l][i]->pixelLocation_real.x, TrainSet[l][i]->pixelLocation_real.y, TrainSet[l][i]->pixelLocation_real.z);
 
-                        Eigen::Matrix4f OCTransformationCalculated =  Eigen::Matrix4f::Identity();
+                        Eigen::Matrix4d OCTransformationCalculated =  Eigen::Matrix4d::Identity();
                         OCTransformationCalculated.block<3,3>(0,0) = OCRoataionCalculated;
                         OCTransformationCalculated.block<3,1>(0,3) = OCTranslationCalculated;
 
@@ -888,31 +888,31 @@ void CRTree::evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const in
 
                 if(addPoseMeasure){
 
-                    cv::Point2f center( pf->statFeature->iWidth/2.f, TrainSet[l][i]->statFeature->iHeight/2.f );
-                    cv::Point3f s1 = CRPixel::P3toR3( pt1, center, pf->statFeature->imgAppearance[ 7 ].at< unsigned short >( pt1 )/1000.f );
-                    cv::Point3f s2 = CRPixel::P3toR3( pt2, center, pf->statFeature->imgAppearance[ 7 ].at< unsigned short >( pt2 )/1000.f );
-                    cv::Point3f q = pf->statFeature->pixelLocation_real;
+                    cv::Point2f center( pf->iWidth/2.f, TrainSet[l][i]->iHeight/2.f );
+                    cv::Point3f s1 = CRPixel::P3toR3( pt1, center, pf->imgAppearance[ 7 ].at< unsigned short >( pt1 )/1000.f );
+                    cv::Point3f s2 = CRPixel::P3toR3( pt2, center, pf->imgAppearance[ 7 ].at< unsigned short >( pt2 )/1000.f );
+                    cv::Point3f q = pf->pixelLocation_real;
 
-                    pcl::Normal qn = pf->statFeature->normals->at( pf->statFeature->pixelLocation.x, pf->statFeature->pixelLocation.y );
-
-                    // find transformation from query pixel coordinate system to object coordinate system
-                    Eigen::Matrix4f transformationMatrixQuery1C, transformationMatrixQuery2C;
-                    Surfel::calcQueryPoint2CameraTransformation(s1, s2, q, qn, transformationMatrixQuery1C, transformationMatrixQuery2C);
-
-                    Eigen::Matrix4f transformationMatrixOQuery1 , transformationMatrixOQuery2;
-
+                    pcl::Normal qn = pf->normals->at( pf->pixelLocation.x, pf->pixelLocation.y );
 
                     // find transformation from query pixel coordinate system to object coordinate system
-                    transformationMatrixOQuery1 = transformationMatrixQuery1C.inverse() * pf->statFeature->transformationMatrixOC;
-                    transformationMatrixOQuery2 = transformationMatrixQuery2C.inverse() * pf->statFeature->transformationMatrixOC;
+                    Eigen::Matrix4d transformationMatrixQuery1C, transformationMatrixQuery2C;
+//                     Surfel::calcQueryPoint2CameraTransformation(s1, s2, q, qn, transformationMatrixQuery1C, transformationMatrixQuery2C);
+
+                    Eigen::Matrix4d transformationMatrixOQuery1 , transformationMatrixOQuery2;
+
+
+                    // find transformation from query pixel coordinate system to object coordinate system
+                    transformationMatrixOQuery1 = transformationMatrixQuery1C.inverse() * pf->transformationMatrixOC;
+                    transformationMatrixOQuery2 = transformationMatrixQuery2C.inverse() * pf->transformationMatrixOC;
 
                     // Extract rotation matrix out of transformation matrix
-                    Eigen::Matrix3f rotationMatrixOQuery1 = transformationMatrixOQuery1.block< 3, 3 >( 0, 0 );
-                    Eigen::Matrix3f rotationMatrixOQuery2 = transformationMatrixOQuery2.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3d rotationMatrixOQuery1 = transformationMatrixOQuery1.block< 3, 3 >( 0, 0 );
+                    Eigen::Matrix3d rotationMatrixOQuery2 = transformationMatrixOQuery2.block< 3, 3 >( 0, 0 );
 
                     // Convert rotation matrix to quaternions
-                    Eigen::Quaternionf QuaternionOQuery1( rotationMatrixOQuery1 );
-                    Eigen::Quaternionf QuaternionOQuery2( rotationMatrixOQuery2 );
+                    Eigen::Quaterniond QuaternionOQuery1( rotationMatrixOQuery1 );
+                    Eigen::Quaterniond QuaternionOQuery2( rotationMatrixOQuery2 );
 
                     df->transformationMatrixOQuery_at_current_node.first = QuaternionOQuery1;
                     df->transformationMatrixOQuery_at_current_node.second = QuaternionOQuery2;
@@ -964,18 +964,18 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
     vector<double> dist(num_labels, 0);
 
     // For setA
-    Eigen::Quaternionf interpA1;
-    Eigen::Quaternionf interpA2;
+    Eigen::Quaterniond interpA1;
+    Eigen::Quaterniond interpA2;
 
-    vector< Eigen::Quaternionf > vTransA1;
-    vector< Eigen::Quaternionf > vTransA2;
+    vector< Eigen::Quaterniond > vTransA1;
+    vector< Eigen::Quaterniond > vTransA2;
 
     //For setB
-    Eigen::Quaternionf interpB1;
-    Eigen::Quaternionf interpB2;
+    Eigen::Quaterniond interpB1;
+    Eigen::Quaterniond interpB2;
 
-    vector< Eigen::Quaternionf > vTransB1;
-    vector< Eigen::Quaternionf > vTransB2;
+    vector< Eigen::Quaterniond > vTransB1;
+    vector< Eigen::Quaterniond > vTransB2;
 
 
     float sample_pose = 0.9; // ignore with this probability
@@ -999,7 +999,7 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
                 if( val > sample_pose || SetA[c].size()*sample_pose < 100.f ){
 
                     // 1 generate realtive transformation for first offset vector
-                    Eigen::Quaternionf t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
+                    Eigen::Quaterniond t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
 
                     if(! ( isnan(t1.w()) || isnan(t1.x()) || isnan(t1.y()) || isnan(t1.z()) ) ){
                         // push quaternion into stack
@@ -1008,7 +1008,7 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
                     }
 
                     // 1 generate realtive transformation for first offset vector
-                    Eigen::Quaternionf t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
+                    Eigen::Quaterniond t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
 
                     if(! ( isnan(t2.w()) || isnan(t2.x()) || isnan(t2.y()) || isnan(t2.z()) ) ){
                         // push quaternion into stack
@@ -1021,35 +1021,35 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
             interpA1 = quatInterp(vTransA1);
             interpA2 = quatInterp(vTransA2);
 
-            Eigen::Quaternionf interpA1_inv = interpA1.inverse();
-            Eigen::Quaternionf interpA2_inv = interpA2.inverse();
+            Eigen::Quaterniond interpA1_inv = interpA1.inverse();
+            Eigen::Quaterniond interpA2_inv = interpA2.inverse();
 
             // find dot product between mean and each quaternion and add it to dist
             for(vector< PixelFeature* >::const_iterator it = SetA[c].begin(); it != SetA[c].end(); ++it, ++it_d) { // for all training data of class c in Set
 
                 // 1 generate realtive transformation for first offset vector
-                Eigen::Quaternionf t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
+                Eigen::Quaterniond t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
 
                 if(! ( isnan(t1.w()) || isnan(t1.x()) || isnan(t1.y()) || isnan(t1.z()) ) ){
                     // find difference between quaternions
-                    Eigen::Quaternionf diff = interpA1_inv * t1;
+                    Eigen::Quaterniond diff = interpA1_inv * t1;
 
                     // convert diff into axis angle
-                    Eigen::AngleAxisf diff_angleAxis(diff);
+                    Eigen::AngleAxisf diff_angleAxis(diff.cast<float>());
 
                     dist[c] += diff_angleAxis.angle();
 
                 }
 
                 // 2 generate realtive transformation for second offset vector
-                Eigen::Quaternionf t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
+                Eigen::Quaterniond t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
 
                 if(! ( isnan(t2.w()) || isnan(t2.x()) || isnan(t2.y()) || isnan(t2.z()) ) ){
                     // find difference between quaternions
-                    Eigen::Quaternionf diff = interpA2_inv * t2;
+                    Eigen::Quaterniond diff = interpA2_inv * t2;
 
                     // convert diff into axis angle
-                    Eigen::AngleAxisf diff_angleAxis(diff);
+                    Eigen::AngleAxisf diff_angleAxis(diff.cast<float>());
 
                     dist[c] += diff_angleAxis.angle();
 
@@ -1074,7 +1074,7 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
                 if( val > sample_pose || SetB[c].size()*sample_pose < 100.f ){
 
                     // 1 generate realtive transformation for first offset vector
-                    Eigen::Quaternionf t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
+                    Eigen::Quaterniond t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
 
                     if(! ( isnan(t1.w()) || isnan(t1.x()) || isnan(t1.y()) || isnan(t1.z()) ) ){
                         // push quaternion into stack
@@ -1083,7 +1083,7 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
                     }
 
                     // 2 generate realtive transformation for second offset vector
-                    Eigen::Quaternionf t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
+                    Eigen::Quaterniond t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
 
                     if(! ( isnan(t2.w()) || isnan(t2.x()) || isnan(t2.y()) || isnan(t2.z()) ) ){
                         // push quaternion into stack
@@ -1096,35 +1096,35 @@ double CRTree::orientationMeanMC(const std::vector<std::vector< PixelFeature*> >
             interpB1 = quatInterp(vTransB1);
             interpB2 = quatInterp(vTransB2);
 
-            Eigen::Quaternionf interpB1_inv = interpB1.inverse();
-            Eigen::Quaternionf interpB2_inv = interpB2.inverse();
+            Eigen::Quaterniond interpB1_inv = interpB1.inverse();
+            Eigen::Quaterniond interpB2_inv = interpB2.inverse();
 
             // find dot product between mean and each quaternion and add it to dist
             for(vector< PixelFeature* >::const_iterator it = SetB[c].begin(); it != SetB[c].end(); ++it) { // for all training data of class c in Set
 
                 // 1 generate realtive transformation for first offset vector
-                Eigen::Quaternionf t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
+                Eigen::Quaterniond t1 = (*it_d)->transformationMatrixOQuery_at_current_node.first;
 
                 if(! ( isnan(t1.w()) || isnan(t1.x()) || isnan(t1.y()) || isnan(t1.z()) ) ){
                     // find difference between quaternions
-                    Eigen::Quaternionf diff = interpB1_inv * t1;
+                    Eigen::Quaterniond diff = interpB1_inv * t1;
 
                     // convert diff into axis angle
-                    Eigen::AngleAxisf diff_angleAxis(diff);
+                    Eigen::AngleAxisf diff_angleAxis(diff.cast<float>());
 
                     dist[c] += diff_angleAxis.angle();
 
                 }
 
                 // 2 generate realtive transformation for second offset vector
-                Eigen::Quaternionf t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
+                Eigen::Quaterniond t2 = (*it_d)->transformationMatrixOQuery_at_current_node.second;
 
                 if(! ( isnan(t2.w()) || isnan(t2.x()) || isnan(t2.y()) || isnan(t2.z()) ) ){
                     // find difference between quaternions
-                    Eigen::Quaternionf diff = interpB2_inv * t2;
+                    Eigen::Quaterniond diff = interpB2_inv * t2;
 
                     // convert diff into axis angle
-                    Eigen::AngleAxisf diff_angleAxis(diff);
+                    Eigen::AngleAxisf diff_angleAxis(diff.cast<float>());
 
                     dist[c] += diff_angleAxis.angle();
 
@@ -1154,9 +1154,9 @@ double CRTree::distMeanMC(const vector<vector< PixelFeature*> >& SetA, const vec
     for(unsigned int c = 0; c<num_labels; ++c) {
         if(class_id[c]>0) {
             for(vector< PixelFeature*>::const_iterator it = SetA[c].begin(); it != SetA[c].end(); ++it) {
-                meanAx[c] += (*it)->statFeature->disVector.x;
-                meanAy[c] += (*it)->statFeature->disVector.y;
-                meanAz[c] += (*it)->statFeature->disVector.z;
+                meanAx[c] += (*it)->disVector.x;
+                meanAy[c] += (*it)->disVector.y;
+                meanAz[c] += (*it)->disVector.z;
             }
         }
     }
@@ -1176,11 +1176,11 @@ double CRTree::distMeanMC(const vector<vector< PixelFeature*> >& SetA, const vec
             if (SetB[c].size() > 0)
                 non_empty_classesA++;
             for(std::vector< PixelFeature*>::const_iterator it = SetA[c].begin(); it != SetA[c].end(); ++it) {
-                double tmp = (*it)->statFeature->disVector.x - meanAx[c];
+                double tmp = (*it)->disVector.x - meanAx[c];
                 distA[c] += tmp*tmp;
-                tmp = (*it)->statFeature->disVector.y - meanAy[c];
+                tmp = (*it)->disVector.y - meanAy[c];
                 distA[c] += tmp*tmp;
-                tmp = (*it)->statFeature->disVector.z - meanAz[c];
+                tmp = (*it)->disVector.z - meanAz[c];
                 distA[c] += tmp*tmp;
             }
         }
@@ -1192,9 +1192,9 @@ double CRTree::distMeanMC(const vector<vector< PixelFeature*> >& SetA, const vec
     for(unsigned int c = 0; c<num_labels; ++c) {
         if(class_id[c]>0) {
             for(vector< PixelFeature*>::const_iterator it = SetB[c].begin(); it != SetB[c].end(); ++it) {
-                meanBx[c] += (*it)->statFeature->disVector.x;
-                meanBy[c] += (*it)->statFeature->disVector.y;
-                meanBz[c] += (*it)->statFeature->disVector.z;
+                meanBx[c] += (*it)->disVector.x;
+                meanBy[c] += (*it)->disVector.y;
+                meanBz[c] += (*it)->disVector.z;
 
             }
         }
@@ -1216,11 +1216,11 @@ double CRTree::distMeanMC(const vector<vector< PixelFeature*> >& SetA, const vec
                 non_empty_classesB++;
 
             for(std::vector< PixelFeature*>::const_iterator it = SetB[c].begin(); it != SetB[c].end(); ++it) {
-                double tmp = (*it)->statFeature->disVector.x - meanBx[c];
+                double tmp = (*it)->disVector.x - meanBx[c];
                 distB[c] += tmp*tmp;
-                tmp = (*it)->statFeature->disVector.y - meanBy[c];
+                tmp = (*it)->disVector.y - meanBy[c];
                 distB[c] += tmp*tmp;
-                tmp = (*it)->statFeature->disVector.z - meanBz[c];
+                tmp = (*it)->disVector.z - meanBz[c];
                 distB[c] += tmp*tmp;
             }
         }
@@ -1261,8 +1261,8 @@ double CRTree::distMeanMC(const vector<vector< PixelFeature*> >& SetA, const vec
 
 //                    // 1 generate affine transformation and transform disvector to the local coordinate
 //                    float alpha1 = (*it)->alpha[p].first * 2.f * PI / 255.f;
-//                    Eigen::Quaternionf Qnext1( cos(alpha1/2.f), 0.f, 0.f, sin(alpha1/2.f));
-//                    Eigen::Vector3f disVecNext =  Eigen::Matrix3f(Qnext1) * (*it)->disVectorInQueryPixelCordinate.first;
+//                    Eigen::Quaterniond Qnext1( cos(alpha1/2.f), 0.f, 0.f, sin(alpha1/2.f));
+//                    Eigen::Vector3d disVecNext =  Eigen::Matrix3d(Qnext1) * (*it)->disVectorInQueryPixelCordinate.first;
 
 //                    if(!(isnan(disVecNext[0]) ||isnan(disVecNext[1]) ||isnan(disVecNext[2]))){
 
@@ -1275,8 +1275,8 @@ double CRTree::distMeanMC(const vector<vector< PixelFeature*> >& SetA, const vec
 
 //                    // 2 generate affine transformation and transform disvector to the local coordinate
 //                    float alpha2 = (*it)->alpha[p].second* 2.f * PI / 255.f;
-//                    Eigen::Quaternionf Qnext2( cos(alpha2/2.f), 0.f, 0.f, sin(alpha2/2.f));
-//                    disVecNext = Eigen::Matrix3f(Qnext2) * (*it)->disVectorInQueryPixelCordinate.second;
+//                    Eigen::Quaterniond Qnext2( cos(alpha2/2.f), 0.f, 0.f, sin(alpha2/2.f));
+//                    disVecNext = Eigen::Matrix3d(Qnext2) * (*it)->disVectorInQueryPixelCordinate.second;
 
 //                    if(!(isnan(disVecNext[0]) ||isnan(disVecNext[1]) ||isnan(disVecNext[2]))){
 
@@ -1326,8 +1326,8 @@ double CRTree::distMeanMC(const vector<vector< PixelFeature*> >& SetA, const vec
 //                for(unsigned int p = 0; p < (*it)->alpha.size(); p++){
 //                    // 1 generate affine transformation and transform disvector to the local coordinate
 //                    float alpha1 = (*it)->alpha[p].first* 2.f * PI / 255.f;
-//                    Eigen::Quaternionf Qnext1( cos(alpha1/2.f), 0.f, 0.f, sin(alpha1/2.f));
-//                    Eigen::Vector3f disVecNext = Eigen::Matrix3f(Qnext1) * (*it)->disVectorInQueryPixelCordinate.first;
+//                    Eigen::Quaterniond Qnext1( cos(alpha1/2.f), 0.f, 0.f, sin(alpha1/2.f));
+//                    Eigen::Vector3d disVecNext = Eigen::Matrix3d(Qnext1) * (*it)->disVectorInQueryPixelCordinate.first;
 
 
 //                    if(!(isnan(disVecNext[0]) ||isnan(disVecNext[1]) ||isnan(disVecNext[2]))){
@@ -1342,8 +1342,8 @@ double CRTree::distMeanMC(const vector<vector< PixelFeature*> >& SetA, const vec
 
 //                    // 2 generate affine transformation and transform disvector to the local coordinate
 //                    float alpha2 = (*it)->alpha[p].second* 2.f * PI / 255.f;
-//                    Eigen::Quaternionf Qnext2( cos(alpha2/2.f), 0.f, 0.f, sin(alpha2/2.f));
-//                    disVecNext = Eigen::Matrix3f(Qnext2) * (*it)->disVectorInQueryPixelCordinate.second;
+//                    Eigen::Quaterniond Qnext2( cos(alpha2/2.f), 0.f, 0.f, sin(alpha2/2.f));
+//                    disVecNext = Eigen::Matrix3d(Qnext2) * (*it)->disVectorInQueryPixelCordinate.second;
 
 
 //                    if(!(isnan(disVecNext[0]) ||isnan(disVecNext[1]) ||isnan(disVecNext[2]))){
@@ -1396,9 +1396,9 @@ double CRTree::distMean(const vector<vector< PixelFeature*> >& SetA, const vecto
         if(class_id[c]>0) {
             countA += SetA[c].size();
             for(vector< PixelFeature*>::const_iterator it = SetA[c].begin(); it != SetA[c].end(); ++it) {
-                meanAx += (*it)->statFeature->disVector.x;
-                meanAy += (*it)->statFeature->disVector.y;
-                meanAz += (*it)->statFeature->disVector.z;
+                meanAx += (*it)->disVector.x;
+                meanAy += (*it)->disVector.y;
+                meanAz += (*it)->disVector.z;
             }
         }
     }
@@ -1412,11 +1412,11 @@ double CRTree::distMean(const vector<vector< PixelFeature*> >& SetA, const vecto
     for(unsigned int c = 0; c<num_labels; ++c) {
         if(class_id[c]>0) {
             for(std::vector< PixelFeature*>::const_iterator it = SetA[c].begin(); it != SetA[c].end(); ++it) {
-                double tmp = (*it)->statFeature->disVector.x - meanAx;
+                double tmp = (*it)->disVector.x - meanAx;
                 distA += tmp*tmp;
-                tmp = (*it)->statFeature->disVector.y - meanAy;
+                tmp = (*it)->disVector.y - meanAy;
                 distA += tmp*tmp;
-                tmp = (*it)->statFeature->disVector.z - meanAz;
+                tmp = (*it)->disVector.z - meanAz;
                 distA += tmp*tmp;
             }
         }
@@ -1430,9 +1430,9 @@ double CRTree::distMean(const vector<vector< PixelFeature*> >& SetA, const vecto
         if(class_id[c]>0) {
             countB += SetB[c].size();
             for(vector< PixelFeature*>::const_iterator it = SetB[c].begin(); it != SetB[c].end(); ++it) {
-                meanBx += (*it)->statFeature->disVector.x;
-                meanBy += (*it)->statFeature->disVector.y;
-                meanBz += (*it)->statFeature->disVector.z;
+                meanBx += (*it)->disVector.x;
+                meanBy += (*it)->disVector.y;
+                meanBz += (*it)->disVector.z;
             }
         }
     }
@@ -1445,11 +1445,11 @@ double CRTree::distMean(const vector<vector< PixelFeature*> >& SetA, const vecto
     for(unsigned int c = 0; c<num_labels; ++c) {
         if(class_id[c]>0) {
             for(std::vector< PixelFeature*>::const_iterator it = SetB[c].begin(); it != SetB[c].end(); ++it) {
-                double tmp = (*it)->statFeature->disVector.x - meanBx;
+                double tmp = (*it)->disVector.x - meanBx;
                 distB += tmp*tmp;
-                tmp = (*it)->statFeature->disVector.y - meanBy;
+                tmp = (*it)->disVector.y - meanBy;
                 distB += tmp*tmp;
-                tmp = (*it)->statFeature->disVector.z - meanBz;
+                tmp = (*it)->disVector.z - meanBz;
                 distB += tmp*tmp;
             }
         }

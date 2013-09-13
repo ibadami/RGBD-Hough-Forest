@@ -65,7 +65,7 @@ public:
     int n_trees;
     int n_classes;
     cv::Point3f bbSize;
-    Eigen::Matrix4f coordinateSystem;
+    Eigen::Matrix4d coordinateSystem;
     int id;// candidate ID
     bool bpr; // if the backprojection is held
 

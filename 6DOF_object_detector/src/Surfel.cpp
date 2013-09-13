@@ -191,7 +191,7 @@ void Surfel::houghPointCloud( std::vector< cv::Mat >& houghImg,  const std::vect
 //    cloud->height = houghImg[0].rows;// height;
 //    cloud->width =  houghImg[0].cols; // width;
 //    cloud->sensor_origin_ = Eigen::Vector4f( 0.f, 0.f, 0.f, 0.f );
-//    cloud->sensor_orientation_ = Eigen::Quaternionf::Identity();
+//    cloud->sensor_orientation_ = Eigen::Quaterniond::Identity();
 //    //  cloud->sensor_orientation_ = Eigen::Vector4f( std::cos(PI/16), 0.f, 0.f, -std::sin(PI/16) );
 //    cloud->points.resize(  houghImg[0].rows *  houghImg[0].cols ) ;
 
@@ -273,18 +273,18 @@ void Surfel::computeSurfel(pcl::PointCloud<pcl::Normal>::Ptr normals, cv::Point2
     pcl::Normal n1 = normals->at(pt1.x, pt1.y);
     pcl::Normal n2 = normals->at(pt2.x, pt2.y);
 
-    Eigen::Vector3f v1 = n1.getNormalVector3fMap();
-    Eigen::Vector3f v2 = n2.getNormalVector3fMap();
+    Eigen::Vector3d v1 = n1.getNormalVector3fMap().cast<double>();
+    Eigen::Vector3d v2 = n2.getNormalVector3fMap().cast<double>();
 
     cv::Point3f  ptR1 = CRPixel::P3toR3(pt1, center, depth1);
     cv::Point3f  ptR2 = CRPixel::P3toR3(pt2, center, depth2);
 
     cv::Point3f temp = ptR1 - ptR2;
-    Eigen::Vector3f distVec( temp.x, temp.y, temp.z );
+    Eigen::Vector3d distVec( temp.x, temp.y, temp.z );
 
     v1.normalize();
     v2.normalize();
-    Eigen::Vector3f distVec_norm = distVec;
+    Eigen::Vector3d distVec_norm = distVec;
     distVec_norm.normalize();
 
     sf.fVector[0] = std::acos(v1.dot(v2));
@@ -295,26 +295,26 @@ void Surfel::computeSurfel(pcl::PointCloud<pcl::Normal>::Ptr normals, cv::Point2
 }
 
 
-void Surfel::calcSurfel2CameraTransformation(cv::Point3f &s1, cv::Point3f &s2, pcl::Normal &n1, pcl::Normal &n2, Eigen::Matrix4f &TransformationSC1, Eigen::Matrix4f &TransformationSC2){
+void Surfel::calcSurfel2CameraTransformation(cv::Point3f& s1, cv::Point3f& s2, pcl::Normal& n1, pcl::Normal& n2, Eigen::Matrix4d& TransformationSC1, Eigen::Matrix4d& TransformationSC2){
 
     cv::Point3f distance = s1 - s2;
-    Eigen::Vector3f t1(s1.x,s1.y,s1.z);
-    Eigen::Vector3f t2(s2.x,s2.y,s2.z);
-    Eigen::Vector3f dis(distance.x, distance.y, distance.z);
+    Eigen::Vector3d t1(s1.x,s1.y,s1.z);
+    Eigen::Vector3d t2(s2.x,s2.y,s2.z);
+    Eigen::Vector3d dis(distance.x, distance.y, distance.z);
     dis.normalize();
 
     // First coordinate system
-    TransformationSC1                 = Eigen::Matrix4f::Identity();
+    TransformationSC1                 = Eigen::Matrix4d::Identity();
 
-    Eigen::Vector3f normal1           = n1.getNormalVector3fMap();   normal1.normalize();
-    Eigen::Vector3f u1                = n1.getNormalVector3fMap().cross(dis);
+    Eigen::Vector3d normal1           = n1.getNormalVector3fMap().cast<double>();   normal1.normalize();
+    Eigen::Vector3d u1                = normal1.cross(dis);
     u1.normalize();
-    Eigen::Vector3f v1                = n1.getNormalVector3fMap().cross(u1);
+    Eigen::Vector3d v1                = normal1.cross(u1);
 
     //    cout<< normal1 << endl;
     //    cout<< u1 << endl;
     //    cout<< v1 << endl;
-    //    cout<< s1.getVector3fMap() << endl;
+    //    cout<< s1.getVector3dMap() << endl;
 
     TransformationSC1.block<3,1>(0,2) = normal1;
     TransformationSC1.block<3,1>(0,1) = u1;
@@ -326,17 +326,17 @@ void Surfel::calcSurfel2CameraTransformation(cv::Point3f &s1, cv::Point3f &s2, p
 
     // Second cordinate syastem
 
-    TransformationSC2                 = Eigen::Matrix4f::Identity();
+    TransformationSC2                 = Eigen::Matrix4d::Identity();
 
-    Eigen::Vector3f normal2           = n2.getNormalVector3fMap();    normal1.normalize();
-    Eigen::Vector3f u2                = n2.getNormalVector3fMap().cross(dis);
+    Eigen::Vector3d normal2           = n2.getNormalVector3fMap().cast<double>();    normal2.normalize();
+    Eigen::Vector3d u2                = normal2.cross(dis);
     u2.normalize();
-    Eigen::Vector3f v2                = n2.getNormalVector3fMap().cross(u2);
+    Eigen::Vector3d v2                = normal2.cross(u2);
 
     //    cout<< normal2 << endl;
     //    cout<< u2 << endl;
     //    cout<< v2 << endl;
-    //    cout<< s2.getVector3fMap() << endl;
+    //    cout<< s2.getVector3dMap() << endl;
 
     TransformationSC2.block<3,1>(0,2) = normal2;
     TransformationSC2.block<3,1>(0,1) = u2;
@@ -348,59 +348,7 @@ void Surfel::calcSurfel2CameraTransformation(cv::Point3f &s1, cv::Point3f &s2, p
 }
 
 
-void Surfel::calcQueryPoint2CameraTransformation(cv::Point3f& s1, cv::Point3f& s2, cv::Point3f& q, const pcl::Normal& qn, Eigen::Matrix4f& TransformationQueryC1, Eigen::Matrix4f& TransformationQueryC2){
-
-    cv::Point3f distance1 = s1 - q;
-    cv::Point3f distance2 = s2 - q;
-
-    Eigen::Vector3f dis1(distance1.x, distance1.y, distance1.z); dis1.normalize();
-    Eigen::Vector3f dis2(distance2.x, distance2.y, distance2.z); dis2.normalize();
-
-    // First coordinate system
-    TransformationQueryC1             = Eigen::Matrix4f::Identity();
-
-    Eigen::Vector3f normal1           = qn.getNormalVector3fMap();             normal1.normalize();
-    Eigen::Vector3f u1                = qn.getNormalVector3fMap().cross(dis1); u1.normalize();
-    Eigen::Vector3f v1                = normal1.cross(u1);
-    Eigen::Vector3f translation1(q.x, q.y, q.z);
-
-    //    cout<< normal1 << endl;
-    //    cout<< u1 << endl;
-    //    cout<< v1 << endl;
-    //    cout<< translation1.getVector3fMap() << endl;
-
-    TransformationQueryC1.block<3,1>(0,0) = u1;
-    TransformationQueryC1.block<3,1>(0,1) = v1;
-    TransformationQueryC1.block<3,1>(0,2) = normal1;
-
-    TransformationQueryC1.block<3,1>(0,3) = translation1;
-
-    //    cout<< TransformationQueryC1 << endl;
-
-
-    // Second cordinate syastem
-    TransformationQueryC2             = Eigen::Matrix4f::Identity();
-
-    Eigen::Vector3f normal2           = qn.getNormalVector3fMap();              normal2.normalize();
-    Eigen::Vector3f u2                = qn.getNormalVector3fMap().cross(dis2);  u2.normalize();
-    Eigen::Vector3f v2                = normal2.cross(u2);
-    Eigen::Vector3f translation2(q.x, q.y, q.z);
-
-    //    cout<< normal2 << endl;
-    //    cout<< u2 << endl;
-    //    cout<< v2 << endl;
-    //    cout<< translation2.getVector3fMap() << endl;
-
-    TransformationQueryC2.block<3,1>(0,0) = u2;
-    TransformationQueryC2.block<3,1>(0,1) = v2;
-    TransformationQueryC2.block<3,1>(0,2) = normal2;
-
-    TransformationQueryC2.block<3,1>(0,3) = translation2;
-
-    //    cout<< TransformationQueryC2 << endl;
-
-}
-void  Surfel::addCoordinateSystem( Eigen::Matrix4f &transformationMatrixOC, boost::shared_ptr<pcl::visualization::PCLVisualizer> &viewer, string id){
+void  Surfel::addCoordinateSystem( Eigen::Matrix4d& transformationMatrixOC, boost::shared_ptr< pcl::visualization::PCLVisualizer >& viewer, string id){
 
     //visualize coordinates in object frame
     pcl::Normal OX(transformationMatrixOC.matrix()(0,0), transformationMatrixOC.matrix()(1,0), transformationMatrixOC.matrix()(2,0));
@@ -419,9 +367,9 @@ void  Surfel::addCoordinateSystem( Eigen::Matrix4f &transformationMatrixOC, boos
 
 }
 
-void Surfel::addCoordinateSystem(const Eigen::Matrix4f &transformationMatrixOC, boost::shared_ptr<pcl::visualization::PCLVisualizer> &viewer, string id){
+void Surfel::addCoordinateSystem(const Eigen::Matrix4d& transformationMatrixOC, boost::shared_ptr< pcl::visualization::PCLVisualizer >& viewer, string id){
 
-    Eigen::Matrix4f transformationMatrixOC1  =  transformationMatrixOC;
+    Eigen::Matrix4d transformationMatrixOC1  =  transformationMatrixOC;
     addCoordinateSystem( transformationMatrixOC1, viewer, id);
 }
 
@@ -435,7 +383,7 @@ void Surfel::addCoordinateSystem(const Eigen::Matrix4f &transformationMatrixOC, 
 //  cloud->height = depthImg.height;
 //  cloud->width = depthImg.width;
 //  cloud->sensor_origin_ = Eigen::Vector4f(0.f, 0.f, 0.f, 0.f);
-//  cloud->sensor_orientation_ = Eigen::Quaternionf::Identity();
+//  cloud->sensor_orientation_ = Eigen::Quaterniond::Identity();
 //  cloud->points.resize(depthImg.width * depthImg.height);
 //
 //  const float invfocalLength = 1.f / 525.f;

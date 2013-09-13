@@ -54,20 +54,20 @@ private:
 
     void voteForPose(const cv::Mat img, const std::vector< std::vector< std::vector< std::vector<std::vector< std::pair< cv::Point, int > > > > > >& voterImages, const std::vector<cv::Mat>& vImgAssign, const std::vector<std::vector<cv::Mat> >& vImgDetect, std::vector<Candidate>& candidates, const vector<cv::Mat>& vImg, const pcl::PointCloud<pcl::Normal>::Ptr& normals, const int kernel_width, const std::vector<float>&scales, const float thresh, const bool DEBUG, const bool addPoseScore);
 
-    void detectPosePeaks(vector< cv::Mat > &positiveAcc, vector< cv::Mat> &negativeAcc, Eigen::Matrix3f &positiveFinalOC, Eigen::Matrix3f &negativeFinalOC);
+    void detectPosePeaks(vector< cv::Mat > &positiveAcc, vector< cv::Mat> &negativeAcc, Eigen::Matrix3d &positiveFinalOC, Eigen::Matrix3d &negativeFinalOC);
 
-    void detectPosePeaks_meanShift(std::vector<std::vector<float> >&Qx, std::vector<std::vector<float> > &Qy,std::vector<std::vector<float> > &Qz, Eigen::Matrix3f &positiveFinalOC, Eigen::Matrix3f & negativeFinalOC);
+    void detectPosePeaks_meanShift(std::vector<std::vector<float> >&Qx, std::vector<std::vector<float> > &Qy,std::vector<std::vector<float> > &Qz, Eigen::Matrix3d &positiveFinalOC, Eigen::Matrix3d & negativeFinalOC);
 
-    void detectPosePeaks_meanShift_common(std::vector<float> &Qx, std::vector<float> &Qy, std::vector<float> &Qz, std::vector<float> &Qw, Eigen::Matrix3f & finalOC);
+    void detectPosePeaks_meanShift_common(std::vector<float> &Qx, std::vector<float> &Qy, std::vector<float> &Qz, std::vector<float> &Qw, Eigen::Matrix3d & finalOC);
 
-    void detectPosePeaks_slerp(std::vector<Eigen::Quaternionf>& qMean,Eigen::Matrix3f &finalOC);
+    void detectPosePeaks_slerp(std::vector<Eigen::Quaterniond>& qMean,Eigen::Matrix3d &finalOC);
 
-    void detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score);
-//    void detectMaxima(const vector<cv::Mat> & poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score);
+    void detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpace,  Eigen::Quaterniond& finalOC, int& step, float& score);
+//    void detectMaxima(const vector<cv::Mat> & poseHoughSpace,  Eigen::Quaterniond& finalOC, int& step, float& score);
 
-    void detectMaximaK_means(std::vector<Eigen::Quaternionf>& qMean, Eigen::Matrix3f &finalOC);
+    void detectMaximaK_means(std::vector<Eigen::Quaterniond>& qMean, Eigen::Matrix3d &finalOC);
 
-    void axisOfSymmetry(std::vector<Eigen::Quaternionf>& qMean, Eigen::Quaternionf &qfinalOC );
+    void axisOfSymmetry(std::vector<Eigen::Quaterniond>& qMean, Eigen::Quaterniond &qfinalOC );
 
 
     /*************************************************************************************************************************************************/

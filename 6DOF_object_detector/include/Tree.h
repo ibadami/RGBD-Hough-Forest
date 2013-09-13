@@ -31,13 +31,13 @@ struct DynamicFeature{
     
     DynamicFeature(){}
     
-    std::pair< Eigen::Vector3f, Eigen::Vector3f > disVectorInQueryPixelCordinate;
-    std::pair< Eigen::Vector3f, Eigen::Vector3f > tempDisVectorInQueryPixelCordinate;
-    std::pair< Eigen::Quaternionf, Eigen::Quaternionf > pointPairTransformation;
+    std::pair< Eigen::Vector3d, Eigen::Vector3d > disVectorInQueryPixelCordinate;
+    std::pair< Eigen::Vector3d, Eigen::Vector3d > tempDisVectorInQueryPixelCordinate;
+    std::pair< Eigen::Quaterniond, Eigen::Quaterniond > pointPairTransformation;
     
-    std::pair< Eigen::Matrix3f, Eigen::Matrix3f > firstQuerytoCameraTransformation;
+    std::pair< Eigen::Matrix3d, Eigen::Matrix3d > firstQuerytoCameraTransformation;
     
-    std::pair< Eigen::Quaternionf, Eigen::Quaternionf > transformationMatrixOQuery_at_current_node;
+    std::pair< Eigen::Quaterniond, Eigen::Quaterniond > transformationMatrixOQuery_at_current_node;
     
     std::vector< std::pair < float, float > > alpha;
     
@@ -74,8 +74,8 @@ struct LeafNode {
     std::vector<std::vector<float> > vCenterWeights;
     std::vector<std::vector<int> > vID;
     std::vector<std::vector<cv::Point3f > > bbSize3D;
-    std::vector<std::vector<std::pair< Eigen::Quaternionf, Eigen::Quaternionf > > > vPose;
-    std::vector<std::vector<std::pair< Eigen::Vector3f, Eigen::Vector3f > > > QdisVector;
+    std::vector<std::vector<std::pair< Eigen::Quaterniond, Eigen::Quaterniond > > > vPose;
+    std::vector<std::vector<std::pair< Eigen::Vector3d, Eigen::Vector3d > > > QdisVector;
 
     std::vector < std::vector< std::vector< std::pair< float, float > > > > alpha;
 

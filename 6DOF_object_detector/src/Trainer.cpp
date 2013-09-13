@@ -61,12 +61,12 @@ void CRForestTraining::generate3DModel( Parameters &param, vector< vector<string
             float minHeight = 0, maxHeight = 100;
             pcl::PointCloud<pcl::PointXYZRGB>::Ptr objectCloud (new pcl::PointCloud<pcl::PointXYZRGB>);
 
-            std::vector< Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > transformationMatrixOC(3);
+            std::vector< Eigen::Matrix4d, Eigen::aligned_allocator<Eigen::Matrix4d> > transformationMatrixOC(3);
 
             for( int pNr = 0; pNr < 3; pNr++ ){
 
-                std::vector< Eigen::Vector3f, Eigen::aligned_allocator< Eigen::Vector3f > > convexHull;
-                std::vector< Eigen::Vector3f, Eigen::aligned_allocator< Eigen::Vector3f > > planePoints;
+                std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > convexHull;
+                std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > planePoints;
                 Plane table_plane;
                 Eigen::Matrix4d referenceTransform = Eigen::Matrix4d::Identity();
 
@@ -107,7 +107,7 @@ void CRForestTraining::generate3DModel( Parameters &param, vector< vector<string
                 // segment object cloud
                 selectConvexHull( img, cloud0, referenceTransform, convexHull );
                 selectPlane( img, cloud0, referenceTransform, planePoints,table_plane );
-                Eigen::Vector3f turnTable_center = getTurnTableCenter( img, cloud0, referenceTransform, table_plane );
+                Eigen::Vector3d turnTable_center = getTurnTableCenter( img, cloud0, referenceTransform, table_plane );
 
                 pcl::PointCloud<pcl::PointXYZRGB>::Ptr objectCloud0 ( new pcl::PointCloud<pcl::PointXYZRGB> );
                 getObjectPointCloud( cloud0, minHeight, maxHeight, convexHull, table_plane , turnTable_center, objectCloud0 );
@@ -115,11 +115,11 @@ void CRForestTraining::generate3DModel( Parameters &param, vector< vector<string
                 // get object coordinate system
                 cv::Point3f center(turnTable_center[0], turnTable_center[1], turnTable_center[ 2 ] - 0.01f); // added correction term of 0.01f in center
                 CRPixel::calcObject2CameraTransformation( pose, pitch, center, transformationMatrixOC[ pNr ] );
-                Eigen::Matrix4f transformationMatrixOC_inverse = transformationMatrixOC[pNr].inverse();
+                Eigen::Matrix4d transformationMatrixOC_inverse = transformationMatrixOC[pNr].inverse();
 
                 // transform cloud to object coordinate system
                 pcl::PointCloud<pcl::PointXYZRGB>::Ptr objectCloud0_transformed ( new pcl::PointCloud<pcl::PointXYZRGB> );
-                pcl::transformPointCloud (*objectCloud0, *objectCloud0_transformed, transformationMatrixOC_inverse);
+                pcl::transformPointCloud (*objectCloud0, *objectCloud0_transformed, transformationMatrixOC_inverse.cast<float>());
 
                 // add cloud to common object cloud
                 objectCloud->resize(objectCloud->size() + objectCloud0_transformed->size() );
@@ -160,21 +160,21 @@ void CRForestTraining::generate3DModel( Parameters &param, vector< vector<string
 
                 // transform camera to object coordinates
                 pcl::PointCloud<pcl::PointXYZRGB>::Ptr objectCloud_temp ( new pcl::PointCloud<pcl::PointXYZRGB> );
-                pcl::transformPointCloud (*objectCloud1, *objectCloud_temp, transformationMatrixOC_inverse);
+                pcl::transformPointCloud (*objectCloud1, *objectCloud_temp, transformationMatrixOC_inverse.cast<float>());
 
                 // rotate around z axis by approx 180 degree
                 float rotateAngle = vPoseAngle[l][2*pNr +1] - vPoseAngle[l][2*pNr];
 
                 Eigen::AngleAxisf rotate;
                 rotate.angle() = rotateAngle/180.f * PI;
-                rotate.axis() = Eigen::Vector3f(0.f,0.f,1.f); // rotate around z axis
-                Eigen::Matrix3f rotationMatrix(rotate);
+                rotate.axis() = Eigen::Vector3f(0.f, 0.f, 1.f); // rotate around z axis
+                Eigen::Matrix3d rotationMatrix(rotate.cast<double>());
 
-                Eigen::Matrix4f transformMatrix180 = Eigen::Matrix4f::Identity();
+                Eigen::Matrix4d transformMatrix180 = Eigen::Matrix4d::Identity();
                 transformMatrix180.block<3,3>(0,0) = rotationMatrix;
 
                 pcl::PointCloud<pcl::PointXYZRGB>::Ptr objectCloud1_transformed ( new pcl::PointCloud<pcl::PointXYZRGB> );
-                pcl::transformPointCloud (*objectCloud_temp, *objectCloud1_transformed, transformMatrix180);
+                pcl::transformPointCloud (*objectCloud_temp, *objectCloud1_transformed, transformMatrix180.cast<float>());
 
                 // add point cloud to common object cloud
                 objectCloud->resize(objectCloud->size() + objectCloud1_transformed->size() );
@@ -307,7 +307,7 @@ void CRForestTraining::extract_Pixels( rawData& data , const Parameters &p, CRPi
                         std::cout<< "error reading pitch angle"<< endl;
                     }
 
-                    Eigen::Matrix4f transformationMatrixOC;
+                    Eigen::Matrix4d transformationMatrixOC;
                     CRPixel::calcObject2CameraTransformation( pose, pitch, cg[ pitchIndex ], transformationMatrixOC );
 
                     // get object coordinate system
@@ -318,7 +318,7 @@ void CRForestTraining::extract_Pixels( rawData& data , const Parameters &p, CRPi
 
                     cv::Point3f cg_(0.f,0.f,0.f);
                     cv::Point3f bbSize_(0.f,0.f,0.f);
-                    Eigen::Matrix4f transformationMatrixOC = Eigen::Matrix4f::Identity() ;
+                    Eigen::Matrix4d transformationMatrixOC = Eigen::Matrix4d::Identity() ;
 
                     Train.extractPixels( p, img, depthImg, maskImg, p.samples_pixel_neg, l, i , &vBBox[ l ][ i ], &vCenter[ l ][ i ], &cg_ , &bbSize_ , &transformationMatrixOC  );
                 }
@@ -356,7 +356,7 @@ void CRForestTraining::generateNewImage( cv::Mat &mask, cv::Mat &img, cv::Mat &n
 
 void CRForestTraining::generateTrainingImage( cv::Mat &rgbImage, cv::Mat &depthImage ){
 
-    std::vector< Eigen::Vector3f, Eigen::aligned_allocator< Eigen::Vector3f > > planePoints ;
+    std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > planePoints ;
     Plane table_plane ;
     Line ray;
     Eigen::Matrix4d referenceTransform = Eigen::Matrix4d::Identity();
@@ -383,7 +383,7 @@ void CRForestTraining::generateTrainingImage( cv::Mat &rgbImage, cv::Mat &depthI
 
 
             pcl::PointXYZRGB  &p = cloud->at(x,y);
-            Eigen::Vector3f ptIntersection;
+            Eigen::Vector3d ptIntersection;
 
             // get line
             getLine( p, ray );

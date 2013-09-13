@@ -25,7 +25,8 @@
 
 // structure for sampled image pixel
 
-struct StaticFeature{
+
+struct PixelFeature {
 
     int iWidth, iHeight;
     float scale;
@@ -34,52 +35,17 @@ struct StaticFeature{
     cv::Point3f disVector;
     cv::Rect bbox;
     std::vector< cv::Mat > imgAppearance;
-    Eigen::Matrix4f transformationMatrixOC;
+    Eigen::Matrix4d transformationMatrixOC;
     pcl::PointCloud<pcl::Normal>::Ptr normals;
-
+    Eigen::Matrix3d disTransformation;
     cv::Point3f bbSize3D;
 
-};
-
-
-struct PixelFeature {
-
-    PixelFeature() {
-        statFeature = new StaticFeature;
-//         dynFeature = new Dynamic;
-    }
-
-    ~PixelFeature(){
-        delete statFeature;
-    }
-
-    StaticFeature* statFeature;
-//     Dynamic* dynFeature;
-
-    //    int iWidth, iHeight;
-    //    float scale;
-    //    cv::Point2f  pixelLocation;
-    //    cv::Point3f  pixelLocation_real;
-    //    cv::Point3f disVector;
-    //    cv::Rect bbox;
-    //    std::vector<cv::Mat> imgAppearance;
-    //    Eigen::Matrix4f transformationMatrixOC;
-    //    pcl::PointCloud<pcl::Normal>::Ptr normals;
-
-    //    cv::Point3f bbSize3D;
-
-    //    std::pair< Eigen::Vector3f, Eigen::Vector3f > disVectorInQueryPixelCordinate;
-    //    std::pair< Eigen::Vector3f, Eigen::Vector3f > tempDisVectorInQueryPixelCordinate;
-    //    std::pair< Eigen::Quaternionf, Eigen::Quaternionf > pointPairTransformation;
-
-    //    std::pair< Eigen::Matrix3f, Eigen::Matrix3f > firstQuerytoCameraTransformation;
-
-    //    std::pair< Eigen::Quaternionf, Eigen::Quaternionf > transformationMatrixOQuery_at_current_node;
-
-    //    std::vector< std::pair < float, float > > alpha;
 
     void print() const {
-        std::cout << "displacement vector = " << statFeature->disVector << std::endl;
+        std::cout << "displacement vector = \n" << disVector << std::endl;
+        std::cout << "pixel coordinates = \n" << pixelLocation <<std::endl;
+        std::cout << "real coordinates = \n " << pixelLocation_real <<std::endl;
+        std::cout << "object coordinate system = \n" << transformationMatrixOC <<std::endl;
     }
 };
 
@@ -92,7 +58,7 @@ public:
     // Extract patches from image
     void extractPixels(IplImage *img, unsigned int n, int label, CvRect* box = 0, CvPoint* vCenter = 0);
     // Extract patches from image and adding its id to the patch (in vImageIDs)
-    void extractPixels(const Parameters& param, const cv::Mat &img, const cv::Mat &depthImg,const cv::Mat& maskImg, unsigned int n, int label, int imageID,  CvRect* box =0, CvPoint* vCenter=0, cv::Point3f *cg = 0 , cv::Point3f *bbDimension =0, Eigen::Matrix4f *transformationOC = 0 );
+    void extractPixels(const Parameters& param, const cv::Mat &img, const cv::Mat &depthImg,const cv::Mat& maskImg, unsigned int n, int label, int imageID,  CvRect* box =0, CvPoint* vCenter=0, cv::Point3f *cg = 0 , cv::Point3f *bbDimension =0, Eigen::Matrix4d *transformationOC = 0 );
 
     // Convert pixel coordinates to real coordinates
     static cv::Point3f P3toR3(cv::Point2f &pt, cv::Point2f &center, float depth);
@@ -107,10 +73,14 @@ public:
     static void extractFeatureChannels(const Parameters& param, const cv::Mat &img, const cv::Mat &depthImg, std::vector<cv::Mat>& vImg, pcl::PointCloud<pcl::Normal>::Ptr& normals);
 
     // calculate transformation from object frame to camera frame
-    static void calcObject2CameraTransformation( float &pose, float &pitch, cv::Point3f &rObjCenter, Eigen::Matrix4f &transformationMatrixOC );
-
+    static void calcObject2CameraTransformation( float &pose, float &pitch, cv::Point3f &rObjCenter, Eigen::Matrix4d &transformationMatrixOC );
+    
+    static Eigen::Matrix3d calcQueryPoint2CameraTransformation(PixelFeature &pf);
+    
+    static Eigen::Quaterniond calcObject2QueryPointTransformation(PixelFeature &pf);
+    
     // Draws transformation
-    static void drawTransformation(const cv::Mat &img, const cv::Mat &depthImg , const Eigen::Matrix4f& transformationMatrixOC);
+    static void drawTransformation(const cv::Mat &img, const cv::Mat &depthImg , const Eigen::Matrix4d& transformationMatrixOC);
 
     // compute affine transformation from rotation quaternion and translation vector
     static Eigen::Matrix4f getTransformationAtQueryPixel( Eigen::Matrix3f &qObjectQuery, Eigen::Matrix4f transformationMatrixOC,  cv::Point3f &pointLocation);

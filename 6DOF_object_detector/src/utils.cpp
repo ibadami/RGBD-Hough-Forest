@@ -123,9 +123,9 @@ void calcPCA(cv::Mat &img_mask, cv::Point2f &meanPoint, cv::Size2f &dimension, f
     //    cv::RotatedRect PCARect(cv::Point2f(cx,cy),cv::Size2f(lx,ly), rotAngle*180/M_PI);
 }
 
-Eigen::Matrix3f quaternionToMatrix(Eigen::Quaternionf &q){
+Eigen::Matrix3d quaternionToMatrix(Eigen::Quaterniond &q){
 
-    Eigen::Matrix3f rotationMatrix;
+    Eigen::Matrix3d rotationMatrix;
     rotationMatrix.setIdentity();
     float x,y,z,w;
     x = q.coeffs()[0]; y = q.coeffs()[1]; z = q.coeffs()[2]; w = q.coeffs()[3];
@@ -157,30 +157,30 @@ Eigen::Matrix3f quaternionToMatrix(Eigen::Quaternionf &q){
 }
 
 // generalized quaternion interpolation
-Eigen::Quaternionf quatInterp(const std::vector<Eigen::Quaternionf>& rotation){
+Eigen::Quaterniond quatInterp(const std::vector<Eigen::Quaterniond>& rotation){
 
     const double invSamples = 1.0 / ((double)rotation.size());
     const int maxIterations = 1;
-    Eigen::Quaternionf meanRotation;
+    Eigen::Quaterniond meanRotation;
 
 
     meanRotation.setIdentity();
 
     for( int k = 0; k < maxIterations; k++ ) {
 
-        Eigen::Vector3f errorU;
+        Eigen::Vector3d errorU;
         errorU.setConstant( 0.0 );
 
         for( int i = 0; i < rotation.size(); i++ ) {
 
-            //            Eigen::Quaternionf rotation;
-            //            rotation = Eigen::Matrix3f( transformations[i].block( 0, 0, 3, 3 ) ).cast<double>();
+            //            Eigen::Quaterniond rotation;
+            //            rotation = Eigen::Matrix3d( transformations[i].block( 0, 0, 3, 3 ) ).cast<double>();
 
             if( k == 0 && i == 0)
                 meanRotation = rotation[i];
 
-            Eigen::Quaternionf diffQ = meanRotation.inverse()* rotation[i];
-            Eigen::Vector3f u = diffQ.vec();
+            Eigen::Quaterniond diffQ = meanRotation.inverse()* rotation[i];
+            Eigen::Vector3d u = diffQ.vec();
             float sinTheta = u.norm();
             if( u.norm() > 1e-10 )
                 u.normalize();
@@ -204,7 +204,7 @@ Eigen::Quaternionf quatInterp(const std::vector<Eigen::Quaternionf>& rotation){
         else
             errorU *= 0.0;
 
-        Eigen::Quaternionf errorQ;
+        Eigen::Quaterniond errorQ;
         errorQ.w() = cos( theta );
         errorQ.x() = sin( theta ) * errorU(0);
         errorQ.y() = sin( theta ) * errorU(1);
@@ -217,7 +217,7 @@ Eigen::Quaternionf quatInterp(const std::vector<Eigen::Quaternionf>& rotation){
 }
 
 
-void selectConvexHull( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud, Eigen::Matrix4d& referenceTransform, std::vector< Eigen::Vector3f, Eigen::aligned_allocator< Eigen::Vector3f > >& convexHull_ ) {
+void selectConvexHull( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud, Eigen::Matrix4d& referenceTransform, std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > >& convexHull_ ) {
 
     // let user select convex hull points in the images
     std::cout << "select convex hull in the image\n";
@@ -314,7 +314,7 @@ void selectConvexHull( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::Point
 
                 p = ( referenceTransform * p ).eval();
 
-                convexHull_.push_back( p.cast< float >().block< 3, 1 >( 0, 0 ) );
+                convexHull_.push_back( p.block< 3, 1 >( 0, 0 ) );
             }
 
         }
@@ -364,11 +364,11 @@ void selectConvexHull( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::Point
         // remove components orthogonal to the plane..
         for( unsigned int i = 0; i < convexHull_.size(); i++ ) {
 
-            Eigen::Vector3f p = convexHull_[ i ];
+            Eigen::Vector3d p = convexHull_[ i ];
 
-            float l = p.dot( eigen_vectors.block< 3, 1 >( 0, 0 ) ) - xyz_centroid.block< 3, 1 >( 0, 0 ).dot( eigen_vectors.block< 3, 1 >( 0, 0 ) );
+            float l = p.dot( eigen_vectors.cast<double>().block< 3, 1 >( 0, 0 ) ) - xyz_centroid.cast<double>().cast<double>().block< 3, 1 >( 0, 0 ).dot( eigen_vectors.cast<double>().block< 3, 1 >( 0, 0 ) );
 
-            p -= l * eigen_vectors.block< 3, 1 >( 0, 0 );
+            p -= l * eigen_vectors.cast<double>().block< 3, 1 >( 0, 0 );
 
             convexHull_[ i ]( 0 ) = p( 0 );
             convexHull_[ i ]( 1 ) = p( 1 );
@@ -380,7 +380,7 @@ void selectConvexHull( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::Point
 
 }
 
-void selectPlane( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud, Eigen::Matrix4d& referenceTransform, std::vector< Eigen::Vector3f, Eigen::aligned_allocator< Eigen::Vector3f > > &convexHull_, Plane &table_plane ) {
+void selectPlane( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud, Eigen::Matrix4d& referenceTransform, std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > &convexHull_, Plane &table_plane ) {
 
     // let user select convex hull points in the images
     std::cout << "select convex hull in the image\n";
@@ -476,7 +476,7 @@ void selectPlane( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRG
 
                 p = ( referenceTransform * p ).eval();
 
-                convexHull_.push_back( p.cast< float >().block< 3, 1 >( 0, 0 ) );
+                convexHull_.push_back( p.block< 3, 1 >( 0, 0 ) );
             }
 
         }
@@ -494,16 +494,16 @@ void selectPlane( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRG
     }else {
 
         // find normal
-        Eigen::Vector3f p0 = convexHull_[ 0 ];
-        Eigen::Vector3f p1 = convexHull_[ 1 ];
-        Eigen::Vector3f p2 = convexHull_[ 2 ];
+        Eigen::Vector3d p0 = convexHull_[ 0 ];
+        Eigen::Vector3d p1 = convexHull_[ 1 ];
+        Eigen::Vector3d p2 = convexHull_[ 2 ];
 
-        Eigen::Vector3f v0 = p1 - p0;
-        Eigen::Vector3f v2 = p1 - p2;
+        Eigen::Vector3d v0 = p1 - p0;
+        Eigen::Vector3d v2 = p1 - p2;
 
-        Eigen::Vector3f normal = v0.cross(v2);
+        Eigen::Vector3d normal = v0.cross(v2);
 
-        Eigen::Vector3f Y = Eigen::Vector3f(0.f,1.f,0.f);
+        Eigen::Vector3d Y = Eigen::Vector3d(0.f,1.f,0.f);
 
         if( Y.dot(normal) > 0)
             normal = -normal;
@@ -522,7 +522,7 @@ void selectPlane( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRG
 }
 
 void getObjectPointCloud( const pcl::PointCloud< pcl::PointXYZRGB >::ConstPtr& cloud, float minHeight, float maxHeight,
-                          std::vector< Eigen::Vector3f, Eigen::aligned_allocator< Eigen::Vector3f > > convexHull, Plane &table_plane, Eigen::Vector3f turnTable_center, pcl::PointCloud<pcl::PointXYZRGB>::Ptr& objectCloud  ) {
+                          std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > convexHull, Plane &table_plane, Eigen::Vector3d turnTable_center, pcl::PointCloud<pcl::PointXYZRGB>::Ptr& objectCloud  ) {
 
 
     // extract map and stitched point cloud from selected volume..
@@ -588,7 +588,7 @@ void getObjectPointCloud( const pcl::PointCloud< pcl::PointXYZRGB >::ConstPtr& c
 
     for( int i = 0; i< subcloud->size(); i++){
 
-        Eigen::Vector4f p;
+        Eigen::Vector4d p;
         p[ 0 ] = subcloud->at( i ).x;
         p[ 1 ] = subcloud->at( i ).y;
         p[ 2 ] = subcloud->at( i ).z;
@@ -600,8 +600,8 @@ void getObjectPointCloud( const pcl::PointCloud< pcl::PointXYZRGB >::ConstPtr& c
 
     }
 
-    Eigen::Vector3f normal = table_plane.coefficients.block< 3, 1 >( 0, 0 );
-    Eigen::Vector3f temp = normal + turnTable_center;
+    Eigen::Vector3d normal = table_plane.coefficients.block< 3, 1 >( 0, 0 );
+    Eigen::Vector3d temp = normal + turnTable_center;
 
     // add line
     pcl::PointXYZRGB O, X;
@@ -631,7 +631,7 @@ void getObjectPointCloud( const pcl::PointCloud< pcl::PointXYZRGB >::ConstPtr& c
 
 }
 
-Eigen::Vector3f getTurnTableCenter( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud, Eigen::Matrix4d& referenceTransform, Plane &table_plane ) {
+Eigen::Vector3d getTurnTableCenter( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud, Eigen::Matrix4d& referenceTransform, Plane &table_plane ) {
 
     // let user select convex hull points in the images
     std::cout << "select convex hull in the image\n";
@@ -640,8 +640,8 @@ Eigen::Vector3f getTurnTableCenter( const cv::Mat& img_rgb, const pcl::PointClou
     cv::Mat img_cv;
     cv::cvtColor( img_rgb, img_cv, cv::COLOR_BGR2GRAY );
 
-    std::vector< Eigen::Vector3f, Eigen::aligned_allocator< Eigen::Vector3f > > turnTable;
-    std::vector< Eigen::Vector3f, Eigen::aligned_allocator< Eigen::Vector3f > > turnTable_proj;
+    std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > turnTable;
+    std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > turnTable_proj;
 
     cv::Mat cameraMatrix, distortionCoeffs;
     //    getCameraCalibration( cameraMatrix, distortionCoeffs ); // how to get these??
@@ -742,7 +742,7 @@ Eigen::Vector3f getTurnTableCenter( const cv::Mat& img_rgb, const pcl::PointClou
 
                 //  transform point to reference frame
 
-                Eigen::Vector3f p, p_proj;
+                Eigen::Vector3d p, p_proj;
                 p[ 0 ] = cloud->points[ idx ].x;
                 p[ 1 ] = cloud->points[ idx ].y;
                 p[ 2 ] = cloud->points[ idx ].z;
@@ -750,11 +750,11 @@ Eigen::Vector3f getTurnTableCenter( const cv::Mat& img_rgb, const pcl::PointClou
                 //                p = ( referenceTransform * p ).eval();
 
                 // project on plane
-                Eigen::Vector3f normal = table_plane.coefficients.block< 3, 1 >( 0, 0 );
+                Eigen::Vector3d normal = table_plane.coefficients.block< 3, 1 >( 0, 0 );
                 p_proj = p - normal.dot( p - table_plane.point ) * normal;
 
                 turnTable_proj.push_back(p_proj);
-                turnTable.push_back( p.cast< float >().block< 3, 1 >( 0, 0 ) );
+                turnTable.push_back( p.block< 3, 1 >( 0, 0 ) );
             }
 
         }
@@ -766,7 +766,7 @@ Eigen::Vector3f getTurnTableCenter( const cv::Mat& img_rgb, const pcl::PointClou
         }
     }
 
-    Eigen::Vector3f center;
+    Eigen::Vector3d center;
 
     if( turnTable.size() < 3 ) {
         std::cout << "circle requires more than 3 points\n";
@@ -775,27 +775,27 @@ Eigen::Vector3f getTurnTableCenter( const cv::Mat& img_rgb, const pcl::PointClou
     else {
 
         // calcualte center of peri circle
-        Eigen::Vector3f normal = table_plane.coefficients.block< 3, 1 >( 0, 0 );
+        Eigen::Vector3d normal = table_plane.coefficients.block< 3, 1 >( 0, 0 );
 
         // mid points
-        Eigen::Vector3f m1,m2;
+        Eigen::Vector3d m1,m2;
         m1 = ( turnTable_proj[0] + turnTable_proj[1] ) / 2.f ;
         m2 = ( turnTable_proj[1] + turnTable_proj[2] ) / 2.f;
 
         // bisectors
-        Eigen::Vector3f b1, b2;
+        Eigen::Vector3d b1, b2;
         b1 = normal.cross( turnTable_proj[0] - turnTable_proj[1] );
         b2 = normal.cross( turnTable_proj[1] - turnTable_proj[2] );
 
         b1.normalize();
         b2.normalize();
 
-        Eigen::Vector2f v = (m1-m2).block<2,1>(0,0);
-        Eigen::Matrix2f A;
+        Eigen::Vector2d v = (m1-m2).block<2,1>(0,0);
+        Eigen::Matrix2d A;
         A.block<2,1>(0,0) = b2.block<2,1>(0,0);
         A.block<2,1>(0,1) = -b1.block<2,1>(0,0);
 
-        Eigen::Vector2f lambda;
+        Eigen::Vector2d lambda;
         lambda = A.inverse()*v;
 
         center = m2 + lambda[1]*b2;
@@ -822,7 +822,7 @@ void printScore(cv::Mat &img, string &objectName, float score, cv::Point2f &pt, 
 
 }
 
-void get3DBoundingBox(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &cloud,  std::vector< Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> >& transformationMatrixOC, std::vector< cv::Point3f> &cg, cv::Point3f &bbSize){
+void get3DBoundingBox(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &cloud,  std::vector< Eigen::Matrix4d, Eigen::aligned_allocator<Eigen::Matrix4d> >& transformationMatrixOC, std::vector< cv::Point3f> &cg, cv::Point3f &bbSize){
 
     // downsampling using voxel grid
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZRGB>);
@@ -882,9 +882,9 @@ void get3DBoundingBox(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &cloud,  std::vecto
 
     // calculate center in camera coordinate system with 3 different pitch angle
     std::vector< pcl::PointXYZRGB > cg_(3);
-    cg_[0] = pcl::transformPoint(cgO, Eigen::Affine3f(transformationMatrixOC[0]) );
-    cg_[1] = pcl::transformPoint(cgO, Eigen::Affine3f(transformationMatrixOC[1]) );
-    cg_[2] = pcl::transformPoint(cgO, Eigen::Affine3f(transformationMatrixOC[2]) );
+    cg_[0] = pcl::transformPoint(cgO, Eigen::Affine3f(transformationMatrixOC[0].cast<float>()) );
+    cg_[1] = pcl::transformPoint(cgO, Eigen::Affine3f(transformationMatrixOC[1].cast<float>()) );
+    cg_[2] = pcl::transformPoint(cgO, Eigen::Affine3f(transformationMatrixOC[2].cast<float>()) );
 
     cg[0] = cv::Point3f(cg_[0].x, cg_[0].y, cg_[0].z);
     cg[1] = cv::Point3f(cg_[1].x, cg_[1].y, cg_[1].z);
@@ -904,7 +904,7 @@ void get3DBoundingBox(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &cloud,  std::vecto
     //    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_cluster_transformed (new pcl::PointCloud<pcl::PointXYZRGB>);
     //    pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> cloud_cluster_transformed_rgb(cloud_cluster);
 
-    //    Eigen::Matrix4f transformationMatrixOC_inverse = transformationMatrixOC[0].inverse();
+    //    Eigen::Matrix4d transformationMatrixOC_inverse = transformationMatrixOC[0].inverse();
     //    pcl::transformPointCloud (*cloud_cluster, *cloud_cluster_transformed, transformationMatrixOC_inverse );
 
 
@@ -929,7 +929,7 @@ void get3DBoundingBox(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &cloud,  std::vecto
 
 }
 
-void create3DBB(cv::Point3f &bbSize, Eigen::Matrix4f &transformationMatrixOC , cv::Size2f &img_size, std::vector< cv::Point2f > &imagePoints){
+void create3DBB(cv::Point3f &bbSize, Eigen::Matrix4d &transformationMatrixOC , cv::Size2f &img_size, std::vector< cv::Point2f > &imagePoints){
 
     float w = bbSize.x/2.f;
     float h = bbSize.y/2.f;
@@ -952,28 +952,28 @@ void create3DBB(cv::Point3f &bbSize, Eigen::Matrix4f &transformationMatrixOC , c
 
 
     // transformed into camera coordinates
-    pcl::PointXYZ point_min_TC   = pcl::transformPoint(point_0_min, Eigen::Affine3f(transformationMatrixOC) );
+    pcl::PointXYZ point_min_TC   = pcl::transformPoint(point_0_min, Eigen::Affine3f(transformationMatrixOC.cast<float>()) );
     vertices[0] = cv::Point3f(point_min_TC.x, point_min_TC.y, point_min_TC.z);
 
-    pcl::PointXYZ point_1_w_TC   = pcl::transformPoint(point_1_w, Eigen::Affine3f(transformationMatrixOC) );
+    pcl::PointXYZ point_1_w_TC   = pcl::transformPoint(point_1_w, Eigen::Affine3f(transformationMatrixOC.cast<float>()) );
     vertices[1] = cv::Point3f(point_1_w_TC.x, point_1_w_TC.y, point_1_w_TC.z);
 
-    pcl::PointXYZ point_1_h_TC   = pcl::transformPoint(point_1_h, Eigen::Affine3f(transformationMatrixOC) );
+    pcl::PointXYZ point_1_h_TC   = pcl::transformPoint(point_1_h, Eigen::Affine3f(transformationMatrixOC.cast<float>()) );
     vertices[2] = cv::Point3f(point_1_h_TC.x, point_1_h_TC.y, point_1_h_TC.z);
 
-    pcl::PointXYZ point_1_d_TC   = pcl::transformPoint(point_1_d, Eigen::Affine3f(transformationMatrixOC) );
+    pcl::PointXYZ point_1_d_TC   = pcl::transformPoint(point_1_d, Eigen::Affine3f(transformationMatrixOC.cast<float>()) );
     vertices[3] = cv::Point3f(point_1_d_TC.x, point_1_d_TC.y, point_1_d_TC.z);
 
-    pcl::PointXYZ point_2_wh_TC  = pcl::transformPoint(point_2_wh, Eigen::Affine3f(transformationMatrixOC) );
+    pcl::PointXYZ point_2_wh_TC  = pcl::transformPoint(point_2_wh, Eigen::Affine3f(transformationMatrixOC.cast<float>()) );
     vertices[4] = cv::Point3f(point_2_wh_TC.x, point_2_wh_TC.y, point_2_wh_TC.z);
 
-    pcl::PointXYZ point_2_wd_TC  = pcl::transformPoint(point_2_wd, Eigen::Affine3f(transformationMatrixOC) );
+    pcl::PointXYZ point_2_wd_TC  = pcl::transformPoint(point_2_wd, Eigen::Affine3f(transformationMatrixOC.cast<float>()) );
     vertices[5] = cv::Point3f(point_2_wd_TC.x, point_2_wd_TC.y, point_2_wd_TC.z);
 
-    pcl::PointXYZ point_2_dh_TC  = pcl::transformPoint(point_2_dh, Eigen::Affine3f(transformationMatrixOC) );
+    pcl::PointXYZ point_2_dh_TC  = pcl::transformPoint(point_2_dh, Eigen::Affine3f(transformationMatrixOC.cast<float>()) );
     vertices[6] = cv::Point3f(point_2_dh_TC.x, point_2_dh_TC.y, point_2_dh_TC.z);
 
-    pcl::PointXYZ point_max_TC   = pcl::transformPoint(point_3_max, Eigen::Affine3f(transformationMatrixOC) );
+    pcl::PointXYZ point_max_TC   = pcl::transformPoint(point_3_max, Eigen::Affine3f(transformationMatrixOC.cast<float>()) );
     vertices[7] = cv::Point3f(point_max_TC.x, point_max_TC.y, point_max_TC.z);
 
 
@@ -1020,17 +1020,17 @@ void createWireFrame (cv::Mat &img, std::vector<cv::Point2f> &vertices){
 
 void getLine( pcl::PointXYZRGB &p, Line &line){
 
-    line.point = Eigen::Vector3f(0.f, 0.f, 0.f);
-    line.direction = Eigen::Vector3f(p.x,p.y,p.z) - line.point;
+    line.point = Eigen::Vector3d(0.f, 0.f, 0.f);
+    line.direction = Eigen::Vector3d(p.x,p.y,p.z) - line.point;
     line.direction.normalize();
 }
 
-void getLinePlaneIntersection(Line &line, Plane &plane, Eigen::Vector3f &ptIntersection){
+void getLinePlaneIntersection(Line &line, Plane &plane, Eigen::Vector3d &ptIntersection){
 
-    Eigen::Vector3f Po = plane.point;
-    Eigen::Vector3f Lo = line.point;
-    Eigen::Vector3f n  = plane.getNormal();
-    Eigen::Vector3f l = line.direction;
+    Eigen::Vector3d Po = plane.point;
+    Eigen::Vector3d Lo = line.point;
+    Eigen::Vector3d n  = plane.getNormal();
+    Eigen::Vector3d l = line.direction;
     float d;
 
     d = ( (Po - Lo).dot( n ) ) / ( l.dot( n ) );

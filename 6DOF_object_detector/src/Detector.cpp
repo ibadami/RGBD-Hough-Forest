@@ -156,7 +156,7 @@ void CRForestDetector::getClassConfidence(const std::vector<cv::Mat> &vImgAssign
 }
 
 /********************************** FULL object detection ************************************/
-void CRForestDetector::detectPosePeaks(vector< cv::Mat > &positiveAcc, vector< cv::Mat> &negativeAcc, Eigen::Matrix3f &positiveFinalOC, Eigen::Matrix3f &negativeFinalOC){
+void CRForestDetector::detectPosePeaks(vector< cv::Mat > &positiveAcc, vector< cv::Mat> &negativeAcc, Eigen::Matrix3d &positiveFinalOC, Eigen::Matrix3d &negativeFinalOC){
 
     int kernelSize = 5;
     float std = 0.1;
@@ -314,14 +314,14 @@ void CRForestDetector::detectPosePeaks(vector< cv::Mat > &positiveAcc, vector< c
     float qy = (max_loc_temp[max_index].y + 1.f) * 2.f /step -1;
     float qz = (max_index + 1.f) * 2.f /step -1;
 
-    Eigen::Vector3f axis(qx,qy,qz);
+    Eigen::Vector3d axis(qx,qy,qz);
     float norm = axis.norm();
     cout<< norm <<"\n"<<endl;
-    //    Eigen::Quaternionf positivePose(sqrt(1-norm*norm) , qx, qy, qz);
-    Eigen::Quaternionf positivePose(0, qx, qy, qz);
+    //    Eigen::Quaterniond positivePose(sqrt(1-norm*norm) , qx, qy, qz);
+    Eigen::Quaterniond positivePose(0, qx, qy, qz);
 
     positivePose.normalize();
-    positiveFinalOC = Eigen::Matrix3f(positivePose);
+    positiveFinalOC = Eigen::Matrix3d(positivePose);
 
     cout<<"+ve\n "<< positiveFinalOC<<endl;
 
@@ -340,23 +340,23 @@ void CRForestDetector::detectPosePeaks(vector< cv::Mat > &positiveAcc, vector< c
     qy = (max_loc_temp[max_index].y + 1.f) * 2.f /step -1;
     qz = (max_index + 1.f) * 2.f /step -1;
 
-    axis = Eigen::Vector3f(qx,qy,qz);
+    axis = Eigen::Vector3d(qx,qy,qz);
     norm = axis.norm();
 
-    //    Eigen::Quaternionf negativePose(-sqrt(1-norm*norm), qx, qy, qz);
-    Eigen::Quaternionf negativePose(0, qx, qy, qz);
+    //    Eigen::Quaterniond negativePose(-sqrt(1-norm*norm), qx, qy, qz);
+    Eigen::Quaterniond negativePose(0, qx, qy, qz);
 
     negativePose.normalize();
 
-    negativeFinalOC = Eigen::Matrix3f(negativePose);
+    negativeFinalOC = Eigen::Matrix3d(negativePose);
 
     cout<<"-ve\n "<< negativeFinalOC<<endl;
 
 }
 
-void CRForestDetector::detectPosePeaks_meanShift(std::vector<std::vector<float> >&Qx, std::vector<std::vector<float> > &Qy,std::vector<std::vector<float> > &Qz, Eigen::Matrix3f &positiveFinalOC, Eigen::Matrix3f & negativeFinalOC){
+void CRForestDetector::detectPosePeaks_meanShift(std::vector<std::vector<float> >&Qx, std::vector<std::vector<float> > &Qy,std::vector<std::vector<float> > &Qz, Eigen::Matrix3d &positiveFinalOC, Eigen::Matrix3d & negativeFinalOC){
 
-    std::vector< Eigen::Quaternionf> finalOC(2);
+    std::vector< Eigen::Quaterniond> finalOC(2);
     for(int i = 0; i < 2; i++){
 
         float meanshift_x = 0.f;
@@ -418,16 +418,16 @@ void CRForestDetector::detectPosePeaks_meanShift(std::vector<std::vector<float> 
             else
                 meanshift_z= median_z;
         }
-        finalOC[i] = Eigen::Quaternionf(std::pow(-1,i), meanshift_x, meanshift_y, meanshift_z);
+        finalOC[i] = Eigen::Quaterniond(std::pow(-1,i), meanshift_x, meanshift_y, meanshift_z);
         finalOC[i].normalize();
     }
-    positiveFinalOC = Eigen::Matrix3f(finalOC[0]);
-    negativeFinalOC = Eigen::Matrix3f(finalOC[1]);
+    positiveFinalOC = Eigen::Matrix3d(finalOC[0]);
+    negativeFinalOC = Eigen::Matrix3d(finalOC[1]);
 }
 
-void CRForestDetector::detectPosePeaks_meanShift_common(std::vector<float> &Qx, std::vector<float> &Qy, std::vector<float> &Qz, std::vector<float> &Qw, Eigen::Matrix3f & finalOC){
+void CRForestDetector::detectPosePeaks_meanShift_common(std::vector<float> &Qx, std::vector<float> &Qy, std::vector<float> &Qz, std::vector<float> &Qw, Eigen::Matrix3d & finalOC){
 
-    Eigen::Quaternionf qFinalOC;
+    Eigen::Quaterniond qFinalOC;
 
 
     float meanshift_x = 0.f;
@@ -507,16 +507,16 @@ void CRForestDetector::detectPosePeaks_meanShift_common(std::vector<float> &Qx, 
 
     }
 
-    qFinalOC = Eigen::Quaternionf(meanshift_w, meanshift_x, meanshift_y, meanshift_z);
+    qFinalOC = Eigen::Quaterniond(meanshift_w, meanshift_x, meanshift_y, meanshift_z);
     qFinalOC.normalize();
 
-    finalOC = Eigen::Matrix3f(qFinalOC);
+    finalOC = Eigen::Matrix3d(qFinalOC);
 
 }
 
-void CRForestDetector::detectPosePeaks_slerp(std::vector<Eigen::Quaternionf>& qMean,Eigen::Matrix3f &finalOC){
+void CRForestDetector::detectPosePeaks_slerp(std::vector<Eigen::Quaterniond>& qMean,Eigen::Matrix3d &finalOC){
 
-    Eigen::Quaternionf tempMean = qMean[0];
+    Eigen::Quaterniond tempMean = qMean[0];
 
     for(unsigned int i = 1; i < qMean.size(); i++){
 
@@ -524,11 +524,11 @@ void CRForestDetector::detectPosePeaks_slerp(std::vector<Eigen::Quaternionf>& qM
     }
 
     tempMean.normalize();
-    finalOC = Eigen::Matrix3f(tempMean);
+    finalOC = Eigen::Matrix3d(tempMean);
 
 }
 
-void CRForestDetector::detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score){
+void CRForestDetector::detectMaxima(const vector< vector< cv::Mat > >& poseHoughSpace, Eigen::Quaterniond& finalOC, int& step, float& score){
 
     // smoothing of the houghspace with gaussian kernel
     float sigma = 1.f;
@@ -582,15 +582,15 @@ void CRForestDetector::detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpa
     float qz = (dqz + 1.f) * 2.f/(float)step - 1.f;
     float qw = (dqw + 1.f) * 2.f/(float)step - 1.f;
 
-    Eigen::Quaternionf rotation(qw, qx, qy, qz);
+    Eigen::Quaterniond rotation(qw, qx, qy, qz);
 
     rotation.normalize();
-    finalOC = Eigen::Matrix3f(rotation);
+    finalOC = Eigen::Matrix3d(rotation);
 
 }
 
 
-//void CRForestDetector::detectMaxima(const vector<cv::Mat> & poseHoughSpace,  Eigen::Quaternionf& finalOC, int& step, float& score){
+//void CRForestDetector::detectMaxima(const vector<cv::Mat> & poseHoughSpace,  Eigen::Quaterniond& finalOC, int& step, float& score){
 
 //    // smoothing of the houghspace with gaussian kernel
 //    float sigma = 1.f;
@@ -659,15 +659,15 @@ void CRForestDetector::detectMaxima(const vector<vector<cv::Mat> >& poseHoughSpa
 //    float qz = (dqz + 1.f) * 2.f/(float)step - 1.f;
 //    float qw = std::sqrt( 1 - qx*qx -qy*qy -qz*qz);
 
-//    Eigen::Quaternionf rotation(qw, qx, qy, qz);
+//    Eigen::Quaterniond rotation(qw, qx, qy, qz);
 
 //    rotation.normalize();
-//    finalOC = Eigen::Matrix3f(rotation);
+//    finalOC = Eigen::Matrix3d(rotation);
 
 //}
 
 
-void CRForestDetector::axisOfSymmetry(std::vector<Eigen::Quaternionf> &qMean, Eigen::Quaternionf &qfinalOC){
+void CRForestDetector::axisOfSymmetry(std::vector<Eigen::Quaterniond> &qMean, Eigen::Quaterniond &qfinalOC){
 
 
     ofstream axisOfSym;
@@ -681,29 +681,29 @@ void CRForestDetector::axisOfSymmetry(std::vector<Eigen::Quaternionf> &qMean, Ei
 
     for(int i = 0; i < qMean.size(); i++ ){
 
-        Eigen::Quaternionf qtemp = qfinalOC.inverse() * qMean[i];
+        Eigen::Quaterniond qtemp = qfinalOC.inverse() * qMean[i];
 
-        Eigen::AngleAxisf atemp = Eigen::AngleAxisf(qtemp);
+        Eigen::AngleAxisd atemp = Eigen::AngleAxisd(qtemp);
 
-        Eigen::Vector3f axis = atemp.axis();
+        Eigen::Vector3d axis = atemp.axis();
 
         //        cout<< "axis: "<< axis.transpose()<<endl;
 
         axisOfSym << qtemp.x() << " " << qtemp.y() << " " << qtemp.z() << endl;
 
-        int  aX = std::max(0.f, ( axis(0) + 1.f ) * (float)bins/2.f - 1.f );
-        aX = std::min( aX, bins-1 );
+        int  aX = std::max(0.0, ( axis(0) + 1.0 ) * bins/2.0 - 1.0 );
+        aX = std::min( aX, bins - 1 );
 
-        int  aY = std::max(0.f, ( axis(1) + 1.f ) * (float)bins/2.f - 1.f );
-        aY = std::min( aY, bins-1 );
+        int  aY = std::max(0.0, ( axis(1) + 1.0 )  * bins/2.0 - 1.0 );
+        aY = std::min( aY, bins - 1 );
 
-        int  aZ = std::max(0.f, ( axis(2) + 1.f ) * (float)bins/2.f - 1.f );
-        aZ = std::min( aZ, bins-1 );
+        int  aZ = std::max(0.0, ( axis(2) + 1.0 ) * bins/2.0 - 1.0 );
+        aZ = std::min( aZ, bins - 1 );
 
         //        cout<< " " << aX << " " << aY << " " << aZ << endl;
 
         axisHoughSpace[aZ].at<float>(aY, aX)++;
-        int angle =  std::max(0.f, atemp.angle() * (float) bins/(2.f * PI));
+        int angle =  std::max(0.0, atemp.angle() * bins/(2.0 * PI));
         angle = std::min(angle, bins - 1);
         //        cout<< "\nangle: "<<atemp.angle() * 180.f/PI <<endl;
         angles[angle]++;
@@ -750,7 +750,7 @@ void CRForestDetector::axisOfSymmetry(std::vector<Eigen::Quaternionf> &qMean, Ei
     float aZ = (daZ + 1.f) * 2.f/(float)bins - 1.f;
 
 
-    Eigen::Vector3f symmetryAxis(aX, aY, aZ);
+    Eigen::Vector3d symmetryAxis(aX, aY, aZ);
     symmetryAxis.normalize();
 
     cout<<" \nAxis of Symmetry: "<< symmetryAxis<< endl;
@@ -781,7 +781,7 @@ void CRForestDetector::axisOfSymmetry(std::vector<Eigen::Quaternionf> &qMean, Ei
 
 }
 
-void CRForestDetector::detectMaximaK_means(std::vector<Eigen::Quaternionf> &qMean, Eigen::Matrix3f &finalOC){
+void CRForestDetector::detectMaximaK_means(std::vector<Eigen::Quaterniond> &qMean, Eigen::Matrix3d &finalOC){
 
     //    cv::Mat xVectors(qMean.size(), 3, CV_32FC1);
     //    cv::Mat yVectors(qMean.size(), 3, CV_32FC1);
@@ -791,7 +791,7 @@ void CRForestDetector::detectMaximaK_means(std::vector<Eigen::Quaternionf> &qMea
 
     //    for(int i = 0; i < qMean.size(); i++){
 
-    //        Eigen::Matrix3f rotMat = Eigen::Matrix3f(qMean[i]);
+    //        Eigen::Matrix3d rotMat = Eigen::Matrix3d(qMean[i]);
 
     //        xVectors.at<float>(i,0) = rotMat(0,0); xVectors.at<float>(i,1) = rotMat(1,0); xVectors.at<float>(i,2) = rotMat(2,0);
 
@@ -806,7 +806,7 @@ void CRForestDetector::detectMaximaK_means(std::vector<Eigen::Quaternionf> &qMea
 
     //    cv::Mat output;
     //    vector<float> totalLabel(num_clusters);
-    //    std::vector<Eigen::Vector3f> strongestKMeans(3);
+    //    std::vector<Eigen::Vector3d> strongestKMeans(3);
 
     //    std::vector< XYZIndex> maxXYZ;
     //    XYZIndex temp;
@@ -828,7 +828,7 @@ void CRForestDetector::detectMaximaK_means(std::vector<Eigen::Quaternionf> &qMea
     //    it = std::max_element(totalLabel.begin(), totalLabel.end());
     //    int X_k_means_index = std::distance( totalLabel.begin(), it );
     //    float X_totalPoints = totalLabel[X_k_means_index];
-    //    strongestKMeans[0] = Eigen::Vector3f(xCenters.at<float>(X_k_means_index,0), xCenters.at<float>(X_k_means_index,1), xCenters.at<float>(X_k_means_index,2));
+    //    strongestKMeans[0] = Eigen::Vector3d(xCenters.at<float>(X_k_means_index,0), xCenters.at<float>(X_k_means_index,1), xCenters.at<float>(X_k_means_index,2));
 
 
     //    temp.val = X_totalPoints;
@@ -852,7 +852,7 @@ void CRForestDetector::detectMaximaK_means(std::vector<Eigen::Quaternionf> &qMea
     //    it = std::max_element(totalLabel.begin(), totalLabel.end());
     //    int Y_k_means_index = std::distance(totalLabel.begin(), it );
     //    float Y_totalPoints = totalLabel[Y_k_means_index];
-    //    strongestKMeans[1] = Eigen::Vector3f(yCenters.at<float>(Y_k_means_index,0), yCenters.at<float>(Y_k_means_index,1), yCenters.at<float>(Y_k_means_index,2));
+    //    strongestKMeans[1] = Eigen::Vector3d(yCenters.at<float>(Y_k_means_index,0), yCenters.at<float>(Y_k_means_index,1), yCenters.at<float>(Y_k_means_index,2));
 
     //    temp.val = Y_totalPoints;
     //    temp.index = 1;
@@ -876,7 +876,7 @@ void CRForestDetector::detectMaximaK_means(std::vector<Eigen::Quaternionf> &qMea
     //    it = std::max_element(totalLabel.begin(), totalLabel.end());
     //    int Z_k_means_index = std::distance( totalLabel.begin(), it );
     //    float Z_totalPoints = totalLabel[Z_k_means_index];
-    //    strongestKMeans[0] = Eigen::Vector3f(zCenters.at<float>(Z_k_means_index,0), zCenters.at<float>(Z_k_means_index,1), zCenters.at<float>(Z_k_means_index,2));
+    //    strongestKMeans[0] = Eigen::Vector3d(zCenters.at<float>(Z_k_means_index,0), zCenters.at<float>(Z_k_means_index,1), zCenters.at<float>(Z_k_means_index,2));
 
     //    temp.val = Z_totalPoints;
     //    temp.index = 2;
@@ -884,9 +884,9 @@ void CRForestDetector::detectMaximaK_means(std::vector<Eigen::Quaternionf> &qMea
 
     //    sort(maxXYZ.begin(), maxXYZ.end());
 
-    //    Eigen::Vector3f firsthighest = strongestKMeans[maxXYZ[2].index];
-    //    Eigen::Vector3f secondhighest = strongestKMeans[maxXYZ[1].index];
-    //    Eigen::Vector3f smallest;
+    //    Eigen::Vector3d firsthighest = strongestKMeans[maxXYZ[2].index];
+    //    Eigen::Vector3d secondhighest = strongestKMeans[maxXYZ[1].index];
+    //    Eigen::Vector3d smallest;
     //    if(abs(maxXYZ[2].index - maxXYZ[1].index) == 1){
     //        smallest = (maxXYZ[2].index - maxXYZ[1].index) * (-1) * firsthighest.cross(secondhighest);
     //    }else{
@@ -905,7 +905,7 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
 
     if(candidates.size() > 0){
 
-        std::vector< Eigen::Matrix4f, Eigen::aligned_allocator< Eigen::Matrix4f> > candPoses;
+        std::vector< Eigen::Matrix4d, Eigen::aligned_allocator< Eigen::Matrix4d> > candPoses;
         candPoses.reserve(candidates.size());
         int nTrees = vImgAssign.size();
 
@@ -917,7 +917,7 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
             int steps = 50, subsample_count = 0;
             int cNr = candidates[cand].c;
 
-            std::vector <Eigen::Quaternionf> qMean;
+            std::vector <Eigen::Quaterniond> qMean;
             std::vector <std::vector <cv::Mat> >poseHoughSpace(steps);
             for(int i = 0; i<steps; i++){
                 poseHoughSpace[i].resize(steps);
@@ -979,7 +979,7 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
                                     node = crForest->getNode( trNr, node->parent );
                                 }
 
-                                Eigen::Matrix4f transformationMatrixQuery1C, transformationMatrixQuery2C;
+                                Eigen::Matrix4d transformationMatrixQuery1C, transformationMatrixQuery2C;
 
 
                                 for( unsigned int d = 0; d < depth; d++ ){ // depth of node
@@ -1007,23 +1007,23 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
 
                                     // create coordinate system TSC
 
-                                    Surfel::calcQueryPoint2CameraTransformation(pt1_real, pt2_real, qPoint, qn, transformationMatrixQuery1C, transformationMatrixQuery2C);
+//                                    /* Surfel::calcQueryPoint2CameraTransformation(pt1_real, pt2_real, qPoint, qn, transformationMatrixQuery1C, transformationMatrixQuery2C);*/
 
                                     // convert matrix to quternion and multiply it with TOS
-                                    Eigen::Matrix3f rotationMatrixQ1C = transformationMatrixQuery1C.block<3,3>(0,0);
-                                    Eigen::Matrix3f rotationMatrixQ2C = transformationMatrixQuery2C.block<3,3>(0,0);
+                                    Eigen::Matrix3d rotationMatrixQ1C = transformationMatrixQuery1C.block<3,3>(0,0);
+                                    Eigen::Matrix3d rotationMatrixQ2C = transformationMatrixQuery2C.block<3,3>(0,0);
 
-                                    Eigen::Quaternionf QuaternionQ1C(rotationMatrixQ1C);
-                                    Eigen::Quaternionf QuaternionQ2C(rotationMatrixQ2C);
+                                    Eigen::Quaterniond QuaternionQ1C(rotationMatrixQ1C);
+                                    Eigen::Quaterniond QuaternionQ2C(rotationMatrixQ2C);
 
                                     float alpha1 = L->alpha[cNr][index][d].first;
                                     float alpha2 = L->alpha[cNr][index][d].second;
 
-                                    Eigen::Quaternionf alphaInverseRotation1( cos((-alpha1)/2.f), 0.f, 0.f, sin((-alpha1)/2.f) );
-                                    Eigen::Quaternionf alphaInverseRotation2( cos((-alpha2)/2.f), 0.f, 0.f, sin((-alpha2)/2.f) );
+                                    Eigen::Quaterniond alphaInverseRotation1( cos((-alpha1)/2.f), 0.f, 0.f, sin((-alpha1)/2.f) );
+                                    Eigen::Quaterniond alphaInverseRotation2( cos((-alpha2)/2.f), 0.f, 0.f, sin((-alpha2)/2.f) );
 
-                                    Eigen::Quaternionf QuaternionO1C = QuaternionQ1C * alphaInverseRotation1 * L->vPose[cNr][index].first;
-                                    Eigen::Quaternionf QuaternionO2C = QuaternionQ2C * alphaInverseRotation2 * L->vPose[cNr][index].second;
+                                    Eigen::Quaterniond QuaternionO1C = QuaternionQ1C * alphaInverseRotation1 * L->vPose[cNr][index].first;
+                                    Eigen::Quaterniond QuaternionO2C = QuaternionQ2C * alphaInverseRotation2 * L->vPose[cNr][index].second;
 
                                     // for first offset
                                     if( !(isnan( QuaternionO1C.coeffs()[ 0 ] ) || isnan( QuaternionO1C.coeffs()[ 1 ] ) || isnan( QuaternionO1C.coeffs()[ 2 ] ) || isnan( QuaternionO1C.coeffs()[ 3 ] ) ) ){
@@ -1083,11 +1083,11 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
 
             //smooth the accumulator and find the peak
 
-            Eigen::Quaternionf qfinalOC;
+            Eigen::Quaterniond qfinalOC;
 
             float poseScore;
             detectMaxima(poseHoughSpace, qfinalOC, steps, poseScore);
-            Eigen::Matrix3f finalOC = Eigen::Matrix3f(qfinalOC);
+            Eigen::Matrix3d finalOC(qfinalOC);
 
             if(addPoseScore)
                 candidates[cand].weight = poseScore;
@@ -1099,9 +1099,9 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
             }
 
             // cout<<"mean rotation\n" << finalOC <<endl;
-            Eigen::Matrix4f tempOC = Eigen::Matrix4f::Identity();
+            Eigen::Matrix4d tempOC = Eigen::Matrix4d::Identity();
             tempOC.block<3,3>(0,0) = finalOC;
-            tempOC.block<3,1>(0,3) = Eigen::Vector3f(oCenter_real.x, oCenter_real.y, oCenter_real.z);
+            tempOC.block<3,1>(0,3) = Eigen::Vector3d(oCenter_real.x, oCenter_real.y, oCenter_real.z);
 
             candPoses.push_back(tempOC) ;
 
@@ -1109,24 +1109,24 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
 
             // debug
             if(0){
-                std::vector<Eigen::Quaternionf> rotation;
-                Eigen::Quaternionf rotation1, rotation2, rotation3, rotation4;
+                std::vector<Eigen::Quaterniond> rotation;
+                Eigen::Quaterniond rotation1, rotation2, rotation3, rotation4;
                 float  angle1 = PI/2.f, angle2 = PI, angle3 = PI/4.f, angle4 = 3.f*PI/4.f;
-                Eigen::Vector3f v(0.f ,0.f, 1.f);
+                Eigen::Vector3d v(0.f ,0.f, 1.f);
 
-                Eigen::Quaternionf rotation0;
+                Eigen::Quaterniond rotation0;
                 rotation0.setIdentity();
-                rotation1 = Eigen::Quaternionf( cos(angle1/2.f), 0.f, 0.f, sin(angle1/2.f));
-                rotation2 = Eigen::Quaternionf( cos(angle2/2.f), 0.f, 0.f, sin(angle2/2.f));
-                rotation3 = Eigen::Quaternionf( cos(angle3/2.f), 0.f, 0.f, sin(angle3/2.f));
-                rotation4 = Eigen::Quaternionf( cos(angle4/2.f), 0.f, 0.f, sin(angle4/2.f));
+                rotation1 = Eigen::Quaterniond( cos(angle1/2.f), 0.f, 0.f, sin(angle1/2.f));
+                rotation2 = Eigen::Quaterniond( cos(angle2/2.f), 0.f, 0.f, sin(angle2/2.f));
+                rotation3 = Eigen::Quaterniond( cos(angle3/2.f), 0.f, 0.f, sin(angle3/2.f));
+                rotation4 = Eigen::Quaterniond( cos(angle4/2.f), 0.f, 0.f, sin(angle4/2.f));
 
-                Eigen::Matrix4f tempQ = Eigen::Matrix4f::Identity();
-                tempQ.block<3,3>(0,0) = Eigen::Matrix3f(rotation0);
+                Eigen::Matrix4d tempQ = Eigen::Matrix4d::Identity();
+                tempQ.block<3,3>(0,0) = Eigen::Matrix3d(rotation0);
                 tempQ.block<3,1>(0,3) = v;
 
-                Eigen::Matrix4f tempQ1 = Eigen::Matrix4f::Identity();
-                tempQ1.block<3,3>(0,0) = Eigen::Matrix3f(rotation1);
+                Eigen::Matrix4d tempQ1 = Eigen::Matrix4d::Identity();
+                tempQ1.block<3,3>(0,0) = Eigen::Matrix3d(rotation1);
                 tempQ1.block<3,1>(0,3) = v;
 
                 rotation.push_back(rotation0);
@@ -1134,11 +1134,11 @@ void CRForestDetector::voteForPose(const cv::Mat img, const std::vector< std::ve
                 rotation.push_back(rotation2);
                 rotation.push_back(rotation3);
                 rotation.push_back(rotation1);
-                Eigen::Quaternionf rotation5 = quatInterp(qMean);
+                Eigen::Quaterniond rotation5 = quatInterp(qMean);
 
-                cout<<"mean rotation\n" << Eigen::Matrix3f(rotation5)<<endl;
-                Eigen::Matrix4f tempQ2 = Eigen::Matrix4f::Identity();
-                tempQ2.block<3,3>(0,0) = Eigen::Matrix3f(rotation5);
+                cout<<"mean rotation\n" << Eigen::Matrix3d(rotation5)<<endl;
+                Eigen::Matrix4d tempQ2 = Eigen::Matrix4d::Identity();
+                tempQ2.block<3,3>(0,0) = Eigen::Matrix3d(rotation5);
                 tempQ2.block<3,1>(0,3) = v;
                 //                Surfel::addCoordinateSystem(tempQ2, viewer, "4");
             }
@@ -1539,8 +1539,8 @@ void CRForestDetector::voteForCenter(const std::vector<cv::Mat>& vImgAssign, std
                                     cv::Point3f sPoint1 = CRPixel::P3toR3( sPixel1, imgCenterPixel, depthImg.at< unsigned short >( sPixel1 ) );
                                     cv::Point3f sPoint2 = CRPixel::P3toR3( sPixel2, imgCenterPixel, depthImg.at< unsigned short >( sPixel2 ) );
 
-                                    Eigen::Matrix4f transformationFromQueryPixel1toCamera, transformationFromQueryPixel2toCamera;
-                                    Surfel::calcQueryPoint2CameraTransformation(sPoint1, sPoint2, qPoint, qNormal, transformationFromQueryPixel1toCamera, transformationFromQueryPixel2toCamera);
+                                    Eigen::Matrix4d transformationFromQueryPixel1toCamera, transformationFromQueryPixel2toCamera;
+//                                     Surfel::calcQueryPoint2CameraTransformation(sPoint1, sPoint2, qPoint, qNormal, transformationFromQueryPixel1toCamera, transformationFromQueryPixel2toCamera);
 
 
                                     float alpha1, alpha2;
@@ -1549,19 +1549,19 @@ void CRForestDetector::voteForCenter(const std::vector<cv::Mat>& vImgAssign, std
 
                                         float itW = tmp->vCenterWeights[cNr][trainingPixels];
 
-                                        Eigen::Vector3f qDisVector1 = tmp->QdisVector[cNr][trainingPixels].first;
-                                        Eigen::Vector3f qDisVector2 = tmp->QdisVector[cNr][trainingPixels].second;
+                                        Eigen::Vector3d qDisVector1 = tmp->QdisVector[cNr][trainingPixels].first;
+                                        Eigen::Vector3d qDisVector2 = tmp->QdisVector[cNr][trainingPixels].second;
 
 
                                         alpha1 = tmp->alpha[cNr][trainingPixels][d].first;
                                         alpha2 = tmp->alpha[cNr][trainingPixels][d].second;
 
-                                        Eigen::Quaternionf alphaInverseRotation1(cos((-alpha1) / 2.f),0.f,0.f,sin((-alpha1) / 2.f));
-                                        Eigen::Quaternionf alphaInverseRotation2(cos((-alpha2) / 2.f),0.f,0.f,sin((-alpha2) / 2.f));
+                                        Eigen::Quaterniond alphaInverseRotation1(cos((-alpha1) / 2.0),0.0,0.0,sin((-alpha1) / 2.0));
+                                        Eigen::Quaterniond alphaInverseRotation2(cos((-alpha2) / 2.0),0.0,0.0,sin((-alpha2) / 2.0));
 
 
-                                        Eigen::Vector3f disVector1 = transformationFromQueryPixel1toCamera.block<3,3>(0,0)* Eigen::Matrix3f(alphaInverseRotation1) * qDisVector1;
-                                        Eigen::Vector3f disVector2 = transformationFromQueryPixel2toCamera.block<3,3>(0,0)* Eigen::Matrix3f(alphaInverseRotation2) * qDisVector2;
+                                        Eigen::Vector3d disVector1 = transformationFromQueryPixel1toCamera.block<3,3>(0,0)* Eigen::Matrix3d(alphaInverseRotation1) * qDisVector1;
+                                        Eigen::Vector3d disVector2 = transformationFromQueryPixel2toCamera.block<3,3>(0,0)* Eigen::Matrix3d(alphaInverseRotation2) * qDisVector2;
 
                                         int sCount = 0;
 
