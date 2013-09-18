@@ -189,11 +189,14 @@ void loadConfig( string& filename, int mode,  Parameters& p ) {
 
         // Scales
         in.getline( buffer, 1000 );
-        int size;
+        int size; 
+        float min, max;
         in >> size;
+        in >> min;
+        in >> max;
         p.scales.resize(size);
-        for( int i = 0;i < size; ++i )
-            in >> p.scales[i];
+        for( int i = 0; i < size ; i++ )
+            p.scales[i] = float(max - min)*( i+1.f )/size;
         in.getline( buffer, 1000 );
 
         // smoothing kernel parameters
@@ -203,12 +206,6 @@ void loadConfig( string& filename, int mode,  Parameters& p ) {
         for( int i = 0; i < size; ++i )
             in >> p.kernel_width[ i ];
         in.getline( buffer, 1000 );
-
-        //        // object height and width
-        //        in.getline(buffer,1000);
-        //        in >> p.objectSize.first;
-        //        in >> p.objectSize.second;
-        //        in.getline( buffer, 1000 );
 
         // threshold for detection
         in.getline( buffer, 1000 );
@@ -295,8 +292,9 @@ void loadConfig( string& filename, int mode,  Parameters& p ) {
         cout << "                  " << p.testimagefiles << endl;
         cout << "Scales:           ";
 
-        for( unsigned int i = 0; i < p.scales.size();++i )
-            cout << p.scales[ i ] << " "; cout << endl;
+        for( unsigned int i = 0; i < p.scales.size(); ++i )
+            cout << p.scales[ i ] << " ";
+        cout << endl;
 
         cout << "Skipping:         " << p.doSkip << endl;
         cout << "Debugging:        " << p.DEBUG  << endl;
@@ -308,7 +306,7 @@ void loadConfig( string& filename, int mode,  Parameters& p ) {
 }
 
 // load training image filenames
-void loadTrainClassFile( Parameters& p , std::vector<std::vector<string> >& vFilenames, std::vector<std::vector<CvRect> >& vBBox, std::vector<std::vector<CvPoint> >& vCenter, std::vector<vector<float> > &vPoseAngle, std::vector<vector<float> > &vPitchAngle, std::vector<string>& internal_files ){
+void loadTrainClassFile( Parameters& p , std::vector<std::vector<string> >& vFilenames, std::vector<std::vector<CvRect> >& vBBox, std::vector<std::vector<CvPoint> >& vCenter, std::vector<vector<float> > &vPoseAngle, std::vector<vector<float> > &vPitchAngle, std::vector<string>& internal_files ) {
 
     ifstream in_class(p.trainclassfiles.c_str());
 
@@ -323,12 +321,12 @@ void loadTrainClassFile( Parameters& p , std::vector<std::vector<string> >& vFil
         vPitchAngle.resize(p.nlabels);
 
         p.class_structure.resize(p.nlabels);
-       
+
         cout << "Classes: " << p.nlabels << endl;
         string labelfile;
         internal_files.resize(p.nlabels);
 
-        for( int l = 0; l < p.nlabels; ++l ){
+        for( int l = 0; l < p.nlabels; ++l ) {
 
             in_class >> p.class_structure[ l ];
             in_class >> labelfile;
@@ -338,7 +336,8 @@ void loadTrainClassFile( Parameters& p , std::vector<std::vector<string> >& vFil
             if( in.is_open() ) {
 
                 unsigned int size, dummy;
-                in >> size; in >> dummy;
+                in >> size;
+                in >> dummy;
 
                 cout << "Load Train Examples: " << l << " - " << size << endl;
 
@@ -353,7 +352,8 @@ void loadTrainClassFile( Parameters& p , std::vector<std::vector<string> >& vFil
                     in >> vFilenames[ l ][ i ];
 
                     // Read bounding box
-                    in >> vBBox[ l ][ i ].x; in >> vBBox[ l ][ i ].y;
+                    in >> vBBox[ l ][ i ].x;
+                    in >> vBBox[ l ][ i ].y;
                     in >> vBBox[ l ][ i ].width;
                     vBBox[ l ][ i ].width -= vBBox[ l ][ i ].x;
                     in >> vBBox[ l ][ i ].height;
@@ -368,11 +368,11 @@ void loadTrainClassFile( Parameters& p , std::vector<std::vector<string> >& vFil
                     in >> vCenter[ l ][ i ].x;
                     in >> vCenter[ l ][ i ].y;
 
-                    if( p.class_structure[ l ] != 0 ){
+                    if( p.class_structure[ l ] != 0 ) {
                         in >> vPoseAngle[l][i];
                         in >> vPitchAngle[l][i];
 
-                    }else{
+                    } else {
 
                         vPoseAngle[l][i] = NAN;
                         vPitchAngle[l][i] = NAN;
@@ -406,10 +406,10 @@ void loadTestClassFile( Parameters& p, std::vector<std::vector<string> >& vFilen
         int n_test_classes;
         in_class >> n_test_classes;
         vFilenames.resize(n_test_classes);
-      
+
         cout << "number Classes: " << vFilenames.size() << endl;
         string labelfile;
-        for(int l=0; l < n_test_classes;++l) {
+        for(int l=0; l < n_test_classes; ++l) {
             in_class >> labelfile;
             ifstream in(labelfile.c_str());
             if(in.is_open()) {
@@ -435,7 +435,7 @@ void loadTestClassFile( Parameters& p, std::vector<std::vector<string> >& vFilen
 }
 
 
-void loadRawData( rawData& data, Parameters& p ){
+void loadRawData( rawData& data, Parameters& p ) {
 
     // load positive file list
     loadTrainClassFile( p, data.vFilenames, data.vBBox, data.vCenter, data.vPoseAngle, data.vPitchAngle, data.internal_files );
@@ -446,7 +446,7 @@ void loadRawData( rawData& data, Parameters& p ){
 }
 
 // Init and start training
-void run_train( Parameters& p ){
+void run_train( Parameters& p ) {
 
     // Create directories
 
@@ -475,7 +475,7 @@ void run_train( Parameters& p ){
     // Init forest with number of trees
     CRForest crForest( p.ntrees, p.doSkip);
 
-    if (p.doSkip && crForest.loadForest(p.treepath.c_str(), p.off_tree)){
+    if (p.doSkip && crForest.loadForest(p.treepath.c_str(), p.off_tree)) {
         return; // the forest is already trained
     }
 
@@ -487,28 +487,28 @@ void run_train( Parameters& p ){
     crForest.training_mode = p.training_mode;
 
     // depending on the training mode you should change the class_structure
-    if ( p.training_mode == 0 ){
+    if ( p.training_mode == 0 ) {
         std::cout<< " the class labels have kept the way they are"<< std::endl;
     } else {
         // only keep the label of the background class as 0 and the rest should just get labelled differntly
         std::cout << " the class labels have changed: the background class(with label 0) is kept and all other classes have assigned different labels according to their rank in the training file" << std::endl;
         // first check if there are only 0 and 1 in the class_structure
         bool binary = true;
-        for ( unsigned int i = 0; i < p.class_structure.size() ; i++ ){
+        for ( unsigned int i = 0; i < p.class_structure.size() ; i++ ) {
             if ( p.class_structure[ i ] > 1 || p.class_structure[ i ] < 0 )
                 binary = false;
         }
-        if ( binary ){
+        if ( binary ) {
             int count =1;
             std::cout << " new class labels: " << std::endl;
-            for ( unsigned int i=0; i < p.class_structure.size(); i++ ){
-                if ( p.class_structure[ i ] !=0 ){
+            for ( unsigned int i=0; i < p.class_structure.size(); i++ ) {
+                if ( p.class_structure[ i ] !=0 ) {
                     p.class_structure[ i ] = count;
                     count++;
                 }
                 std::cout << " label: " << i << " " << p.class_structure[ i ] << std::endl;
             }
-        } else{
+        } else {
             std::cout<< " there are two classes only, training mode changed to 0 " << std::endl;
             crForest.training_mode = 0;
         }
@@ -518,7 +518,7 @@ void run_train( Parameters& p ){
     crForest.trainForest( p, data, 20, 2000);
 }
 
-void detect( Parameters& p, CRForestDetector& crDetect ){
+void detect( Parameters& p, CRForestDetector& crDetect ) {
 
     std::cout << "entering detect "<< std::endl;
 
@@ -530,7 +530,7 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
     char buffer2[3000];
     char buffer3[3000];
 
-    for ( unsigned int tcNr = 0; tcNr < vFilenames.size(); tcNr++ ){
+    for ( unsigned int tcNr = 0; tcNr < vFilenames.size(); tcNr++ ) {
 
         // Create directory
         string test_folder(p.candidatepath);
@@ -541,13 +541,13 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
         execstr = "mkdir " + p.bbpath + "/" + test_set;
         system( execstr.c_str() );
 
-        if ( p.select_test_set > 0 && int(tcNr) != p.select_test_set){
+        if ( p.select_test_set > 0 && int(tcNr) != p.select_test_set) {
             continue;
         }
 
-        if (p.test_num < 0){ // number of test images to process
+        if (p.test_num < 0) { // number of test images to process
             p.file_test_num = vFilenames[tcNr].size() - p.off_test;
-        }else{
+        } else {
             p.file_test_num = p.test_num;
         }
 
@@ -567,7 +567,7 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
 
             // check the files
             bool skipping = false;
-            if ( p.doSkip ){
+            if ( p.doSkip ) {
                 cout << "\n\n\ncheck the skipping"<< endl;
                 skipping = true;
                 // first check if the candidates.txt file exists.
@@ -577,7 +577,7 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
                 sprintf_s(cand_filename,"%s/candidates.txt",cand_dir);
 
                 FILE* file;
-                if (file = fopen(cand_filename, "r")){
+                if (file = fopen(cand_filename, "r")) {
                     fclose(file);
                     // read the candidates
                     std::ifstream cand_file;
@@ -588,7 +588,7 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
 
                     char backpr_filename[3000];
                     sprintf_s(backpr_filename,"%s/boundingboxes.txt",cand_dir);
-                    if (file = fopen(backpr_filename, "r")){
+                    if (file = fopen(backpr_filename, "r")) {
                         fclose(file);
                         std::ifstream backpr_file;
                         backpr_file.open(backpr_filename);
@@ -596,21 +596,21 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
                         backpr_file >> boxes_size;
                         backpr_file.close();
 
-                        if (boxes_size != cand_size){
+                        if (boxes_size != cand_size) {
                             skipping = false;
                         }
-                    }else{
+                    } else {
                         skipping = false;
                         std::cout << " cannot read boundingboxes files " << std::endl;
                     }
 
-                }else{
+                } else {
                     cout << "cannot read candidate file, I proceed with running the full detection" << endl;
                     skipping = false;
                 }
             }
             // the detections are already calculated
-            if (skipping){
+            if (skipping) {
                 cout << "Skipping detection of image " << i << " of set: " << tcNr << endl;
                 continue;
             }
@@ -669,8 +669,8 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
             crDetect.getClassConfidence(vImgAssign, classConfidence);
 
             //debug
-            if (p.DEBUG){
-                for (unsigned int cNr = 0; cNr < classConfidence.size(); cNr++){
+            if (p.DEBUG) {
+                for (unsigned int cNr = 0; cNr < classConfidence.size(); cNr++) {
 
                     cv::Mat img_with_probability = cv::Mat::zeros(img.rows, img.cols, img.type());
                     for(int i = 0; i < classConfidence[cNr].rows; i++) {
@@ -703,7 +703,7 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
             vector<Candidate > candidates;
 
             // for each class except background
-            for ( int cNr = 0; cNr < nlabels - 1; cNr++){
+            for ( int cNr = 0; cNr < nlabels - 1; cNr++) {
 
                 int this_class = cNr;
 
@@ -722,10 +722,10 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
             if (candidates.size() < 2)
                 end_sort = true;// we do not need sorting
 
-            while(!end_sort){
+            while(!end_sort) {
                 end_sort = true;
-                for (unsigned int i = 0; i < candidates.size()-1; i++ ){
-                    if (candidates[i].weight < candidates[i+1].weight){
+                for (unsigned int i = 0; i < candidates.size()-1; i++ ) {
+                    if (candidates[i].weight < candidates[i+1].weight) {
                         end_sort = false;
                         Candidate cand_temp;
                         cand_temp = candidates[i];
@@ -744,8 +744,8 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
             fp_cands.open(buffer);
 
             fp_cands<< candidates.size()<<std::endl;
-            for (unsigned int candNr=0; candNr < candidates.size(); candNr++){
-                fp_cands << candidates[candNr].weight << " " << candidates[candNr].center.x << " " << candidates[candNr].center.y << " " << candidates[candNr].scale << " " << candidates[candNr].c << " " << candidates[candNr].r << std::endl;
+            for (unsigned int candNr=0; candNr < candidates.size(); candNr++) {
+                fp_cands << candidates[candNr].weight << " " << candidates[candNr].center.x << " " << candidates[candNr].center.y << " " << candidates[candNr].scale << " " << candidates[candNr].c << std::endl;
             }
 
             fp_cands << std::endl;
@@ -761,16 +761,16 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
             fp_boxes.open(buffer);
             fp_boxes<< candidates.size()<<std::endl;
 
-            if(candidates.size() > 0){
+            if(candidates.size() > 0) {
 
-                for(int cand = 0; cand< candidates.size(); cand++){
+                for(int cand = 0; cand< candidates.size(); cand++) {
 
                     // Drawing Bounding Boxs
 
                     std::vector< cv::Point2f > imagePoints;
-                    create3DBB( candidates[cand].bbSize, candidates[cand].coordinateSystem , img_size, imagePoints );
+                    create3DBB( p.vbbSize[candidates[cand].c], candidates[cand].coordinateSystem, img_size, imagePoints );
 
-                    if(candidates[cand].weight > p.thresh_bb){
+                    if(candidates[cand].weight > p.thresh_bb) {
 
                         createWireFrame (copy_img, imagePoints);
                         printScore(copy_img, p.objectName, candidates[cand].weight, candidates[cand].center, 1 );
@@ -792,7 +792,8 @@ void detect( Parameters& p, CRForestDetector& crDetect ){
 
             }
 
-            cv::imshow("Detected object", copy_img); cv::waitKey(5);
+            cv::imshow("Detected object", copy_img);
+            cv::waitKey(5);
 
             cv::imwrite(( p.bbpath + "/" + vFilenames[tcNr][i]).c_str(), copy_img);
 
@@ -824,10 +825,11 @@ void run_detect( Parameters& p ) {
 
     // forest statistics
     ofstream out(nodeFile.c_str());
-    if(out.is_open()){
+    if(out.is_open()) {
 
-        for( int trNr = 0; trNr < crForest.vTrees.size(); trNr++){
-            for( int ndNr = 0; ndNr < crForest.vTrees[trNr]->getNumNodes(); ndNr++){
+        for( int trNr = 0; trNr < crForest.vTrees.size(); trNr++) {
+            for( int ndNr = 0; ndNr < crForest.vTrees[trNr]->getNumNodes(); ndNr++) {
+
                 InternalNode *node = crForest.getNode(trNr,ndNr);
                 out << node->data[ 4 ] << " " << node->depth << endl;
             }
@@ -835,7 +837,9 @@ void run_detect( Parameters& p ) {
     }
 
     out.close();
-    std::vector< int > temp_classes; temp_classes.resize(1); temp_classes[0] = -1;
+    std::vector< int > temp_classes;
+    temp_classes.resize(1);
+    temp_classes[ 0 ] = -1;
     crForest.SetTrainingLabelsForDetection(temp_classes);
 
     // Init detector
@@ -865,30 +869,35 @@ void run_detect( Parameters& p ) {
     system( execstr.c_str() );
     p.bbpath = p.testimagepath + boundingBox + detect_object;
 
+
+    p.vbbSize.resize(p.nlabels-1);
+
     string filePath = p.outpath + "/object_models/" + p.objectName + ".txt";
     ifstream in(filePath.c_str());
     float buffer;
-    if(in.is_open()){
+    if(in.is_open()) {
+
         in >>  buffer;
         in >>  buffer;
 
-        for(int i = 0; i < 3; i++ ){
+        for(int i = 0; i < 3; i++ ) {
             in >>  buffer;
             in >>  buffer;
             in >>  buffer;
         }
-        in >> p.bbSize.x; in >> p.bbSize.y; in >> p.bbSize.z;
+        in >> p.vbbSize[0].x;
+        in >> p.vbbSize[0].y;
+        in >> p.vbbSize[0].z;
         in.close();
 
     }
-
 
     // run detector
     detect(p, crDetect);
 }
 
 
-int main( int argc, char* argv[ ] ){
+int main( int argc, char* argv[ ] ) {
     int mode = 1;
 
     // Check argument
@@ -918,7 +927,7 @@ int main( int argc, char* argv[ ] ){
         cout << "  [test_set] running the detection on images only in one test set" << endl;
         cout << "  [test_scale] running the detection only at this scale instead of all scales" << endl;
         cout << endl << endl << endl ;
-    } else{
+    } else {
 
         Parameters param;
 
@@ -934,10 +943,10 @@ int main( int argc, char* argv[ ] ){
         param.off_tree = 0;
 
         // load configuration for dataset
-        if( argc > 2 ){
+        if( argc > 2 ) {
             param.configFileName = argv[ 2 ];
             loadConfig( param.configFileName, mode,  param );
-        }else{
+        } else {
             param.configFileName = "config.txt";
             loadConfig( param.configFileName, mode, param );
         }
@@ -968,7 +977,7 @@ int main( int argc, char* argv[ ] ){
             if ( argc > 3 )
                 param.ntrees = atoi( argv[ 3 ] );
 
-            if ( argc > 4 ){
+            if ( argc > 4 ) {
                 param.off_test = atoi( argv[ 4 ] );
                 param.test_num = 1;
             }

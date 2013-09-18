@@ -1,4 +1,4 @@
-/* 
+/*
 // Author: Juergen Gall, BIWI, ETH Zurich
 // Email: gall@vision.ee.ethz.ch
 */
@@ -13,7 +13,7 @@ class HoG {
 public:
 
     HoG();
-   ~HoG(){}
+    ~HoG() {}
     void extractOBin( cv::Mat& Iorient, cv::Mat& Imagn, const cv::Mat& depthImage, std::vector<cv::Mat>& out, int off );
 //    void extractOBin( const cv::Mat& rgbImg, const cv::Mat& depthImage, std::vector< cv::Mat >& out, int off );
 

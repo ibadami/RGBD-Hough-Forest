@@ -24,60 +24,60 @@
 struct IntIndex {
     int val;
     unsigned int index;
-    bool operator<(const IntIndex& a) const { return val<a.val; }
+    bool operator<(const IntIndex& a) const {
+        return val<a.val;
+    }
 };
 
-struct DynamicFeature{
-    
-    DynamicFeature(){}
-    
+struct DynamicFeature {
+
+    DynamicFeature() {}
+
     std::pair< Eigen::Vector3d, Eigen::Vector3d > disVectorInQueryPixelCordinate;
     std::pair< Eigen::Vector3d, Eigen::Vector3d > tempDisVectorInQueryPixelCordinate;
     std::pair< Eigen::Quaterniond, Eigen::Quaterniond > pointPairTransformation;
-    
-    std::pair< Eigen::Matrix3d, Eigen::Matrix3d > firstQuerytoCameraTransformation;
-    
-    std::pair< Eigen::Quaterniond, Eigen::Quaterniond > transformationMatrixOQuery_at_current_node;
-    
-    std::vector< std::pair < float, float > > alpha;
-    
-};
 
+    std::pair< Eigen::Matrix3d, Eigen::Matrix3d > firstQuerytoCameraTransformation;
+
+    std::pair< Eigen::Quaterniond, Eigen::Quaterniond > transformationMatrixOQuery_at_current_node;
+
+    std::vector< std::pair < float, float > > alpha;
+
+};
 
 // Structure for the leafs
 struct LeafNode {
+
     // Constructors
     LeafNode() {}
 
     // IO functions
     const void show(int delay, int width, int height, int* class_id);
     const void print() const {
+
         std::cout << "Leaf " << vCenter.size() << " ";
         for(unsigned int c = 0; c<vCenter.size(); ++c)
             std::cout << vCenter[c].size() << " "  << vPrLabel[c] << " ";
         std::cout << std::endl;
     }
+
     int depth;
     int parent;
     float cL; // what proportion of the entries at this leaf is from foreground
     int idL; // leaf id
-    //    float fL; //occurrence frequency
-    //    float eL;// emprical probability of when a pixel is matched to this cluster, it belons to fg
-    std::vector<int> nOcc;
-    std::vector<float> vLabelDistrib;
+
+//    std::vector<int> nOcc;
+//     std::vector<float> vLabelDistrib;
 
     // Probability of foreground
     std::vector<float> vPrLabel;
 
     // Vectors from object center to training pixeles
-    std::vector<std::vector<cv::Point3f> > vCenter;
-    std::vector<std::vector<float> > vCenterWeights;
-    std::vector<std::vector<int> > vID;
-    std::vector<std::vector<cv::Point3f > > bbSize3D;
-    std::vector<std::vector<std::pair< Eigen::Quaterniond, Eigen::Quaterniond > > > vPose;
-    std::vector<std::vector<std::pair< Eigen::Vector3d, Eigen::Vector3d > > > QdisVector;
-
-    std::vector < std::vector< std::vector< std::pair< float, float > > > > alpha;
+    std::vector< std::vector< cv::Point3f> > vCenter;
+    std::vector< std::vector< float> > vCenterWeights;
+    std::vector< std::vector< int> > vID;
+//     std::vector< std::vector< cv::Point3f > > bbSize3D;
+    std::vector< std::vector< Eigen::Quaterniond> > vOrientation;
 
 };
 
@@ -87,7 +87,7 @@ struct InternalNode {
     InternalNode() {}
 
     // Copy Constructor
-    InternalNode(const InternalNode& arg){
+    InternalNode(const InternalNode& arg) {
         parent = arg.parent;
         leftChild = arg.leftChild;
         rightChild = arg.rightChild;
@@ -120,7 +120,7 @@ struct HNode {
     HNode() {}
 
     // explicit copy constructor
-    HNode(const HNode& arg){
+    HNode(const HNode& arg) {
         id = arg.id;
         parent = arg.parent;
         leftChild = arg.leftChild;
@@ -129,7 +129,7 @@ struct HNode {
         linkage = arg.linkage;
     }
 
-    bool isLeaf(){
+    bool isLeaf() {
         return ((leftChild < 0) && (rightChild < 0));
     }
 
@@ -164,17 +164,21 @@ public:
     ~CRTree() {}//clearLeaves(); clearNodes();
 
     // Set/Get functions
-    unsigned int GetDepth() const { return max_depth; }
-    unsigned int GetNumLabels() const { return num_labels; }
-    void setClassId( const std::vector< int >& id ) {
-        for( unsigned int i = 0;i < num_labels; ++i ) class_id[ i ] = id[ i ];
+    unsigned int GetDepth() const {
+        return max_depth;
     }
-    void setObjectSize(std::pair<float, float> objectSize){
+    unsigned int GetNumLabels() const {
+        return num_labels;
+    }
+    void setClassId( const std::vector< int >& id ) {
+        for( unsigned int i = 0; i < num_labels; ++i ) class_id[ i ] = id[ i ];
+    }
+    void setObjectSize(std::pair<float, float> objectSize) {
 
         class_size.resize(num_labels-1);
-        for( unsigned int i = 0; i < num_labels; ++i ){
+        for( unsigned int i = 0; i < num_labels; ++i ) {
 
-            if(class_id > 0){
+            if(class_id > 0) {
                 class_size[i].first = objectSize.first;
                 class_size[i].second = objectSize.second;
             }
@@ -185,17 +189,31 @@ public:
         id.resize(num_labels);
         for( unsigned int i = 0; i < num_labels; ++i ) id[ i ] = class_id[ i ];
     }
-    float GetScale() {return scale;}
-    void SetScale(const float tscale) {scale = tscale;}
+    float GetScale() {
+        return scale;
+    }
+    void SetScale(const float tscale) {
+        scale = tscale;
+    }
 
-    int getNumLeaf(){return num_leaf;}
-    int getNumNodes(){return num_nodes;}
-    LeafNode* getLeaf(int leaf_id = 0){return &leafs[leaf_id];}
-    InternalNode* getNode(int node_id = 0){return &nodes[node_id];}
+    int getNumLeaf() {
+        return num_leaf;
+    }
+    int getNumNodes() {
+        return num_nodes;
+    }
+    LeafNode* getLeaf(int leaf_id = 0) {
+        return &leafs[leaf_id];
+    }
+    InternalNode* getNode(int node_id = 0) {
+        return &nodes[node_id];
+    }
 
-    void setTrainingMode(int mode){training_mode = mode;}
+    void setTrainingMode(int mode) {
+        training_mode = mode;
+    }
 
-    bool GetHierarchy( std::vector< HNode > &h ){
+    bool GetHierarchy( std::vector< HNode > &h ) {
         if ( (hierarchy.size() == 0) ) { // check if the hierarchy is set at all(hierarchy == NULL) ||
             return false;
         }
@@ -227,49 +245,49 @@ private:
 
     void generateTest(const Parameters& p, int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c);
 
-    void evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const int* test, const std::vector< std::vector< PixelFeature*> >& TrainSet, std::vector<std::vector< DynamicFeature*> >& dynFeatures, int node, bool addTransformation, bool addPoseMeasure);
+    void evaluateTest( std::vector<std::vector<IntIndex> >& valSet, const int* test, const std::vector< std::vector< PixelFeature*> >& TrainSet, std::vector<std::vector< DynamicFeature*> >& dynFeatures, int node,  bool addPoseMeasure);
 
     void split(vector< std::vector< PixelFeature* > >& SetA, vector< std::vector< PixelFeature* > >& SetB, vector< std::vector< DynamicFeature* > >& dynA, vector< std::vector< DynamicFeature* > >& dynB, vector< std::vector< int > >& idA, vector< std::vector< int > >& idB, const vector< std::vector< PixelFeature* > >& TrainSet, vector< std::vector< DynamicFeature* > >& dynFeatures, const vector< std::vector< int > >& TrainIDs, const vector< vector< IntIndex > >& valSet, int t);
 
     double measureSet( const std::vector<std::vector< PixelFeature*> >& SetA, const std::vector<std::vector< PixelFeature*> >& SetB,  const std::vector<std::vector< DynamicFeature*> >& dynA, const std::vector<std::vector< DynamicFeature*> >& dynB, unsigned int mode, const std::vector<float>& vRatio, bool addPoseMeasure) {
- 
+
         if ( mode == 0 || mode == -1 ) {
 
-            if ( training_mode == 0 ){ // two class information gain
+            if ( training_mode == 0 ) { // two class information gain
                 return InfGain( SetA, SetB, vRatio );
 
-            }else if( training_mode == 1 ){// multiclass infGain with background
+            } else if( training_mode == 1 ) { // multiclass infGain with background
                 return InfGainBG( SetA, SetB, vRatio ) + InfGain( SetA, SetB, vRatio) / double( SetA.size() );
 
-            }else if( training_mode == 2 ){ // multiclass infGain without background
+            } else if( training_mode == 2 ) { // multiclass infGain without background
                 return InfGain( SetA, SetB, vRatio );
 
-            }else{
+            } else {
                 std::cerr << " there is no method associated with the training mode: " << training_mode << std::endl;
                 return -1;
 
             }
-        }else {
+        } else {
 
             // check if pose measure is true
-            if( addPoseMeasure ){
+            if( addPoseMeasure ) {
                 if( mode == 1 )
                     // calculate pose measure
                     return -orientationMeanMC( SetA, SetB , dynA, dynB);
-                else{
+                else {
 
-                    if ( training_mode == 2 || training_mode == 0 ){
+                    if ( training_mode == 2 || training_mode == 0 ) {
                         return -distMean( SetA, SetB );
-                    }else{
+                    } else {
                         return -distMeanMC( SetA, SetB );
                     }
                 }
 
-            }else{
+            } else {
 
-                if ( training_mode == 2 || training_mode == 0 ){
+                if ( training_mode == 2 || training_mode == 0 ) {
                     return -distMean( SetA, SetB );
-                }else{
+                } else {
                     return -distMeanMC( SetA, SetB );
                 }
 
@@ -366,18 +384,18 @@ inline int CRTree::regression(const std::vector<cv::Mat> &vImg, const pcl::Point
 
 
         // get pixel values
-        if(nodes[node].data[4] < vImg.size() && nodes[node].data[4] != 7 && nodes[node].data[4] != 15 && nodes[node].data[4] != 24 ){
+        if(nodes[node].data[4] < vImg.size() && nodes[node].data[4] != 7 && nodes[node].data[4] != 15 && nodes[node].data[4] != 24 ) {
             p1 = vImg[nodes[node].data[4]].at< unsigned char >(pt1);
             p2 = vImg[nodes[node].data[4]].at< unsigned char >(pt2);
             // test
             test = ( p1 - p2 ) >= nodes[node].data[5];
-        }else if(nodes[node].data[4] == 7 || nodes[node].data[4] == 15 || nodes[node].data[4] == 24){
+        } else if(nodes[node].data[4] == 7 || nodes[node].data[4] == 15 || nodes[node].data[4] == 24) {
             p1 = vImg[nodes[node].data[4]].at< unsigned short >(pt1);
             p2 = vImg[nodes[node].data[4]].at< unsigned short >(pt2);
             // test
             test = ( p1 - p2 ) >= nodes[node].data[5];
 
-        }else{
+        } else {
 
             SurfelFeature sf;
             Surfel::computeSurfel(normals, cv::Point2f(pt1.x, pt1.y), cv::Point2f(pt2.x, pt2.y), cv::Point2f(vImg[0].cols/2.f, vImg[0].rows/2.f), sf, vImg[7].at<unsigned short>(pt1)/1000.f, vImg[7].at<unsigned short>(pt2)/1000.f  );
@@ -386,7 +404,7 @@ inline int CRTree::regression(const std::vector<cv::Mat> &vImg, const pcl::Point
         }
 
         // next node is at the left or the right child depending on test
-        if(isnan(test)){
+        if(isnan(test)) {
             return -1;
             cout<< "reached here"<< endl ;
             break;
@@ -420,11 +438,11 @@ inline void CRTree::generateTest(const Parameters& p, int* test, unsigned int ma
     else if( p.addSurfel && !p.addIntensity )
         test[ 4 ] = cvRNG->operator()(max_c + 4 -1) +1;
     else
-         test[ 4 ] = cvRNG->operator()( max_c - 1) + 1;
+        test[ 4 ] = cvRNG->operator()( max_c - 1) + 1;
 
 }
 
-inline int CRTree::getStatSet(const std::vector<std::vector< PixelFeature*> >& TrainSet, int* stat){
+inline int CRTree::getStatSet(const std::vector<std::vector< PixelFeature*> >& TrainSet, int* stat) {
 
     int count = 0;
     for( unsigned int l = 0; l < TrainSet.size(); ++l ) {

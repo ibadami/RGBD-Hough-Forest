@@ -37,8 +37,9 @@ struct PixelFeature {
     std::vector< cv::Mat > imgAppearance;
     Eigen::Matrix4d transformationMatrixOC;
     pcl::PointCloud<pcl::Normal>::Ptr normals;
-    Eigen::Matrix3d disTransformation;
+    Eigen::Quaterniond disTransformation;
     cv::Point3f bbSize3D;
+    Eigen::Matrix3d T_qC;
 
 
     void print() const {
@@ -53,7 +54,10 @@ struct PixelFeature {
 class CRPixel {
 public:
     CRPixel(cv::RNG* pRNG) : cvRNG(pRNG) {}
-    void setClasses(int l) {vRPixels.resize(l);vImageIDs.resize(l);}// vImageIDs.resize(l);}
+    void setClasses(int l) {
+        vRPixels.resize(l);
+        vImageIDs.resize(l);
+    }// vImageIDs.resize(l);}
 
     // Extract patches from image
     void extractPixels(IplImage *img, unsigned int n, int label, CvRect* box = 0, CvPoint* vCenter = 0);
@@ -74,16 +78,18 @@ public:
 
     // calculate transformation from object frame to camera frame
     static void calcObject2CameraTransformation( float &pose, float &pitch, cv::Point3f &rObjCenter, Eigen::Matrix4d &transformationMatrixOC );
-    
-    static Eigen::Matrix3d calcQueryPoint2CameraTransformation(PixelFeature &pf);
-    
-    static Eigen::Quaterniond calcObject2QueryPointTransformation(PixelFeature &pf);
-    
+
+    // calculate local coordinate system for pixel
+    static Eigen::Matrix3d calcQueryPoint2CameraTransformation(cv::Point3f &real_coordinate, cv::Point3f &object_center, pcl::Normal p_n );
+
+    //calculate relative transformation from object to query pixel
+    void calcObject2QueryPointTransformation(PixelFeature& pf);
+
     // Draws transformation
-    static void drawTransformation(const cv::Mat &img, const cv::Mat &depthImg , const Eigen::Matrix4d& transformationMatrixOC);
+    static void drawTransformation(const cv::Mat &img, const cv::Mat &depthImg , const Eigen::Matrix4d& transformationMatrixOC, const Eigen::Matrix3d &T_qC, const cv::Point3f& disVector);
 
     // compute affine transformation from rotation quaternion and translation vector
-    static Eigen::Matrix4f getTransformationAtQueryPixel( Eigen::Matrix3f &qObjectQuery, Eigen::Matrix4f transformationMatrixOC,  cv::Point3f &pointLocation);
+//     static Eigen::Matrix4f getTransformationAtQueryPixel( Eigen::Matrix3f &qObjectQuery, Eigen::Matrix4f transformationMatrixOC,  cv::Point3f &pointLocation);
 
     // min/max filter
     static void minfilt( std::vector< cv::Mat >& src, const cv::Mat& depthImg, const std::vector<float>scales, unsigned int kSize );

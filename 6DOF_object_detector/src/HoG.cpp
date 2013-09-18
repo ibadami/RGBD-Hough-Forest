@@ -1,4 +1,4 @@
-/* 
+/*
 // Author: Juergen Gall, BIWI, ETH Zurich
 // Email: gall@vision.ee.ethz.ch
 */
@@ -25,8 +25,8 @@ HoG::HoG() {
 
 void HoG::extractOBin( cv::Mat& Iorient, cv::Mat& Imagn, const cv::Mat& depthImg, std::vector< cv::Mat >& out, int off ) {
 
-    for ( int r = 0; r < Iorient.rows; r++ ){
-        for( int c = 0; c < Iorient.cols; c++ ){
+    for ( int r = 0; r < Iorient.rows; r++ ) {
+        for( int c = 0; c < Iorient.cols; c++ ) {
 
             float scale;
             if( depthImg.at< unsigned short >( r , c ) > 0)

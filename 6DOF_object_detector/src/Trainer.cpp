@@ -7,11 +7,11 @@
 CRForestTraining::CRForestTraining()
 {}
 
-void CRForestTraining::getObjectSize(Parameters &p, vector< vector<string> >& vFilenames, vector<vector<CvPoint> >& vCenter, vector< vector<  CvRect > > &vBBox ){
+void CRForestTraining::getObjectSize(Parameters &p, vector< vector<string> >& vFilenames, vector<vector<CvPoint> >& vCenter, vector< vector<  CvRect > > &vBBox ) {
 
     for( int l = 0; l < p.nlabels; ++l ) {
 
-        if( p.class_structure[ l ]!= 0 ){
+        if( p.class_structure[ l ]!= 0 ) {
             float  bbWidth = 0;
             float  bbHeight = 0;
             for( int i = 0; i < ( int )vFilenames[ l ].size(); ++i) {
@@ -37,23 +37,28 @@ void CRForestTraining::getObjectSize(Parameters &p, vector< vector<string> >& vF
 
     }
 }
-void CRForestTraining::generate3DModel( Parameters &param, vector< vector<string> >& vFilenames, vector<vector<CvPoint> >& vCenter, vector< vector<  CvRect > > &vBBox , vector<vector<float> > &vPoseAngle, vector<vector<float> > &vPitchAngle, vector<cv::Point3f> &cg, cv::Point3f &bbSize ){
+void CRForestTraining::generate3DModel( Parameters &param, vector< vector<string> >& vFilenames, vector<vector<CvPoint> >& vCenter, vector< vector<  CvRect > > &vBBox , vector<vector<float> > &vPoseAngle, vector<vector<float> > &vPitchAngle, vector<cv::Point3f> &cg, cv::Point3f &bbSize ) {
 
     // check if model is already generated
     string filePath = param.object_models_path +"/" + param.objectName + ".txt";
     ifstream in(filePath.c_str());
-    if(in.is_open()){
-        in >> param.objectSize.first; in >> param.objectSize.second;
+    if(in.is_open()) {
+        in >> param.objectSize.first;
+        in >> param.objectSize.second;
         cg.resize(3);
-        for(int i = 0; i < 3; i++ ){
-            in >> cg[i].x; in >> cg[i].y; in >> cg[i].z;
+        for(int i = 0; i < 3; i++ ) {
+            in >> cg[i].x;
+            in >> cg[i].y;
+            in >> cg[i].z;
         }
-        in >> bbSize.x; in >> bbSize.y; in >> bbSize.z;
+        in >> bbSize.x;
+        in >> bbSize.y;
+        in >> bbSize.z;
         in.close();
 
-    }else{
+    } else {
 
-        for(int l = 0; l< param.nlabels; l++){
+        for(int l = 0; l< param.nlabels; l++) {
 
             if( param.class_structure[l] == 0 )
                 continue;
@@ -63,7 +68,7 @@ void CRForestTraining::generate3DModel( Parameters &param, vector< vector<string
 
             std::vector< Eigen::Matrix4d, Eigen::aligned_allocator<Eigen::Matrix4d> > transformationMatrixOC(3);
 
-            for( int pNr = 0; pNr < 3; pNr++ ){
+            for( int pNr = 0; pNr < 3; pNr++ ) {
 
                 std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > convexHull;
                 std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > planePoints;
@@ -88,9 +93,9 @@ void CRForestTraining::generate3DModel( Parameters &param, vector< vector<string
 
                 // Load depth image
                 string filename = vFilenames[l][2 * pNr];
-                if( param.class_structure[l] != 0 ){
-                    filename.replace( size_of_string - 4, 9, "_depth.png" );
-                }else{
+                if( param.class_structure[l] != 0 ) {
+                    filename.replace( size_of_string - 4, 15, "_filleddepth.png" );
+                } else {
                     filename.replace( size_of_string - 4, 9, "_depth.png" );
                 }
                 cv::Mat depthImg = cv::imread( ( trainclasspath_ + "/" + filename ).c_str(),CV_LOAD_IMAGE_ANYDEPTH );
@@ -138,9 +143,9 @@ void CRForestTraining::generate3DModel( Parameters &param, vector< vector<string
 
                 // Load depth image
                 filename = vFilenames[l][ 2 * pNr + 1 ];
-                if( param.class_structure[l] != 0 ){
+                if( param.class_structure[l] != 0 ) {
                     filename.replace( size_of_string - 4, 9, "_filleddepth.png" );
-                }else{
+                } else {
                     filename.replace( size_of_string - 4, 9, "_depth.png" );
                 }
                 depthImg = cv::imread( ( trainclasspath_ + "/" + filename ).c_str(),CV_LOAD_IMAGE_ANYDEPTH );
@@ -205,11 +210,11 @@ void CRForestTraining::generate3DModel( Parameters &param, vector< vector<string
             system( execstr.c_str() );
 
             ofstream out(filePath.c_str());
-            if(out.is_open()){
+            if(out.is_open()) {
 
                 out << param.objectSize.first << " " <<  param.objectSize.second << endl;
                 cg.resize( 3 );
-                for( int i = 0; i < 3; i++ ){
+                for( int i = 0; i < 3; i++ ) {
 
                     out << cg[i].x << " " << cg[i].y<< " " << cg[i].z << endl;
                 }
@@ -278,11 +283,11 @@ void CRForestTraining::extract_Pixels( rawData& data , const Parameters &p, CRPi
                 // Load mask image
                 filename = vFilenames[ l ][ i ];
                 //filename.replace( size_of_string - 4, 15, "_filleddepth.png" );
-                filename.replace( size_of_string - 4, 15, "_mask.png" );
+                filename.replace( size_of_string - 4, 8, "_mask.png" );
 
                 cv::Mat maskImg = cv::Mat::ones( img.rows, img.cols, CV_8UC1 );
 
-                if( p.class_structure[ l ] != 0 ){
+                if( p.class_structure[ l ] != 0 ) {
 
                     maskImg = cv::imread( ( p.trainclasspath + "/" + filename ).c_str(),CV_LOAD_IMAGE_ANYDEPTH );
 
@@ -293,7 +298,7 @@ void CRForestTraining::extract_Pixels( rawData& data , const Parameters &p, CRPi
 
                     // write switch and find pitchIndex
 
-                    switch ( int( pitch ) ){
+                    switch ( int( pitch ) ) {
                     case 23:
                         pitchIndex = 0;
                         break;
@@ -314,7 +319,7 @@ void CRForestTraining::extract_Pixels( rawData& data , const Parameters &p, CRPi
 
                     Train.extractPixels( p, img, depthImg, maskImg, p.samples_pixel_pos, l, i, &vBBox[ l ][ i ], &vCenter[ l ][ i ], &cg[ pitchIndex ] , &bbSize , &transformationMatrixOC );
 
-                }else{
+                } else {
 
                     cv::Point3f cg_(0.f,0.f,0.f);
                     cv::Point3f bbSize_(0.f,0.f,0.f);
@@ -323,22 +328,24 @@ void CRForestTraining::extract_Pixels( rawData& data , const Parameters &p, CRPi
                     Train.extractPixels( p, img, depthImg, maskImg, p.samples_pixel_neg, l, i , &vBBox[ l ][ i ], &vCenter[ l ][ i ], &cg_ , &bbSize_ , &transformationMatrixOC  );
                 }
             }
-        }cout << endl;
-    }cout << endl;
+        }
+        cout << endl;
+    }
+    cout << endl;
 }
 
-void CRForestTraining::generateNewImage( cv::Mat &mask, cv::Mat &img, cv::Mat &newImg ){
+void CRForestTraining::generateNewImage( cv::Mat &mask, cv::Mat &img, cv::Mat &newImg ) {
 
     img.copyTo(newImg);
 
     cv::RNG rng( cv::getTickCount() );
 
-    for(int r = 0; r < img.rows; r++){
-        for(int c = 0; c < img.cols; c++ ){
+    for(int r = 0; r < img.rows; r++) {
+        for(int c = 0; c < img.cols; c++ ) {
 
             if(mask.at<unsigned char>(r,c) > 0)
                 continue;
-            else{
+            else {
 
                 int red = rng.operator()(256);
                 int green = rng.operator()(256);
@@ -354,7 +361,7 @@ void CRForestTraining::generateNewImage( cv::Mat &mask, cv::Mat &img, cv::Mat &n
     }
 }
 
-void CRForestTraining::generateTrainingImage( cv::Mat &rgbImage, cv::Mat &depthImage ){
+void CRForestTraining::generateTrainingImage( cv::Mat &rgbImage, cv::Mat &depthImage ) {
 
     std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > planePoints ;
     Plane table_plane ;
@@ -378,8 +385,8 @@ void CRForestTraining::generateTrainingImage( cv::Mat &rgbImage, cv::Mat &depthI
     selectPlane( rgbImage, cloud, referenceTransform, planePoints, table_plane ) ;
 
     // for each pixel generate ray and find intersection with plane
-    for( int x = 0; x < rgbImage.cols; x++ ){
-        for( int y = 0; y < rgbImage.rows; y++ ){
+    for( int x = 0; x < rgbImage.cols; x++ ) {
+        for( int y = 0; y < rgbImage.rows; y++ ) {
 
 
             pcl::PointXYZRGB  &p = cloud->at(x,y);
@@ -390,7 +397,7 @@ void CRForestTraining::generateTrainingImage( cv::Mat &rgbImage, cv::Mat &depthI
             getLinePlaneIntersection(ray, table_plane, ptIntersection);
 
             // check if point of intersection is closer to camera then the actual point
-            if(ptIntersection[2] <= p.z){
+            if(ptIntersection[2] <= p.z) {
 
                 p.x = ptIntersection[0];
                 p.y = ptIntersection[1];
@@ -412,7 +419,7 @@ void CRForestTraining::generateTrainingImage( cv::Mat &rgbImage, cv::Mat &depthI
     viewer->addPointCloud<pcl::PointXYZRGB> (cloud, cloud_rgb, "changed cloud");
     viewer->addCoordinateSystem( 0.1, 0.f, 0.f, 0.f, 0.f );
 
-    while (!viewer->wasStopped ()){
+    while (!viewer->wasStopped ()) {
 
         viewer->spinOnce (100);
         boost::this_thread::sleep (boost::posix_time::microseconds (100000));

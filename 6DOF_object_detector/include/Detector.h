@@ -20,13 +20,15 @@
 struct XYZIndex {
     int val;
     unsigned int index;
-    bool operator<(const XYZIndex& a) const { return val<a.val; }
+    bool operator<(const XYZIndex& a) const {
+        return val<a.val;
+    }
 };
 
 class CRForestDetector {
 public:
     // Constructor
-    CRForestDetector(const CRForest* pRF, int w, int h, double s_points=-1.0 ,double s_forest=-1.0, bool bpr = true) : crForest(pRF), width(w), height(h), sample_points(s_points),do_bpr(bpr){
+    CRForestDetector(const CRForest* pRF, int w, int h, double s_points=-1.0 ,double s_forest=-1.0, bool bpr = true) : crForest(pRF), width(w), height(h), sample_points(s_points),do_bpr(bpr) {
         crForest->GetClassID(Class_id);
     }
 
@@ -52,7 +54,7 @@ private:
 
     void detectCenterPeaks(std::vector<Candidate >& candidates, const std::vector<std::vector<cv::Mat> >& imgDetect, const std::vector<cv::Mat>& vImgAssign, const std::vector< std::vector< std::vector< std::vector<std::vector< std::pair< cv::Point, int > > > > > >& voterImages, const  cv::Mat& depthImg, const cv::Mat& img, const Parameters& param, int this_class);
 
-    void voteForPose(const cv::Mat img, const std::vector< std::vector< std::vector< std::vector<std::vector< std::pair< cv::Point, int > > > > > >& voterImages, const std::vector<cv::Mat>& vImgAssign, const std::vector<std::vector<cv::Mat> >& vImgDetect, std::vector<Candidate>& candidates, const vector<cv::Mat>& vImg, const pcl::PointCloud<pcl::Normal>::Ptr& normals, const int kernel_width, const std::vector<float>&scales, const float thresh, const bool DEBUG, const bool addPoseScore);
+    void voteForPose(const cv::Mat img, const cv::Mat depthImg, const vector< vector< vector< vector< vector< std::pair< cv::Point, int > > > > > >& voterImages, const vector< cv::Mat >& vImgAssign, const vector< vector< cv::Mat > >& vImgDetect, vector< Candidate >& candidates, const vector< cv::Mat >& vImg, const pcl::PointCloud< pcl::Normal >::Ptr& normals, const int kernel_width, const std::vector< float >& scales, const float thresh, const bool DEBUG, const bool addPoseScore);
 
     void detectPosePeaks(vector< cv::Mat > &positiveAcc, vector< cv::Mat> &negativeAcc, Eigen::Matrix3d &positiveFinalOC, Eigen::Matrix3d &negativeFinalOC);
 
@@ -74,9 +76,15 @@ private:
 
 public:
     // Get/Set functions
-    unsigned int GetNumLabels() const { return crForest->GetNumLabels(); }
-    void GetClassID(std::vector<std::vector<int> >& v_class_ids){ crForest->GetClassID( v_class_ids ); }
-    const CRForest* GetCRForest(){return crForest;}
+    unsigned int GetNumLabels() const {
+        return crForest->GetNumLabels();
+    }
+    void GetClassID(std::vector<std::vector<int> >& v_class_ids) {
+        crForest->GetClassID( v_class_ids );
+    }
+    const CRForest* GetCRForest() {
+        return crForest;
+    }
 
     //private variables
 private:

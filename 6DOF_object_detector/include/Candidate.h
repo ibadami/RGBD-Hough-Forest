@@ -27,16 +27,16 @@
 /****     CLASS Candidate        ****/
 /************************************/
 //
-class Candidate{
+class Candidate {
 public:
     // class constructors
-    Candidate(){
+    Candidate() {
 
         weight = -1.f;
 
     }
     Candidate(const CRForest* crForest, cv::Mat img, std::vector<float> candidate, int id, bool do_bpr=true);
-    ~Candidate(){}
+    ~Candidate() {}
 
 
 public:
@@ -46,12 +46,12 @@ public:
 
     void getBBfromBpr(int thresh=2, bool do_sym=false);
 
-    void print(char* prefix){
-        // saving the backprojection mask
-        if(bpr) save_bp( prefix);
-    }
+//     void print(char* prefix){
+//         // saving the backprojection mask
+//         if(bpr) save_bp( prefix);
+//     }
 
-    void read(char* prefix){}
+    void read(char* prefix) {}
 
 private:
     void save_bp(char* prefix);
@@ -61,13 +61,13 @@ public:
     cv::Point2f center;
     float scale;
     int c;//class
-    int r;//ratio
-    int n_trees;
-    int n_classes;
-    cv::Point3f bbSize;
+//     int r;//ratio
+//     int n_trees;
+//     int n_classes;
+//     cv::Point3f bbSize;
     Eigen::Matrix4d coordinateSystem;
-    int id;// candidate ID
-    bool bpr; // if the backprojection is held
+//     int id;// candidate ID
+//     bool bpr; // if the backprojection is held
 
 public:
     cv::Rect bb; // bounding box structure

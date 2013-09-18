@@ -9,7 +9,7 @@
 #include "Pixel.h"
 
 
-struct rawData{
+struct rawData {
 
     vector<vector<string> > vFilenames;
     vector<vector<CvRect> > vBBox;

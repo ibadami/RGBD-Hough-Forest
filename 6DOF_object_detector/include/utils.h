@@ -26,20 +26,25 @@ struct Line {
 struct Plane {
     Eigen::Vector4d coefficients;
     Eigen::Vector3d point;
-    Eigen::Vector3d getNormal(){
+    Eigen::Vector3d getNormal() {
         Eigen::Vector3d normal = Eigen::Vector3d(coefficients[0], coefficients[1], coefficients[2]);
         return normal;
     }
 
 };
 
-struct BoundingBoxXYZ{
+struct BoundingBoxXYZ {
 
     float x,y,z;
     float height, width, depth;
 
-    cv::Point3f getCenter(){ cv::Point3f center(x + width/2.f, y + height/2.f, z + depth/2.f); return center;}
-    cv::Point3f getDimention(){return cv::Point3f(width, height, depth);}
+    cv::Point3f getCenter() {
+        cv::Point3f center(x + width/2.f, y + height/2.f, z + depth/2.f);
+        return center;
+    }
+    cv::Point3f getDimention() {
+        return cv::Point3f(width, height, depth);
+    }
 };
 
 
@@ -82,8 +87,7 @@ void selectConvexHull( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::Point
 
 void selectPlane( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud, Eigen::Matrix4d& referenceTransform, std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > &convexHull_, Plane &table_plane ) ;
 
-void getObjectPointCloud( const pcl::PointCloud< pcl::PointXYZRGB >::ConstPtr& cloud, float minHeight, float maxHeight,
-                          std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > convexHull, Plane &table_plane, Eigen::Vector3d turnTable_center, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &objectCloud  ) ;
+void getObjectPointCloud( const pcl::PointCloud< pcl::PointXYZRGB >::ConstPtr& cloud, float minHeight, float maxHeight, std::vector< Eigen::Vector3d, Eigen::aligned_allocator< Eigen::Vector3d > > convexHull, Plane &table_plane, Eigen::Vector3d turnTable_center, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &objectCloud  ) ;
 
 Eigen::Vector3d getTurnTableCenter( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRGB >::Ptr& cloud, Eigen::Matrix4d& referenceTransform, Plane &table_plane ) ;
 

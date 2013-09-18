@@ -27,14 +27,26 @@ public:
     }
 
     // Set/Get functions
-    void SetTrees(int n) {vTrees.resize(n);}
-    int GetSize() const {return vTrees.size();}
-    unsigned int GetDepth() const {return vTrees[0]->GetDepth();}
-    unsigned int GetNumLabels() const {return vTrees[0]->GetNumLabels();}
+    void SetTrees(int n) {
+        vTrees.resize(n);
+    }
+    int GetSize() const {
+        return vTrees.size();
+    }
+    unsigned int GetDepth() const {
+        return vTrees[0]->GetDepth();
+    }
+    unsigned int GetNumLabels() const {
+        return vTrees[0]->GetNumLabels();
+    }
     void GetClassID(std::vector<std::vector<int> >& id) const;
-    LeafNode* getLeaf(int treeId, int leafId) const {return vTrees[treeId]->getLeaf(leafId);}
-    InternalNode* getNode(int treeId, int nodeId) const {return vTrees[treeId]->getNode(nodeId);}
-    bool GetHierarchy(std::vector<HNode>& hierarchy) const{
+    LeafNode* getLeaf(int treeId, int leafId) const {
+        return vTrees[treeId]->getLeaf(leafId);
+    }
+    InternalNode* getNode(int treeId, int nodeId) const {
+        return vTrees[treeId]->getNode(nodeId);
+    }
+    bool GetHierarchy(std::vector<HNode>& hierarchy) const {
         return vTrees[0]->GetHierarchy(hierarchy);
     }
     void SetTrainingLabelsForDetection(std::vector<int>& class_selector);
@@ -91,18 +103,18 @@ trainForest(const Parameters& p, rawData& data, int min_s,  int samples ) {
     // Extract training patches
     CRForestTraining::extract_Pixels( data, p, TrData, &pRNG);
 
-#pragma omp parallel for
+    #pragma omp parallel for
 
-    for( int i = p.off_tree; i < ( int )vTrees.size(); ++i ){
+    for( int i = p.off_tree; i < ( int )vTrees.size(); ++i ) {
 
         std::vector<std::vector< int > > numbers( TrData.vRPixels.size() );
-       
+
         for(int class_ = 0 ; class_ < TrData.vRPixels.size() ; class_++) {
             numbers[class_].reserve(TrData.vRPixels[class_].size());
             for( int j = 0; j < TrData.vRPixels[class_].size(); j++ ) {
                 numbers[class_].push_back(j);
             }
-            
+
             // shuffle and take a subset of the pixels
             std::random_shuffle ( numbers[class_].begin(), numbers[class_].end() );
             numbers[class_].resize(static_cast<size_t>(0.50*static_cast<double>(numbers[class_].size())));
@@ -122,13 +134,13 @@ trainForest(const Parameters& p, rawData& data, int min_s,  int samples ) {
         delete Trees;
 
     }
-    
-    for(vector< std::vector< PixelFeature* > >::iterator train = TrData.vRPixels.begin(); train!=TrData.vRPixels.end(); train++){
-        for(std::vector< PixelFeature* >::iterator feature = train->begin(); feature!=train->end(); feature++){
-            
+
+    for(vector< std::vector< PixelFeature* > >::iterator train = TrData.vRPixels.begin(); train!=TrData.vRPixels.end(); train++) {
+        for(std::vector< PixelFeature* >::iterator feature = train->begin(); feature!=train->end(); feature++) {
+
             delete *feature;
-        }      
-    }   
+        }
+    }
 }
 
 // IO Functions
@@ -147,7 +159,7 @@ inline bool CRForest::loadForest( string filename, unsigned int offset ) {
 //     bool success = true;
     vector<bool>success(vTrees.size());
 
-#pragma omp parallel for private(buffer)
+    #pragma omp parallel for private(buffer)
     for(unsigned int i = offset; i < vTrees.size(); ++i ) {
         sprintf_s( buffer, "%s%03d.txt", (filename + "/treetable").c_str(), i );
         bool s;
@@ -157,19 +169,19 @@ inline bool CRForest::loadForest( string filename, unsigned int offset ) {
     }
 
     for(int i = 0; i < vTrees.size(); i++ )
-        if(success[i]!=true)
+        if( success[ i ] != true )
             final_success = false;
     return final_success;
 //        return success;
 }
 
-inline void CRForest::loadHierarchy(const char* hierarchy, unsigned int offset){
+inline void CRForest::loadHierarchy(const char* hierarchy, unsigned int offset) {
     //char buffer[400];
     int cccc =0;
-    for (unsigned int i = offset; i < vTrees.size(); ++i,++cccc){
-        if(!(vTrees[cccc]->loadHierarchy(hierarchy))){
+    for (unsigned int i = offset; i < vTrees.size(); ++i,++cccc) {
+        if(!(vTrees[cccc]->loadHierarchy(hierarchy))) {
             std::cerr<< "failed to load the hierarchy: " << hierarchy << std::endl;
-        }else{
+        } else {
             std::cout<< "loaded the hierarchy: " << hierarchy << std::endl;
         }
     }
@@ -183,30 +195,30 @@ inline void CRForest::GetClassID( std::vector< std::vector< int > >& id ) const 
     }
 }
 
-inline void CRForest::SetTrainingLabelsForDetection(std::vector<int>& class_selector){
+inline void CRForest::SetTrainingLabelsForDetection(std::vector<int>& class_selector) {
     int nlabels = GetNumLabels();
-    if (class_selector.size() == 1 && class_selector[0]==-1){
+    if (class_selector.size() == 1 && class_selector[0]==-1) {
         use_labels.resize(nlabels);
         std::cout<< nlabels << " labels used for detections:" << std::endl;
-        for ( int i=0; i < nlabels; i++){
+        for ( int i=0; i < nlabels; i++) {
             use_labels[i] = 1;
 
         }
-    }else{
-        if ((unsigned int)(nlabels)!= class_selector.size()){
+    } else {
+        if ((unsigned int)(nlabels)!= class_selector.size()) {
             std::cerr<< "nlabels: " << nlabels << " class_selector.size(): " << class_selector.size() << std::endl;
             std::cerr<< "CRForest.h: the number of labels does not match the number of elements in the class_selector" << std::endl;
             return;
         }
         use_labels.resize(class_selector.size());
-        for (unsigned int i=0; i< class_selector.size(); i++){
+        for (unsigned int i=0; i< class_selector.size(); i++) {
             use_labels[i] = class_selector[i];
         }
     }
 
 }
 
-inline void CRForest::GetTrainingLabelsForDetection(std::vector<int>& class_selector){
+inline void CRForest::GetTrainingLabelsForDetection(std::vector<int>& class_selector) {
     class_selector.resize(use_labels.size());
     for (unsigned int i=0; i< use_labels.size(); i++)
         class_selector[i] = use_labels[i];

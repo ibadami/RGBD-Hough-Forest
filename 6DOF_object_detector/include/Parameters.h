@@ -161,7 +161,7 @@ struct Parameters{
     // Path to bounding box
     string bbpath;
 
-    cv::Point3f bbSize;
+    std::vector<cv::Point3f> vbbSize;
 
 
 

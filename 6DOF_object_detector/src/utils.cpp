@@ -12,7 +12,7 @@ void onMouse( int event, int x, int y, int flags, void* userdata ) {
 }
 
 // save floating point images
-void saveFloatImage( char* buffer , IplImage* img){
+void saveFloatImage( char* buffer , IplImage* img) {
     std::ofstream fp_out;
     fp_out.open(buffer);
 
@@ -27,8 +27,8 @@ void saveFloatImage( char* buffer , IplImage* img){
     cvGetRawData( img, (uchar**)&(rawData), &stepData);
     stepData /= sizeof(rawData[0]);
 
-    for (int cy = 0; cy < img->height; cy++){
-        for (int cx = 0; cx < img->width; cx++){
+    for (int cy = 0; cy < img->height; cy++) {
+        for (int cx = 0; cx < img->width; cx++) {
             x = *(rawData + cx + cy*stepData);
             fp_out.write(reinterpret_cast<char *>(&x),sizeof(float));
         }
@@ -37,16 +37,16 @@ void saveFloatImage( char* buffer , IplImage* img){
     fp_out.close();
 }
 
-bool isInsideRect(cv::Rect* rect, int x, int y){
+bool isInsideRect(cv::Rect* rect, int x, int y) {
 
-    if (x > rect->x && x < rect->x + rect->width && y > rect->y && y < rect->y + rect->height){
+    if (x > rect->x && x < rect->x + rect->width && y > rect->y && y < rect->y + rect->height) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
-bool isInsideKernel2D(float x, float y, float cx, float cy , float radius){
+bool isInsideKernel2D(float x, float y, float cx, float cy , float radius) {
 
     float sum = (x-cx)*(x-cx) + (y-cy)*(y-cy);
 
@@ -57,20 +57,20 @@ bool isInsideKernel2D(float x, float y, float cx, float cy , float radius){
 }
 
 // Calculate PCA over mask
-void calcPCA(cv::Mat &img_mask, cv::Point2f &meanPoint, cv::Size2f &dimension, float &rotAngle){
+void calcPCA(cv::Mat &img_mask, cv::Point2f &meanPoint, cv::Size2f &dimension, float &rotAngle) {
     //generate 2 x 1 data matrix containing (x,y) coordinates of mask image
     std::vector<cv::Point2f> dataVector;
     dataVector.reserve(30000);
-    for(int y = 0; y < img_mask.rows; y++){
-        for(int x = 0; x< img_mask.cols;x++){
-            if(img_mask.at<unsigned char>(y,x) > 0){
+    for(int y = 0; y < img_mask.rows; y++) {
+        for(int x = 0; x< img_mask.cols; x++) {
+            if(img_mask.at<unsigned char>(y,x) > 0) {
                 dataVector.push_back(cv::Point2f(x,y));
             }
         }
     }
 
     cv::Mat data = cv::Mat(2, dataVector.size(), CV_32FC1);
-    for(int k = 0; k < dataVector.size();k++){
+    for(int k = 0; k < dataVector.size(); k++) {
         data.at<float>(0,k) = dataVector[k].x;
         data.at<float>(1,k) = dataVector[k].y;
     }
@@ -112,7 +112,7 @@ void calcPCA(cv::Mat &img_mask, cv::Point2f &meanPoint, cv::Size2f &dimension, f
 
     cv::Mat projectedMask = cv::Mat::zeros(img_mask.rows, img_mask.cols, CV_8UC1);
 
-    for(int s = 0; s< projectedData.cols; s++){
+    for(int s = 0; s< projectedData.cols; s++) {
         projectedMask.at<unsigned char>( projectedData.at<float>(1,s) + mean.at<float>(1), projectedData.at<float>(0,s) + mean.at<float>(0) ) = 255;
 
     }
@@ -123,12 +123,15 @@ void calcPCA(cv::Mat &img_mask, cv::Point2f &meanPoint, cv::Size2f &dimension, f
     //    cv::RotatedRect PCARect(cv::Point2f(cx,cy),cv::Size2f(lx,ly), rotAngle*180/M_PI);
 }
 
-Eigen::Matrix3d quaternionToMatrix(Eigen::Quaterniond &q){
+Eigen::Matrix3d quaternionToMatrix(Eigen::Quaterniond &q) {
 
     Eigen::Matrix3d rotationMatrix;
     rotationMatrix.setIdentity();
     float x,y,z,w;
-    x = q.coeffs()[0]; y = q.coeffs()[1]; z = q.coeffs()[2]; w = q.coeffs()[3];
+    x = q.coeffs()[0];
+    y = q.coeffs()[1];
+    z = q.coeffs()[2];
+    w = q.coeffs()[3];
 
     /*rotationMatrix[0][0] = w*w+x*x-y*y-z*z;
     rotationMatrix.*/
@@ -157,7 +160,7 @@ Eigen::Matrix3d quaternionToMatrix(Eigen::Quaterniond &q){
 }
 
 // generalized quaternion interpolation
-Eigen::Quaterniond quatInterp(const std::vector<Eigen::Quaterniond>& rotation){
+Eigen::Quaterniond quatInterp(const std::vector<Eigen::Quaterniond>& rotation) {
 
     const double invSamples = 1.0 / ((double)rotation.size());
     const int maxIterations = 1;
@@ -491,7 +494,7 @@ void selectPlane( const cv::Mat& img_rgb, const pcl::PointCloud< pcl::PointXYZRG
     if( convexHull_.size() < 3 ) {
         std::cout << "Plane requires more than 3 points\n";
 
-    }else {
+    } else {
 
         // find normal
         Eigen::Vector3d p0 = convexHull_[ 0 ];
@@ -564,7 +567,7 @@ void getObjectPointCloud( const pcl::PointCloud< pcl::PointXYZRGB >::ConstPtr& c
     pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> subcloud_rgb(subcloud);
 
 
-    if(0){
+    if(0) {
         // visualize
         boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
         viewer->setBackgroundColor(1,1,1);
@@ -572,7 +575,7 @@ void getObjectPointCloud( const pcl::PointCloud< pcl::PointXYZRGB >::ConstPtr& c
         viewer->addPointCloud<pcl::PointXYZRGB> (subcloud, subcloud_rgb, "clipped cloud");
         viewer->addCoordinateSystem(0.1, 0.f, 0.f, 0.f, 0.f);
 //        viewer->addLine( O, X, 255, 0, 0, "center" );
-        while (!viewer->wasStopped ()){
+        while (!viewer->wasStopped ()) {
             viewer->spinOnce (100);
             boost::this_thread::sleep (boost::posix_time::microseconds (100000));
         }
@@ -586,7 +589,7 @@ void getObjectPointCloud( const pcl::PointCloud< pcl::PointXYZRGB >::ConstPtr& c
 
     clipped_cloud->reserve(subcloud->size());
 
-    for( int i = 0; i< subcloud->size(); i++){
+    for( int i = 0; i< subcloud->size(); i++) {
 
         Eigen::Vector4d p;
         p[ 0 ] = subcloud->at( i ).x;
@@ -615,7 +618,7 @@ void getObjectPointCloud( const pcl::PointCloud< pcl::PointXYZRGB >::ConstPtr& c
 
     objectCloud = clipped_cloud;
 
-    if(0){
+    if(0) {
         // visualize
         boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
         viewer->setBackgroundColor(1,1,1);
@@ -623,7 +626,7 @@ void getObjectPointCloud( const pcl::PointCloud< pcl::PointXYZRGB >::ConstPtr& c
         viewer->addPointCloud<pcl::PointXYZRGB> (clipped_cloud, clipped_rgb, "clipped cloud");
         viewer->addCoordinateSystem(0.1, 0.f, 0.f, 0.f, 0.f);
 //        viewer->addLine( O, X, 255, 0, 0, "center" );
-        while (!viewer->wasStopped ()){
+        while (!viewer->wasStopped ()) {
             viewer->spinOnce (100);
             boost::this_thread::sleep (boost::posix_time::microseconds (100000));
         }
@@ -806,7 +809,7 @@ Eigen::Vector3d getTurnTableCenter( const cv::Mat& img_rgb, const pcl::PointClou
 
 }
 
-void printScore(cv::Mat &img, string &objectName, float score, cv::Point2f &pt, bool print_score ){
+void printScore(cv::Mat &img, string &objectName, float score, cv::Point2f &pt, bool print_score ) {
 
     // Text variables
 
@@ -822,7 +825,7 @@ void printScore(cv::Mat &img, string &objectName, float score, cv::Point2f &pt, 
 
 }
 
-void get3DBoundingBox(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &cloud,  std::vector< Eigen::Matrix4d, Eigen::aligned_allocator<Eigen::Matrix4d> >& transformationMatrixOC, std::vector< cv::Point3f> &cg, cv::Point3f &bbSize){
+void get3DBoundingBox(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &cloud,  std::vector< Eigen::Matrix4d, Eigen::aligned_allocator<Eigen::Matrix4d> >& transformationMatrixOC, std::vector< cv::Point3f> &cg, cv::Point3f &bbSize) {
 
     // downsampling using voxel grid
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZRGB>);
@@ -846,7 +849,7 @@ void get3DBoundingBox(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &cloud,  std::vecto
     pcl::getMinMax3D (*cloud_cluster, min_pt, max_pt);
 
     // debug
-    if(0){
+    if(0) {
 
         // draw bounding box
         boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
@@ -854,7 +857,7 @@ void get3DBoundingBox(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &cloud,  std::vecto
         viewer->addPointCloud<pcl::PointXYZRGB> (cloud_cluster, cloud_cluster_rgb, "clipped cloud");
         viewer->addCoordinateSystem( 0.1, 0.f, 0.f, 0.f, 0.f );
         viewer->addCube( min_pt.x, max_pt.x, min_pt.y, max_pt.y, min_pt.z, max_pt.z, 1.f, 0.f,0.f);
-        while (!viewer->wasStopped ()){
+        while (!viewer->wasStopped ()) {
 
             viewer->spinOnce (100);
             boost::this_thread::sleep (boost::posix_time::microseconds (100000));
@@ -929,7 +932,7 @@ void get3DBoundingBox(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &cloud,  std::vecto
 
 }
 
-void create3DBB(cv::Point3f &bbSize, Eigen::Matrix4d &transformationMatrixOC , cv::Size2f &img_size, std::vector< cv::Point2f > &imagePoints){
+void create3DBB(cv::Point3f &bbSize, Eigen::Matrix4d &transformationMatrixOC , cv::Size2f &img_size, std::vector< cv::Point2f > &imagePoints) {
 
     float w = bbSize.x/2.f;
     float h = bbSize.y/2.f;
@@ -996,7 +999,7 @@ void create3DBB(cv::Point3f &bbSize, Eigen::Matrix4d &transformationMatrixOC , c
 
 }
 
-void createWireFrame (cv::Mat &img, std::vector<cv::Point2f> &vertices){
+void createWireFrame (cv::Mat &img, std::vector<cv::Point2f> &vertices) {
 
     // draw lines on image
     cv::line(img, vertices[0], vertices[1], CV_RGB(255, 0, 0), 2, 8, 0);
@@ -1018,14 +1021,14 @@ void createWireFrame (cv::Mat &img, std::vector<cv::Point2f> &vertices){
 
 }
 
-void getLine( pcl::PointXYZRGB &p, Line &line){
+void getLine( pcl::PointXYZRGB &p, Line &line) {
 
     line.point = Eigen::Vector3d(0.f, 0.f, 0.f);
     line.direction = Eigen::Vector3d(p.x,p.y,p.z) - line.point;
     line.direction.normalize();
 }
 
-void getLinePlaneIntersection(Line &line, Plane &plane, Eigen::Vector3d &ptIntersection){
+void getLinePlaneIntersection(Line &line, Plane &plane, Eigen::Vector3d &ptIntersection) {
 
     Eigen::Vector3d Po = plane.point;
     Eigen::Vector3d Lo = line.point;

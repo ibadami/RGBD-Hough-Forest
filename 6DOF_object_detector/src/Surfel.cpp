@@ -128,7 +128,7 @@ void Surfel::imagesToPointCloud_( cv::Mat& depthImg, cv::Mat& colorImg, pcl::Poi
     for ( int y = 0; y < colorImg.rows; y++ ) {
         for ( int x = 0; x < colorImg.cols; x++ ) {
 
-            if( mask.at<unsigned char>(y,x) > 0 ){
+            if( mask.at<unsigned char>(y,x) > 0 ) {
 
                 pcl::PointXYZRGB& p = cloud->points[ idx ];
 
@@ -224,7 +224,7 @@ void Surfel::houghPointCloud( std::vector< cv::Mat >& houghImg,  const std::vect
 
     float scaleInterval = ( scales[ scales.size() - 1 ] - scales[ 0 ]) / float( scales.size() - 1 );
 
-    for ( unsigned int scNr = 0; scNr < houghImg.size(); scNr++ ){
+    for ( unsigned int scNr = 0; scNr < houghImg.size(); scNr++ ) {
 
         cv::Mat tmp;
         cv::convertScaleAbs( houghImg[ scNr ], tmp, 255.f/(maxValue - minValue), -minValue );
@@ -238,7 +238,7 @@ void Surfel::houghPointCloud( std::vector< cv::Mat >& houghImg,  const std::vect
 
                 uint8_t weight =  tmp.at<uint8_t>( y, x  );
 
-                if(y == 0 || x == 0 || y == tmp.rows-1 || x == tmp.cols-1 || weight > 25 ){
+                if(y == 0 || x == 0 || y == tmp.rows-1 || x == tmp.cols-1 || weight > 25 ) {
                     pcl::PointXYZRGB p;
 
                     p.x = ( x - centerX ) * dist * invfocalLength;
@@ -268,7 +268,7 @@ void Surfel::houghPointCloud( std::vector< cv::Mat >& houghImg,  const std::vect
     }
 }
 
-void Surfel::computeSurfel(pcl::PointCloud<pcl::Normal>::Ptr normals, cv::Point2f pt1, cv::Point2f pt2, cv::Point2f center, SurfelFeature &sf, float depth1, float depth2){
+void Surfel::computeSurfel(pcl::PointCloud<pcl::Normal>::Ptr normals, cv::Point2f pt1, cv::Point2f pt2, cv::Point2f center, SurfelFeature &sf, float depth1, float depth2) {
 
     pcl::Normal n1 = normals->at(pt1.x, pt1.y);
     pcl::Normal n2 = normals->at(pt2.x, pt2.y);
@@ -295,7 +295,7 @@ void Surfel::computeSurfel(pcl::PointCloud<pcl::Normal>::Ptr normals, cv::Point2
 }
 
 
-void Surfel::calcSurfel2CameraTransformation(cv::Point3f& s1, cv::Point3f& s2, pcl::Normal& n1, pcl::Normal& n2, Eigen::Matrix4d& TransformationSC1, Eigen::Matrix4d& TransformationSC2){
+void Surfel::calcSurfel2CameraTransformation(cv::Point3f& s1, cv::Point3f& s2, pcl::Normal& n1, pcl::Normal& n2, Eigen::Matrix4d& TransformationSC1, Eigen::Matrix4d& TransformationSC2) {
 
     cv::Point3f distance = s1 - s2;
     Eigen::Vector3d t1(s1.x,s1.y,s1.z);
@@ -306,7 +306,8 @@ void Surfel::calcSurfel2CameraTransformation(cv::Point3f& s1, cv::Point3f& s2, p
     // First coordinate system
     TransformationSC1                 = Eigen::Matrix4d::Identity();
 
-    Eigen::Vector3d normal1           = n1.getNormalVector3fMap().cast<double>();   normal1.normalize();
+    Eigen::Vector3d normal1           = n1.getNormalVector3fMap().cast<double>();
+    normal1.normalize();
     Eigen::Vector3d u1                = normal1.cross(dis);
     u1.normalize();
     Eigen::Vector3d v1                = normal1.cross(u1);
@@ -328,7 +329,8 @@ void Surfel::calcSurfel2CameraTransformation(cv::Point3f& s1, cv::Point3f& s2, p
 
     TransformationSC2                 = Eigen::Matrix4d::Identity();
 
-    Eigen::Vector3d normal2           = n2.getNormalVector3fMap().cast<double>();    normal2.normalize();
+    Eigen::Vector3d normal2           = n2.getNormalVector3fMap().cast<double>();
+    normal2.normalize();
     Eigen::Vector3d u2                = normal2.cross(dis);
     u2.normalize();
     Eigen::Vector3d v2                = normal2.cross(u2);
@@ -348,7 +350,7 @@ void Surfel::calcSurfel2CameraTransformation(cv::Point3f& s1, cv::Point3f& s2, p
 }
 
 
-void  Surfel::addCoordinateSystem( Eigen::Matrix4d& transformationMatrixOC, boost::shared_ptr< pcl::visualization::PCLVisualizer >& viewer, string id){
+void  Surfel::addCoordinateSystem( Eigen::Matrix4d& transformationMatrixOC, boost::shared_ptr< pcl::visualization::PCLVisualizer >& viewer, string id) {
 
     //visualize coordinates in object frame
     pcl::Normal OX(transformationMatrixOC.matrix()(0,0), transformationMatrixOC.matrix()(1,0), transformationMatrixOC.matrix()(2,0));
@@ -367,7 +369,7 @@ void  Surfel::addCoordinateSystem( Eigen::Matrix4d& transformationMatrixOC, boos
 
 }
 
-void Surfel::addCoordinateSystem(const Eigen::Matrix4d& transformationMatrixOC, boost::shared_ptr< pcl::visualization::PCLVisualizer >& viewer, string id){
+void Surfel::addCoordinateSystem(const Eigen::Matrix4d& transformationMatrixOC, boost::shared_ptr< pcl::visualization::PCLVisualizer >& viewer, string id) {
 
     Eigen::Matrix4d transformationMatrixOC1  =  transformationMatrixOC;
     addCoordinateSystem( transformationMatrixOC1, viewer, id);

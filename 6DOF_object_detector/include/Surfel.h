@@ -24,7 +24,7 @@
 #include "utils.h"
 //#include <pcl/console/parse.h>
 
-struct SurfelFeature{
+struct SurfelFeature {
     SurfelFeature() {}
 
     float fVector[4];

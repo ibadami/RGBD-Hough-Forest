@@ -14,7 +14,7 @@
 
 using namespace std;
 
-void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const cv::Mat& depthImg, const cv::Mat& maskImg, unsigned int n, int label, int imageID, CvRect* box, CvPoint* vCenter, cv::Point3f *cg, cv::Point3f *bbSize3D, Eigen::Matrix4d *transformationMatrixOC){
+void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const cv::Mat& depthImg, const cv::Mat& maskImg, unsigned int n, int label, int imageID, CvRect* box, CvPoint* vCenter, cv::Point3f *cg, cv::Point3f *bbSize3D, Eigen::Matrix4d *transformationMatrixOC) {
 
     // take a subset of image containing object in it using bounding box
 
@@ -25,7 +25,7 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
 
     // debug for depth image
 
-    if(0){
+    if(0) {
         cv::Mat temp(depthImg.rows, depthImg.cols,CV_32F);
         double minVal, maxVal;
         cv::minMaxLoc(depthImg, &minVal, &maxVal, 0, 0);
@@ -39,17 +39,19 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
     }
 
     // see bounding box
-    if( 0 ){
-        cv::Mat img_1;
+    cv::Mat img_1;
+    if( 0 ) {
+
         img.copyTo(img_1);
         cv::rectangle(img_1, cv::Rect(*box), CV_RGB(255, 0, 0), 3);
+        cv::circle(img_1, *vCenter, 2, CV_RGB(0,255,0), -1);
         cv::imshow("iChannel", img_1);
         cv::waitKey(0);
     }
 
     //debug feature channels
-    if( 0 ){
-        for( unsigned int c = 0; c < vImg.size(); ++c ){
+    if( 0 ) {
+        for( unsigned int c = 0; c < vImg.size(); ++c ) {
             imshow( "iChannel", vImg[ c ] );
             cv::waitKey( 0 );
         }
@@ -83,7 +85,7 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
 //        }
 //    }
 //    n = locations.size();
-    
+
     // reserve memory
     unsigned int offset = vRPixels[label].size();
     vRPixels[label].reserve(offset+n);
@@ -110,10 +112,10 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
             scalePt = (float)(1000.f/depthImg.at<unsigned short>(pt)); //scale is inverse of depth::depth value sampled pixel is in millimeter converted to meter
         pf->scale = scalePt;
 
-        if( bbSize3D != 0 )
-            pf->bbSize3D = *bbSize3D;
-        else
-            pf->bbSize3D = cv::Point3f (0.f,0.f,0.f);
+//         if( bbSize3D != 0 )
+//             pf->bbSize3D = *bbSize3D;
+//         else
+//             pf->bbSize3D = cv::Point3f (0.f,0.f,0.f);
 
 
         // save all the information below for object class only
@@ -134,15 +136,20 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
             pf->disVector = rPt - rObjCenter;
 
             pf->imgAppearance.resize(vImg.size());
-            pf->imgAppearance = vImg; 
+            pf->imgAppearance = vImg;
             pf->normals = normals;
             pf->transformationMatrixOC = *transformationMatrixOC;
 
+            CRPixel::calcObject2QueryPointTransformation(*pf);
+
+            if(pf->disTransformation.w()!=pf->disTransformation.w())
+                continue;
+
             if(0)
-                drawTransformation(img, depthImg, *transformationMatrixOC);
+                drawTransformation(img_1, depthImg, *transformationMatrixOC, pf->T_qC, rPt);
 
             // visualize 3D bounding box
-            if(0){
+            if(0) {
 
                 cv::Mat img_show;
                 img.copyTo(img_show);
@@ -151,27 +158,29 @@ void CRPixel::extractPixels(const Parameters& param, const cv::Mat& img, const c
                 create3DBB(*bbSize3D, *transformationMatrixOC, img_size, imagePoints);
                 createWireFrame(img_show,imagePoints);
                 cv::circle(img_show, objCenter, 2, CV_RGB(255, 0, 255), 2, 8, 0);
-                cv::imshow("img", img_show); cv::waitKey(0);
+                cv::imshow( " img ", img_show);
+                cv::waitKey(0);
             }
 
         }
 
-        vRPixels[label].push_back(pf);
-       
+        vRPixels[label].push_back( pf );
 
         // debug visualize randomly generated pixels
-        if( 0 ){
+        if( 0 ) {
             cv::Mat img_show;
             img.copyTo(img_show);
             cv::circle(img_show, pt, 1, CV_RGB( 255, 0, 0 ), 8, 8, 0);
             cv::circle(img_show, *vCenter, 1, CV_RGB( 0, 255, 0 ), 8, 8, 0);
             cv::line(img_show, pt, *vCenter, CV_RGB( 255, 0, 255 ), 2, 8, 0);
-            cv::imshow("img", img_show); cv::waitKey(0);
+            cv::imshow("img", img_show);
+            cv::waitKey(0);
         }
 
+
         // debug visualize assignment of channel pointers
-        if( 0 ){
-            for( unsigned int c = 0; c < vImg.size(); ++c ){
+        if( 0 ) {
+            for( unsigned int c = 0; c < vImg.size(); ++c ) {
                 cv::imshow( " debug ", pf->imgAppearance[ c ] );
                 cv::waitKey( 0 );
             }
@@ -194,7 +203,7 @@ void CRPixel::extractFeatureChannels(const Parameters& param, const cv::Mat& img
 
     // currently we are using the first 7 raw feature channel
     vImg.resize(total_channels);
-    for( unsigned int c = 0; c < total_channels; ++c ){
+    for( unsigned int c = 0; c < total_channels; ++c ) {
 
         vImg[ c ] = cv::Mat::zeros( img.rows, img.cols, CV_8UC1 );
 
@@ -234,14 +243,16 @@ void CRPixel::extractFeatureChannels(const Parameters& param, const cv::Mat& img
     for( unsigned int t = 0; t < Lab.size(); t++ )
         Lab[ t ] = cv::Mat(temp.rows, temp.cols, CV_8UC1);
     cv::split(temp, Lab);
-    Lab[ 0 ].copyTo( vImg[ 0 ]); Lab[ 1 ].copyTo( vImg[ 1 ]); Lab[ 2 ].copyTo(vImg[ 2 ] );
+    Lab[ 0 ].copyTo( vImg[ 0 ]);
+    Lab[ 1 ].copyTo( vImg[ 1 ]);
+    Lab[ 2 ].copyTo(vImg[ 2 ] );
 
     depthImg.copyTo( vImg[ 7 ] );
 
     // Compute Normals
     computeNormals(img, depthImg, normals );
 
-    if(param.addHoG){
+    if(param.addHoG) {
 
         // generate magnitude and orientation images out of I_x, I_y
 
@@ -249,8 +260,8 @@ void CRPixel::extractFeatureChannels(const Parameters& param, const cv::Mat& img
         cv::Mat Imag = cv::Mat(I_x.rows, I_x.cols, CV_32FC1);
 
         // direction
-        for(int r = 0; r < Iorient.rows; r++ ){
-            for(int c = 0; c < Iorient.cols; c++){
+        for(int r = 0; r < Iorient.rows; r++ ) {
+            for(int c = 0; c < Iorient.cols; c++) {
 
                 float tx = I_x.at<float>(r,c) + (float)_copysign(0.000001f, I_x.at<float>(r,c));
                 // Scaling [-pi/2 pi/2] -> [0 pi]
@@ -274,7 +285,7 @@ void CRPixel::extractFeatureChannels(const Parameters& param, const cv::Mat& img
 
     }
 
-    if(param.addMinMaxFilt){
+    if(param.addMinMaxFilt) {
 
         int ksize = 5;
 
@@ -284,7 +295,7 @@ void CRPixel::extractFeatureChannels(const Parameters& param, const cv::Mat& img
 
 }
 
-void CRPixel::computeNormals(const cv::Mat& img, const cv::Mat& depthImg, pcl::PointCloud<pcl::Normal>::Ptr& normals  ){
+void CRPixel::computeNormals(const cv::Mat& img, const cv::Mat& depthImg, pcl::PointCloud<pcl::Normal>::Ptr& normals  ) {
 
     // Initialize the cloud
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
@@ -305,18 +316,18 @@ void CRPixel::computeNormals(const cv::Mat& img, const cv::Mat& depthImg, pcl::P
     ne.compute(*normals);
 
     // debug visualize
-    if(0){
+    if(0) {
         boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
         viewer->addPointCloudNormals<pcl::PointXYZRGB, pcl::Normal>(cloud, normals, 10);
         viewer->addPointCloud<pcl::PointXYZRGB> (cloud, rgb, "sample cloud");
-        while (!viewer->wasStopped ()){
+        while (!viewer->wasStopped ()) {
             viewer->spinOnce (100);
             boost::this_thread::sleep (boost::posix_time::microseconds (100000));
         }
     }
 }
 
-void CRPixel::calcObject2CameraTransformation( float &pose, float &pitch, cv::Point3f &rObjCenter, Eigen::Matrix4d& transformationMatrixOC){
+void CRPixel::calcObject2CameraTransformation( float &pose, float &pitch, cv::Point3f &rObjCenter, Eigen::Matrix4d& transformationMatrixOC) {
 
     Eigen::Affine3f Rx,T, Rz;
 
@@ -327,8 +338,63 @@ void CRPixel::calcObject2CameraTransformation( float &pose, float &pitch, cv::Po
     transformationMatrixOC = T.matrix().cast<double>() * Rx.matrix().cast<double>() * Rz.matrix().cast<double>();
 }
 
-void CRPixel::drawTransformation(const cv::Mat& img, const cv::Mat& depthImg , const Eigen::Matrix4d &m_transformationMatrixOC){
 
+cv::Point3f CRPixel::P3toR3(cv::Point2f &pixelCoordinates, cv::Point2f &center, float depth) {
+
+    float focal_length = 525.f; // in pixel
+    cv::Point3f realCoordinates;
+    realCoordinates.z = depth; // in meter
+    realCoordinates.x = (pixelCoordinates.x - center.x)* depth / focal_length;
+    realCoordinates.y = (pixelCoordinates.y - center.y)* depth / focal_length;
+    return realCoordinates;
+}
+
+void CRPixel::R3toP3(cv::Point3f &realCoordinates, cv::Point2f &center, cv::Point2f &pixelCoordinates, float &depth) {
+    float focal_length = 525.f;
+    depth = realCoordinates.z;
+    if (depth == 0) {
+        pixelCoordinates.x = 0;
+        pixelCoordinates.y = 0;
+    } else {
+        pixelCoordinates.x = realCoordinates.x * focal_length / depth + center.x;
+        pixelCoordinates.y = realCoordinates.y * focal_length / depth + center.y;
+    }
+}
+
+Eigen::Matrix3d CRPixel::calcQueryPoint2CameraTransformation(cv::Point3f& real_coordinate, cv::Point3f& object_center, pcl::Normal p_n) {
+
+    cv::Point3f disVector = object_center - real_coordinate;
+    Eigen::Vector3d dis(disVector.x, disVector.y, disVector.z);
+    dis.normalize();
+
+    Eigen::Vector3d normal = p_n.getNormalVector3fMap().cast<double>();
+    normal.normalize();
+
+    Eigen::Vector3d u      = normal.cross(dis);
+    u.normalize();
+
+    Eigen::Vector3d v      = normal.cross(u);
+
+    // left-handed coordinate system
+    Eigen::Matrix3d transformationQueryC;
+    transformationQueryC.block<3,1>(0,0) = u;
+    transformationQueryC.block<3,1>(0,1) = v;
+    transformationQueryC.block<3,1>(0,2) = normal;
+
+    return transformationQueryC;
+}
+
+void CRPixel::calcObject2QueryPointTransformation( PixelFeature &pf ) {
+
+    cv::Point3f object_center = pf.pixelLocation_real - pf.disVector;
+    pf.T_qC = CRPixel::calcQueryPoint2CameraTransformation( pf.pixelLocation_real, object_center, pf.normals->at( pf.pixelLocation.x, pf.pixelLocation.y ) );
+    Eigen::Matrix3d T_Oq = pf.T_qC.inverse() * pf.transformationMatrixOC.block< 3, 3 >( 0, 0 );
+
+    pf.disTransformation = Eigen::Quaterniond( T_Oq );
+
+}
+
+void CRPixel::drawTransformation(const cv::Mat &img, const cv::Mat &depthImg, const Eigen::Matrix4d &m_transformationMatrixOC, const Eigen::Matrix3d &T_qC, const cv::Point3f &disVector) {
     Eigen::Affine3f transformationMatrixOC;
     transformationMatrixOC.matrix() = m_transformationMatrixOC.cast<float>();
 
@@ -366,82 +432,41 @@ void CRPixel::drawTransformation(const cv::Mat& img, const cv::Mat& depthImg , c
     viewer->addLine(O_, X_, 255, 0, 0, "lineX");
     viewer->addLine(O_, Y_, 0, 255, 0, "lineY");
     viewer->addLine(O_, Z_, 0, 0, 255, "lineZ");
+
+    //visualize coordinates in local pixel frame
+    pcl::Normal qX(T_qC(0,0),T_qC(1,0),T_qC(2,0));
+    pcl::Normal qY(T_qC(0,1),T_qC(1,1),T_qC(2,1));
+    pcl::Normal qZ(T_qC(0,2),T_qC(1,2),T_qC(2,2));
+
+
+    pcl::PointXYZ pO_(disVector.x,disVector.y,disVector.z);
+    pcl::PointXYZ pX_(0.1 * qX.normal_x + pO_.x, 0.1 * qX.normal_y + pO_.y, 0.1 * qX.normal_z + pO_.z);
+    pcl::PointXYZ pY_(0.1 * qY.normal_x + pO_.x, 0.1 * qY.normal_y + pO_.y, 0.1 * qY.normal_z + pO_.z);
+    pcl::PointXYZ pZ_(0.1 * qZ.normal_x + pO_.x, 0.1 * qZ.normal_y + pO_.y, 0.1 * qZ.normal_z + pO_.z);
+
+    viewer->addLine(pO_, pX_, 255, 0, 0, "lineX_");
+    viewer->addLine(pO_, pY_, 0, 255, 0, "lineY_");
+    viewer->addLine(pO_, pZ_, 0, 0, 255, "lineZ_");
+
+
+
     viewer->addCoordinateSystem	(0.1f,0.f,0.f,0.f, 0 );
 
     viewer->addPointCloud<pcl::PointXYZRGB> (cloud, rgb, "Original cloud");
-    
+
     viewer->addPointCloud<pcl::PointXYZRGB> (cloudTC, rgbTC, "camera frame cloud");
 
-    while (!viewer->wasStopped ()){
+    while (!viewer->wasStopped ()) {
         viewer->spinOnce (100);
         boost::this_thread::sleep (boost::posix_time::microseconds (100000));
     }
 }
 
-cv::Point3f CRPixel::P3toR3(cv::Point2f &pixelCoordinates, cv::Point2f &center, float depth){
-
-    float focal_length = 525.f; // in pixel
-    cv::Point3f realCoordinates;
-    realCoordinates.z = depth; // in meter
-    realCoordinates.x = (pixelCoordinates.x - center.x)* depth / focal_length;
-    realCoordinates.y = (pixelCoordinates.y - center.y)* depth / focal_length;
-    return realCoordinates;
-}
-
-void CRPixel::R3toP3(cv::Point3f &realCoordinates, cv::Point2f &center, cv::Point2f &pixelCoordinates, float &depth){
-    float focal_length = 525.f;
-    depth = realCoordinates.z;
-    if (depth == 0){
-        pixelCoordinates.x = 0;
-        pixelCoordinates.y = 0;
-    }else{
-        pixelCoordinates.x = realCoordinates.x * focal_length / depth + center.x;
-        pixelCoordinates.y = realCoordinates.y * focal_length / depth + center.y;
-    }
-}
-
-Eigen::Matrix3d CRPixel::calcQueryPoint2CameraTransformation(PixelFeature &pf){
-   
-    
-    pcl::Normal q_n = pf.normals->at(pf.pixelLocation.x, pf.pixelLocation.y);
-    Eigen::Vector3d dis(pf.disVector.x, pf.disVector.y, pf.disVector.z); 
-    dis.normalize();
-    
-    
-    Eigen::Vector3d normal = q_n.getNormalVector3fMap().cast<double>();             
-    normal.normalize();
-    
-    Eigen::Vector3d u      = normal.cross(dis);
-    u.normalize();
-    
-    Eigen::Vector3d v      = normal.cross(u);
-   
-    // left-handed coordinate system
-    Eigen::Matrix3d transformationQueryC;
-    transformationQueryC.block<3,1>(0,0) = u;
-    transformationQueryC.block<3,1>(0,1) = v;
-    transformationQueryC.block<3,1>(0,2) = normal;
-    
-    return transformationQueryC;
-   
-}
-
-Eigen::Quaterniond CRPixel::calcObject2QueryPointTransformation(PixelFeature &pf){
-    
-   Eigen::Matrix3d T_qC = CRPixel::calcQueryPoint2CameraTransformation(pf);
-   Eigen::Matrix3d T_Oq = T_qC.inverse() * pf.transformationMatrixOC.block<3,3>(0,0); 
-   
-   Eigen::Quaterniond Q_Oq(T_Oq);
-   
-   return Q_Oq;
-    
-}
-
-void CRPixel::minfilt( std::vector< cv::Mat >& src, const cv::Mat& depthImg, const std::vector<float>scales, unsigned int kSize ){
+void CRPixel::minfilt( std::vector< cv::Mat >& src, const cv::Mat& depthImg, const std::vector<float>scales, unsigned int kSize ) {
 
     // for all scale generate binary images
     std::vector< cv::Mat> comp(scales.size());
-    for( int scNr = 0; scNr < scales.size(); scNr++ ){
+    for( int scNr = 0; scNr < scales.size(); scNr++ ) {
         int prevScale = scNr - 1;
         int minLimit, maxLimit;
 
@@ -463,12 +488,13 @@ void CRPixel::minfilt( std::vector< cv::Mat >& src, const cv::Mat& depthImg, con
     }
 
 
-    for(int i = 0; i < src.size()/2; i++){ // for every channel
+    for( int i = 0; i < src.size() / 2; i++ ) { // for every channel
 
         // erode at different scales using different kernel window size
         cv::Mat sum = cv::Mat::zeros(src[i].rows, src[i].cols , src[i].depth());
-        cv::Mat tmp; src[i].copyTo(tmp);
-        for( int scNr = 0; scNr < scales.size(); scNr++ ){
+        cv::Mat tmp;
+        src[i].copyTo(tmp);
+        for( int scNr = 0; scNr < scales.size(); scNr++ ) {
 
             int adapKsize = int(kSize * scales[scNr]) + (int(kSize*scales[scNr]) % 2 == 0 );
             cv::Mat kernel = cv::Mat::ones(adapKsize, adapKsize, CV_8UC1);
@@ -482,11 +508,11 @@ void CRPixel::minfilt( std::vector< cv::Mat >& src, const cv::Mat& depthImg, con
 
 }
 
-void CRPixel::maxfilt( std::vector< cv::Mat >& src, const cv::Mat& depthImg, const std::vector<float>scales, unsigned int kSize ){
+void CRPixel::maxfilt( std::vector< cv::Mat >& src, const cv::Mat& depthImg, const std::vector<float>scales, unsigned int kSize ) {
 
     // for all scale generate binary images
     std::vector< cv::Mat> comp(scales.size());
-    for( int scNr = 0; scNr < scales.size(); scNr++ ){
+    for( int scNr = 0; scNr < scales.size(); scNr++ ) {
         int prevScale = scNr - 1;
         int minLimit, maxLimit;
 
@@ -508,12 +534,13 @@ void CRPixel::maxfilt( std::vector< cv::Mat >& src, const cv::Mat& depthImg, con
     }
 
 
-    for(int i = 0; i < src.size()/2; i++){ // for every channel
+    for(int i = 0; i < src.size()/2; i++) { // for every channel
 
         // erode at different scales using different kernel window size
         cv::Mat sum = cv::Mat::zeros(src[i].rows, src[i].cols , src[i].depth());
-        cv::Mat tmp; src[i].copyTo(tmp);
-        for( int scNr = 0; scNr < scales.size(); scNr++ ){
+        cv::Mat tmp;
+        src[i].copyTo(tmp);
+        for( int scNr = 0; scNr < scales.size(); scNr++ ) {
 
             int adapKsize = int(kSize * scales[scNr]) + (int(kSize*scales[scNr]) % 2 == 0 );
             cv::Mat kernel = cv::Mat::ones(adapKsize, adapKsize, CV_8UC1);
